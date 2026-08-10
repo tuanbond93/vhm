@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/radar',
+    '/radar/du-bao-nhu-cau-human-override',
     '/radar/ai-agent-human-in-the-loop-taobao',
     '/kien-thuc',
     '/cong-cu',
