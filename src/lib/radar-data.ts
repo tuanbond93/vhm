@@ -25,6 +25,27 @@ export interface RadarItem {
 
 export const RADAR_ITEMS: RadarItem[] = [
   {
+    id: 'radar-004',
+    slug: 'genai-tai-lieu-van-hanh-human-validation',
+    type: 'GenAI / Ops Documentation',
+    title: 'GenAI giúp viết nhanh hơn 40%: Vì sao tài liệu vận hành vẫn cần con người kiểm chứng?',
+    subtitle: 'Phân tích từ nghiên cứu thực nghiệm công bố trên tạp chí Science (Noy & Zhang, 2023) về năng suất GenAI trong nhiệm vụ viết chuyên môn và bài học quản trị tài liệu vận hành.',
+    summary: 'Nghiên cứu thực nghiệm trên Science (2023) minh chứng GenAI giảm 40% thời gian viết và tăng 18% chất lượng bài viết chuyên môn. Tuy nhiên, việc ứng dụng vào soạn thảo SOP vận hành đòi hỏi quy trình thẩm định 2 lớp của con người trước khi ban hành.',
+    verdict: 'TEST',
+    verdictLabel: 'TEST IN CONTROLLED WORKFLOW',
+    verdictDescription: 'Áp dụng nguyên lý Soạn thảo bằng AI kết hợp Thẩm định bởi Con người (AI-Assisted Drafting with Human Validation). Coi GenAI là trợ lý tạo bản thảo thô và giữ nguyên thẩm quyền phê duyệt của con người.',
+    evidenceTitle: 'Experimental evidence on the productivity effects of generative artificial intelligence',
+    evidenceAuthors: 'Shakked Noy, Whitney Zhang',
+    evidenceUrl: 'https://doi.org/10.1126/science.adh2586',
+    evidenceTier: 'Tier 1 / Primary Research',
+    confidence: 'High',
+    publishedAt: '2026-08-10',
+    readTime: '7 phút đọc',
+    topics: ['Ops Documentation', 'Generative AI', 'SOP Governance', 'Human Validation'],
+    operatorKeyInsight: 'AI giúp rút ngắn 40% thời gian tạo bản thảo, nhưng con người bắt buộc phải chịu trách nhiệm về tính chính xác vận hành và thẩm quyền ban hành.',
+    published: true,
+  },
+  {
     id: 'radar-003',
     slug: 'genai-cskh-knowledge-multiplier',
     type: 'GenAI / Customer Service Ops',

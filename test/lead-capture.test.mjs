@@ -142,17 +142,22 @@ async function runTests() {
   );
   console.log('  PASS: Email CTA button verified to use inline #ffffff text color.');
 
-  // Test 13: Radar #001, #002 & #003 metadata & primary source verification
+  // Test 13: Radar #001, #002, #003 & #004 metadata & primary source verification
   console.log('Test 13: Radar metadata & primary source verification...');
   const publishedRadars = RADAR_ITEMS.filter((r) => r.published);
-  assert.strictEqual(publishedRadars.length, 3, 'Exactly 3 Radar articles (#001, #002 & #003) must be published!');
+  assert.strictEqual(publishedRadars.length, 4, 'Exactly 4 Radar articles (#001, #002, #003 & #004) must be published!');
+
+  const r004 = publishedRadars.find((r) => r.id === 'radar-004');
+  assert.ok(r004, 'Radar #004 must exist in published items');
+  assert.strictEqual(r004.slug, 'genai-tai-lieu-van-hanh-human-validation');
+  assert.strictEqual(r004.evidenceUrl, 'https://doi.org/10.1126/science.adh2586');
+  assert.strictEqual(r004.verdict, 'TEST');
+  assert.strictEqual(r004.verdictLabel, 'TEST IN CONTROLLED WORKFLOW');
 
   const r003 = publishedRadars.find((r) => r.id === 'radar-003');
   assert.ok(r003, 'Radar #003 must exist in published items');
   assert.strictEqual(r003.slug, 'genai-cskh-knowledge-multiplier');
   assert.strictEqual(r003.evidenceUrl, 'https://doi.org/10.1093/qje/qjae044');
-  assert.strictEqual(r003.verdict, 'ADOPT');
-  assert.strictEqual(r003.verdictLabel, 'ADOPT DESIGN PRINCIPLE');
 
   const r002 = publishedRadars.find((r) => r.id === 'radar-002');
   assert.ok(r002, 'Radar #002 must exist in published items');
@@ -163,7 +168,7 @@ async function runTests() {
   assert.ok(r001, 'Radar #001 must exist in published items');
   assert.strictEqual(r001.slug, 'ai-agent-human-in-the-loop-taobao');
   assert.strictEqual(r001.evidenceUrl, 'https://arxiv.org/abs/2605.14830');
-  console.log('  PASS: Radar #001, #002 & #003 verified with 3 published articles and verified primary sources.');
+  console.log('  PASS: Radar #001, #002, #003 & #004 verified with 4 published articles and verified primary sources.');
 
   console.log('\n=== ALL 13/13 AUTOMATED UNIT TESTS PASSED ===\n');
 }

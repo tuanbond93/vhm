@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/radar',
+    '/radar/genai-tai-lieu-van-hanh-human-validation',
     '/radar/genai-cskh-knowledge-multiplier',
     '/radar/du-bao-nhu-cau-human-override',
     '/radar/ai-agent-human-in-the-loop-taobao',
