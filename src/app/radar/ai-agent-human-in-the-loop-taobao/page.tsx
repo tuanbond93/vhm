@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   FileText,
-  UserCheck,
   Compass,
   Zap,
 } from 'lucide-react';
@@ -68,47 +67,50 @@ export default function RadarDetail001Page() {
         }}
       />
 
-      {/* Navigation Breadcrumb */}
-      <div className="border-b border-[#DCE2E7] bg-white py-4">
-        <div className="container-custom flex items-center justify-between">
+      {/* Navigation Breadcrumb (Mobile Meta Header: 2 clean rows on mobile, 1 row on desktop) */}
+      <div className="border-b border-[#DCE2E7] bg-white py-3.5">
+        <div className="container-custom max-w-5xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 sm:gap-4">
           <Link
             href="/radar"
             className="inline-flex items-center gap-2 text-xs font-semibold text-[#235789] hover:text-[#2F6FED] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             <span>Quay lại Radar Index</span>
           </Link>
-          <div className="font-mono text-xs text-[#667085]">
+          <div className="font-mono text-xs font-medium text-[#667085]">
             RADAR #001 · {item.type}
           </div>
         </div>
       </div>
 
-      {/* Article Header */}
-      <header className="border-b border-[#DCE2E7] bg-white py-10 sm:py-14">
-        <div className="container-custom max-w-4xl space-y-6">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded bg-[#14202B] text-white">
+      {/* Article Header (Balanced Max Width Container) */}
+      <header className="border-b border-[#DCE2E7] bg-white py-8 sm:py-12">
+        <div className="container-custom max-w-5xl space-y-5">
+          {/* Responsive Badges */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#14202B] text-white">
               {item.type}
             </span>
-            <span className="font-mono text-xs font-bold px-3 py-1 rounded-full bg-[#E8F5F2] text-[#167A65] border border-[#BDE3DA]">
+            <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-[#E8F5F2] text-[#167A65] border border-[#BDE3DA]">
               {item.verdictLabel}
             </span>
-            <span className="text-xs font-mono text-[#667085] ml-auto">
+            <span className="text-xs font-mono text-[#667085] sm:ml-auto w-full sm:w-auto">
               Xuất bản: {item.publishedAt} · {item.readTime}
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#14202B] tracking-tight leading-tight">
+          {/* Controlled H1 Title: Reduced ~15-20% on mobile for zero overflow/clipping */}
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#14202B] tracking-tight leading-tight sm:leading-tight max-w-4xl">
             {item.title}
           </h1>
 
-          <p className="text-base sm:text-xl text-[#435164] leading-relaxed font-medium">
+          {/* Controlled Subtitle */}
+          <p className="text-sm sm:text-lg text-[#435164] leading-relaxed font-medium max-w-4xl">
             {item.subtitle}
           </p>
 
           {/* Decision Metadata Banner */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F7F8F5] p-4 rounded-2xl border border-[#DCE2E7] text-xs font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F7F8F5] p-3.5 sm:p-4 rounded-2xl border border-[#DCE2E7] text-xs font-mono">
             <div>
               <span className="text-[#667085] block text-[10px] uppercase">VERDICT:</span>
               <span className="font-bold text-[#167A65]">{item.verdictLabel}</span>
@@ -137,38 +139,38 @@ export default function RadarDetail001Page() {
         </div>
       </header>
 
-      {/* Main Body Content */}
-      <div className="container-custom max-w-4xl py-12 space-y-12">
+      {/* Main Body Content (With pb-28 for mobile sticky CTA clearance) */}
+      <div className="container-custom max-w-5xl py-8 sm:py-12 pb-28 md:pb-16 space-y-8 sm:space-y-12">
 
         {/* SECTION 1: SIGNAL */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <Zap className="w-4 h-4 text-[#2F6FED]" />
             <span>1. SIGNAL — executive summary</span>
           </div>
-          <div className="p-6 bg-white border border-[#DCE2E7] rounded-2xl space-y-4 shadow-sm">
+          <div className="p-5 sm:p-6 bg-white border border-[#DCE2E7] rounded-2xl space-y-4 shadow-sm">
             <p className="text-sm sm:text-base text-[#14202B] leading-relaxed font-medium">
               Trong làn sóng áp dụng Generative AI và AI Agents trong vận hành dịch vụ khách hàng, nhiều doanh nghiệp đang tìm cách tự động hóa tối đa quy trình xử lý. Tuy nhiên, bằng chứng thực nghiệm từ nghiên cứu quy mô lớn tại Alibaba chỉ ra rằng: <strong>Mặc dù Agentic AI giúp giảm thời gian hội thoại trung bình, điểm đánh giá của khách hàng ở các ca đủ điều kiện sử dụng AI lại sụt giảm đáng kể.</strong>
             </p>
-            <div className="p-4 bg-[#EBF2FE] border border-[#C5D8F9] rounded-xl text-xs text-[#235789] leading-relaxed">
+            <div className="p-3.5 sm:p-4 bg-[#EBF2FE] border border-[#C5D8F9] rounded-xl text-xs text-[#235789] leading-relaxed">
               <strong>Khuyên nghị VHM:</strong> Áp dụng <strong>ADOPT DESIGN PRINCIPLE</strong> — tiếp thu nguyên lý kiến trúc <em>Bounded Automation (Tự động hóa có ranh giới)</em> kết hợp <em>Early Escalation (Escalation sớm cho con người)</em>. KHÔNG áp dụng tự động hóa tự quyết hoàn toàn mà không có điểm kiểm soát.
             </div>
           </div>
         </section>
 
         {/* SECTION 2: WHAT CHANGED? */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <FileText className="w-4 h-4 text-[#2F6FED]" />
             <span>2. WHAT CHANGED? — kết quả thực nghiệm từ nghiên cứu</span>
           </div>
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F7F8F5] border border-[#DCE2E7] text-xs font-mono text-[#667085]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#167A65]" />
               <span>DỮ LIỆU THỰC CHỨNG TỪ PRIMARY RESEARCH (arXiv 2605.14830)</span>
             </div>
 
-            <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl text-xs space-y-1 font-mono">
+            <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl text-xs space-y-1 font-mono">
               <div className="font-bold text-[#14202B]">
                 Tên công trình nghiên cứu gốc:
               </div>
@@ -184,7 +186,7 @@ export default function RadarDetail001Page() {
               Nghiên cứu thực nghiệm tại bộ phận chăm sóc khách hàng của Alibaba đo lường tác động trực tiếp của Agentic AI và các hình thức can thiệp của con người. Kết quả ghi nhận các điểm thực chứng quan trọng sau:
             </p>
 
-            <div className="space-y-3 bg-[#F7F8F5] p-5 rounded-xl border border-[#DCE2E7] text-xs sm:text-sm">
+            <div className="space-y-3 bg-[#F7F8F5] p-4 sm:p-5 rounded-xl border border-[#DCE2E7] text-xs sm:text-sm">
               <h4 className="font-bold text-[#14202B] uppercase font-mono text-xs">
                 Các phát hiện được chứng minh bởi dữ liệu nghiên cứu:
               </h4>
@@ -210,12 +212,12 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 3: WHY OPERATIONS SHOULD CARE */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <Compass className="w-4 h-4 text-[#2F6FED]" />
             <span>3. WHY OPERATIONS SHOULD CARE — suy luận vận hành vhm</span>
           </div>
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF2FE] border border-[#C5D8F9] text-xs font-mono text-[#235789]">
               <span>VHM OPERATOR INTERPRETATION / PHÂN TÍCH ĐIỀU HÀNH</span>
             </div>
@@ -224,29 +226,29 @@ export default function RadarDetail001Page() {
               Từ các phát hiện thực chứng trên, Vận Hành Mới rút ra 4 góc nhìn điều hành cho các nhà quản lý vận hành:
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 text-xs sm:text-sm">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">1. Tốc độ &#8800; Trải nghiệm thực tế</strong>
                 <p className="text-[#435164] leading-relaxed">
                   Rút ngắn thời gian chat bằng AI có thể tối ưu hiệu suất xử lý thô, nhưng nếu giảm điểm đánh giá hài lòng thì chi phí gián tiếp đối với thương hiệu vẫn rất lớn.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">2. Phân loại lỗi để thiết kế điểm can thiệp</strong>
                 <p className="text-[#435164] leading-relaxed">
                   Vì hiệu quả can thiệp của con người khác nhau theo từng dạng lỗi, quản lý cần phân loại sự cố để thiết kế luồng xử lý riêng thay vì áp dụng một quy trình chung.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">3. Can thiệp sớm giữ nhịp xử lý</strong>
                 <p className="text-[#435164] leading-relaxed">
                   Đưa con người vào ngay khi AI gặp dấu hiệu quá tải giúp giữ được ngữ cảnh và duy trì hiệu quả xử lý ở các bước tiếp theo.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">4. Escalation là workflow có cấu trúc</strong>
                 <p className="text-[#435164] leading-relaxed">
                   Chuyển giao giữa AI và Con người phải được chuẩn hóa với đầy đủ bằng chứng, không phải hành động đẩy trách nhiệm ngẫu nhiên.
@@ -260,12 +262,12 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 4: PRACTICAL USE CASES */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <CheckCircle2 className="w-4 h-4 text-[#167A65]" />
             <span>4. PRACTICAL USE CASES — ứng dụng thực tế trong vận hành</span>
           </div>
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-8 space-y-4">
             <p className="text-sm text-[#435164] leading-relaxed">
               Các kịch bản ứng dụng kiến trúc Bounded AI + Early Escalation trong môi trường vận hành thực tế:
             </p>
@@ -296,32 +298,32 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 5: VIETNAM APPLICABILITY */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <Compass className="w-4 h-4 text-[#235789]" />
             <span>5. VIETNAM APPLICABILITY — bối cảnh vận hành việt nam</span>
           </div>
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-8 space-y-4">
             <p className="text-sm text-[#435164] leading-relaxed">
               Các lưu ý khi tham chiếu kết quả nghiên cứu vào thực tế vận hành tại Việt Nam:
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 text-xs">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">Chất lượng dữ liệu đầu vào</strong>
                 <p className="text-[#435164]">
                   Dữ liệu vận hành tại nhiều doanh nghiệp Việt Nam còn phân tán. AI cần dữ liệu được chuẩn hóa trước khi áp dụng tự động hóa.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">Chuẩn hóa SOP trước khi tự động hóa</strong>
                 <p className="text-[#435164]">
                   Cần làm rõ ranh giới trách nhiệm và quy trình phối hợp giữa các bộ phận trước khi cài đặt luật cho AI.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-2">
+              <div className="p-3.5 sm:p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl space-y-1.5">
                 <strong className="text-[#14202B] font-bold block">Thanh tra & Giám sát hiện trường</strong>
                 <p className="text-[#435164]">
                   Quản lý vận hành cần bộ công cụ theo dõi (Control Tower) để nắm rõ các ca AI chuyển giao và duy trì chất lượng dịch vụ.
@@ -332,12 +334,12 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 6: RISKS / LIMITATIONS */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#B5473C] uppercase tracking-wider">
             <AlertTriangle className="w-4 h-4 text-[#B5473C]" />
             <span>6. RISKS & LIMITATIONS — rủi ro & giới hạn</span>
           </div>
-          <div className="bg-[#FDF2F2] border border-[#F8D7D7] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="bg-[#FDF2F2] border border-[#F8D7D7] rounded-2xl p-5 sm:p-8 space-y-4">
             <h4 className="font-bold text-sm text-[#B5473C] uppercase font-mono">
               Cảnh báo rủi ro vận hành:
             </h4>
@@ -356,12 +358,12 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 7: EVIDENCE */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
             <FileText className="w-4 h-4 text-[#2F6FED]" />
             <span>7. EVIDENCE — nguồn bằng chứng gốc</span>
           </div>
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-8 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-[#F7F8F5] border border-[#DCE2E7] rounded-xl">
               <div className="space-y-1">
                 <span className="text-[10px] font-mono font-bold text-[#167A65] bg-[#E8F5F2] px-2 py-0.5 rounded border border-[#BDE3DA] uppercase">
@@ -391,12 +393,12 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* SECTION 8: VHM VERDICT */}
-        <section className="space-y-4">
+        <section className="space-y-3 sm:space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#167A65] uppercase tracking-wider">
             <ShieldCheck className="w-4 h-4 text-[#167A65]" />
             <span>8. VHM VERDICT — kết luận điều hành</span>
           </div>
-          <div className="bg-[#E8F5F2] border border-[#BDE3DA] rounded-2xl p-6 sm:p-8 space-y-4">
+          <div className="bg-[#E8F5F2] border border-[#BDE3DA] rounded-2xl p-5 sm:p-8 space-y-4">
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm sm:text-base font-extrabold px-4 py-1.5 rounded-full bg-[#167A65] text-white">
                 ADOPT DESIGN PRINCIPLE
@@ -414,8 +416,8 @@ export default function RadarDetail001Page() {
         </section>
 
         {/* Bottom CTA / Toolkit Registration */}
-        <section className="pt-8 border-t border-[#DCE2E7]">
-          <div className="bg-white border border-[#DCE2E7] rounded-3xl p-6 sm:p-8 space-y-6 text-center">
+        <section className="pt-6 sm:pt-8 border-t border-[#DCE2E7]">
+          <div className="bg-white border border-[#DCE2E7] rounded-3xl p-5 sm:p-8 space-y-5 sm:space-y-6 text-center">
             <h3 className="text-xl sm:text-2xl font-bold text-[#14202B]">
               Ứng dụng AI chuẩn hóa vận hành ngay hôm nay
             </h3>
