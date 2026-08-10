@@ -7,6 +7,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Giới thiệu & Triết lý Vận hành',
   description: 'Triết lý xây dựng thương hiệu Vận Hành Mới: Hệ thống hóa, dữ liệu minh bạch và AI thực chiến cho Operations Managers thế hệ mới.',
+  alternates: {
+    canonical: 'https://vanhanhmoi.com/gioi-thieu',
+  },
 };
 
 export default function AboutPage() {

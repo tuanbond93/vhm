@@ -8,6 +8,9 @@ import { ARTICLES_DATA } from '@/lib/data';
 export const metadata: Metadata = {
   title: 'Bài viết & Kiến thức Vận hành',
   description: 'Thư viện bài viết, hướng dẫn thực hành và phương pháp luận quản lý vận hành, ứng dụng AI và xây dựng hệ thống báo cáo.',
+  alternates: {
+    canonical: 'https://vanhanhmoi.com/kien-thuc',
+  },
 };
 
 export default function KnowledgePage() {
