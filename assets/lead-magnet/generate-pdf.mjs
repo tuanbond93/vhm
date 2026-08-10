@@ -128,7 +128,7 @@ const htmlTemplate = `<!DOCTYPE html>
       height: 250mm;
       display: flex;
       flex-direction: column;
-      justify-between: space-between;
+      justify-content: space-between;
       padding: 20mm 10mm;
       border: 1px solid var(--color-border);
       border-radius: 16px;
@@ -174,10 +174,10 @@ const htmlTemplate = `<!DOCTYPE html>
     }
 
     .cover-footer {
-      border-t: 1px solid var(--color-border);
+      border-top: 1px solid var(--color-border);
       padding-top: 16px;
       display: flex;
-      justify-between: space-between;
+      justify-content: space-between;
       align-items: center;
       font-size: 9pt;
       color: var(--color-muted);
@@ -330,10 +330,16 @@ const htmlTemplate = `<!DOCTYPE html>
       font-family: var(--font-mono);
       font-size: 8pt;
       color: var(--color-muted);
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 20px;
       padding-top: 10px;
       border-top: 1px solid var(--color-border);
+    }
+
+    .nowrap {
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -394,6 +400,11 @@ const htmlTemplate = `<!DOCTYPE html>
       <strong style="color: var(--color-risk); font-family: var(--font-mono); text-transform: uppercase;">Quy tắc An toàn Dữ liệu (Data Safety):</strong><br>
       Trước khi dán dữ liệu vào AI công cộng (ChatGPT/Claude), hãy xóa hoặc thay thế các thông tin nhạy cảm: Số điện thoại, Email, Tên thật khách hàng, Mật khẩu, API Keys, Giá trị hợp đồng bảo mật.
     </div>
+
+    <div class="pdf-footer">
+      <span>Vận Hành Mới · AI Prompt Kit V1</span>
+      <span>vanhanhmoi.com</span>
+    </div>
   </div>
 
   <!-- QUICK START & TABLE OF CONTENTS -->
@@ -416,6 +427,11 @@ const htmlTemplate = `<!DOCTYPE html>
         </tr>
       `).join('')}
     </table>
+
+    <div class="pdf-footer">
+      <span>Vận Hành Mới · AI Prompt Kit V1</span>
+      <span>vanhanhmoi.com</span>
+    </div>
   </div>
 
   <!-- MODULES & 32 PROMPTS -->
@@ -427,7 +443,7 @@ const htmlTemplate = `<!DOCTYPE html>
       <div class="prompt-card avoid-break">
         <div class="prompt-title">
           <span>${p.header}</span>
-          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">V1</span>
         </div>
 
         <div class="prompt-meta-grid">
@@ -457,6 +473,10 @@ const htmlTemplate = `<!DOCTYPE html>
         </div>
       </div>
     `).join('')}
+    <div class="pdf-footer">
+      <span>Vận Hành Mới · Module ${mIdx + 1}</span>
+      <span>vanhanhmoi.com</span>
+    </div>
   `).join('')}
 
   <!-- CLOSING SECTION -->
@@ -465,8 +485,8 @@ const htmlTemplate = `<!DOCTYPE html>
     <div class="section-title">TỪ PROMPT → AI-ASSISTED WORKFLOW</div>
     <p>Hệ thống hóa vận hành bằng AI là một hành trình tích lũy có phương pháp. Việc ứng dụng 32 Prompts trên là bước đầu tiên để chuẩn hóa nhịp quản trị.</p>
 
-    <div style="background: #FFFFFF; border: 1px solid var(--color-border); padding: 14px; border-radius: 10px; text-align: center; margin: 16px 0; font-family: var(--font-mono); font-size: 8.5pt; color: var(--color-brand);">
-      Raw Data &rarr; Structured Input &rarr; AI Analysis &rarr; Human Review &rarr; Decision / Action &rarr; Evidence &rarr; Follow-up
+    <div style="background: #FFFFFF; border: 1px solid var(--color-border); padding: 14px; border-radius: 10px; text-align: center; margin: 16px 0; font-family: var(--font-mono); font-size: 8.5pt; color: var(--color-brand); line-height: 1.8;">
+      Raw Data &rarr; Structured Input &rarr; AI Analysis &rarr; Human Review &rarr; Decision / Action &rarr; Evidence &rarr; <span class="nowrap">Follow-up</span>
     </div>
 
     <div style="text-align: center; padding-top: 10px;">
@@ -476,10 +496,11 @@ const htmlTemplate = `<!DOCTYPE html>
         Vận Hành Mới — Hệ thống + AI ứng dụng thực tế cho người làm vận hành.
       </div>
     </div>
-  </div>
-
-  <div class="pdf-footer">
-    AI Prompt Kit cho Operation Manager — V1 · Vận Hành Mới (vanhanhmoi.com)
+    
+    <div class="pdf-footer">
+      <span>Vận Hành Mới · AI Prompt Kit V1</span>
+      <span>vanhanhmoi.com</span>
+    </div>
   </div>
 
 </body>
