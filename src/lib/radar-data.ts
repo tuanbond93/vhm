@@ -25,6 +25,27 @@ export interface RadarItem {
 
 export const RADAR_ITEMS: RadarItem[] = [
   {
+    id: 'radar-006',
+    slug: 'ai-canh-bao-som-don-hang-tre-kho-hang',
+    type: 'AI / Warehouse Operations',
+    title: 'AI không nên chỉ báo cáo đơn đã trễ: Có thể cảnh báo rủi ro trước khi vỡ SLA kho hàng?',
+    subtitle: 'Phân tích từ nghiên cứu công bố trên tạp chí Transportation Research Part E (Aloini et al., 2025) về mô hình Machine Learning dự báo nguy cơ trễ đơn và cơ chế cảnh báo thời gian thực.',
+    summary: 'Nghiên cứu trên Transportation Research Part E (2025) minh chứng mô hình ML có thể dự báo rủi ro trễ hạn đơn hàng từ dữ liệu WMS thời gian thực. VHM khuyến nghị nguyên lý Cảnh báo rủi ro bằng AI kết hợp Can thiệp Điều hành của Con người.',
+    verdict: 'TEST',
+    verdictLabel: 'TEST IN CONTROLLED WORKFLOW',
+    verdictDescription: 'Áp dụng nguyên lý Cảnh báo rủi ro bằng AI kết hợp Can thiệp Điều hành của Con người (Predict Before You Escalate: AI Early Warning with Governed Human Intervention). Thử nghiệm phân loại và xử lý ngoại lệ trong khu vực kiểm soát.',
+    evidenceTitle: 'Unlocking Real-Time Decision-Making in Warehouses: A machine learning-based forecasting and alerting system for cycle time prediction',
+    evidenceAuthors: 'Davide Aloini, Elisabetta Benevento, Riccardo Dulmin, Emanuele Guerrazzi, Valeria Mininno',
+    evidenceUrl: 'https://doi.org/10.1016/j.tre.2024.103933',
+    evidenceTier: 'Tier 1 / Primary Research',
+    confidence: 'High',
+    publishedAt: '2026-08-10',
+    readTime: '8 phút đọc',
+    topics: ['Warehouse Operations', 'Machine Learning', 'WMS Alerting', 'SLA Exception Management'],
+    operatorKeyInsight: 'AI không tự động giải quyết nghẽn kho, nhưng cảnh báo sớm từ ML giúp quản lý tạo thêm thời gian phản ứng trước các nguy cơ trễ đơn.',
+    published: true,
+  },
+  {
     id: 'radar-005',
     slug: 'amr-kho-hang-workflow-design',
     type: 'AMR / Warehouse Automation',

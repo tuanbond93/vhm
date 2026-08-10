@@ -142,10 +142,18 @@ async function runTests() {
   );
   console.log('  PASS: Email CTA button verified to use inline #ffffff text color.');
 
-  // Test 13: Radar #001–#005 metadata & primary source verification
+  // Test 13: Radar #001–#006 metadata & primary source verification
   console.log('Test 13: Radar metadata & primary source verification...');
   const publishedRadars = RADAR_ITEMS.filter((r) => r.published);
-  assert.strictEqual(publishedRadars.length, 5, 'Exactly 5 Radar articles (#001–#005) must be published!');
+  assert.strictEqual(publishedRadars.length, 6, 'Exactly 6 Radar articles (#001–#006) must be published!');
+
+  const r006 = publishedRadars.find((r) => r.id === 'radar-006');
+  assert.ok(r006, 'Radar #006 must exist in published items');
+  assert.strictEqual(r006.slug, 'ai-canh-bao-som-don-hang-tre-kho-hang');
+  assert.strictEqual(r006.evidenceUrl, 'https://doi.org/10.1016/j.tre.2024.103933');
+  assert.strictEqual(r006.evidenceTier, 'Tier 1 / Primary Research');
+  assert.strictEqual(r006.verdict, 'TEST');
+  assert.strictEqual(r006.verdictLabel, 'TEST IN CONTROLLED WORKFLOW');
 
   const r005 = publishedRadars.find((r) => r.id === 'radar-005');
   assert.ok(r005, 'Radar #005 must exist in published items');
@@ -174,7 +182,7 @@ async function runTests() {
   assert.ok(r001, 'Radar #001 must exist in published items');
   assert.strictEqual(r001.slug, 'ai-agent-human-in-the-loop-taobao');
   assert.strictEqual(r001.evidenceUrl, 'https://arxiv.org/abs/2605.14830');
-  console.log('  PASS: Radar #001–#005 verified with 5 published articles and verified primary sources.');
+  console.log('  PASS: Radar #001–#006 verified with 6 published articles and verified primary sources.');
 
   console.log('\n=== ALL 13/13 AUTOMATED UNIT TESTS PASSED ===\n');
 }
