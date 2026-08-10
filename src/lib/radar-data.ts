@@ -25,6 +25,27 @@ export interface RadarItem {
 
 export const RADAR_ITEMS: RadarItem[] = [
   {
+    id: 'radar-005',
+    slug: 'amr-kho-hang-workflow-design',
+    type: 'AMR / Warehouse Automation',
+    title: 'Tự động hóa kho bằng AMRs: Vì sao thiết kế workflow quan trọng hơn mua công nghệ?',
+    subtitle: 'Phân tích từ bài tổng quan nghiên cứu trên tạp chí European Journal of Operational Research (Fragapane et al., 2021) về bài toán lập kế hoạch, điều phối AMR và thiết kế tương tác Con người - Robot.',
+    summary: 'Bài tổng quan nghiên cứu trên EJOR (2021) chỉ ra rằng hiệu quả tự động hóa kho hàng bằng AMR liên quan chặt chẽ đến các quyết định lập kế hoạch, phân công nhiệm vụ và kiểm soát traffic. VHM khuyến nghị nguyên lý thiết kế luồng tương tác trước khi đầu tư thiết bị.',
+    verdict: 'TEST',
+    verdictLabel: 'TEST IN CONTROLLED WORKFLOW',
+    verdictDescription: 'Áp dụng nguyên lý Thiết kế luồng tương tác Con người - Robot trước khi tự động hóa (Human–Robot Workflow Design Before Full Automation). Thử nghiệm phân công nhiệm vụ trong khu vực kiểm soát.',
+    evidenceTitle: 'Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda',
+    evidenceAuthors: 'Giuseppe Fragapane, René de Koster, Fabio Sgarbossa, Jan Ola Strandhagen',
+    evidenceUrl: 'https://doi.org/10.1016/j.ejor.2021.01.019',
+    evidenceTier: 'Tier 1 / Primary Research',
+    confidence: 'High',
+    publishedAt: '2026-08-10',
+    readTime: '8 phút đọc',
+    topics: ['Warehouse Automation', 'AMRs', 'Intralogistics', 'Workflow Design'],
+    operatorKeyInsight: 'Giá trị thực tế của AMR nằm ở năng lực tái thiết kế luồng công việc và phân công nhiệm vụ phù hợp giữa Con người và Robot.',
+    published: true,
+  },
+  {
     id: 'radar-004',
     slug: 'genai-tai-lieu-van-hanh-human-validation',
     type: 'GenAI / Ops Documentation',
