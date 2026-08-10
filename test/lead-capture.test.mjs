@@ -151,6 +151,7 @@ async function runTests() {
   assert.ok(r005, 'Radar #005 must exist in published items');
   assert.strictEqual(r005.slug, 'amr-kho-hang-workflow-design');
   assert.strictEqual(r005.evidenceUrl, 'https://doi.org/10.1016/j.ejor.2021.01.019');
+  assert.strictEqual(r005.evidenceTier, 'Tier 1 / Peer-Reviewed Review');
   assert.strictEqual(r005.verdict, 'TEST');
   assert.strictEqual(r005.verdictLabel, 'TEST IN CONTROLLED WORKFLOW');
 

@@ -1,5 +1,5 @@
 export type RadarVerdict = 'ADOPT' | 'TEST' | 'WATCH' | 'SKIP';
-export type EvidenceTier = 'Tier 1 / Primary Research' | 'Tier 2 / Field Report' | 'Tier 3 / Industry Data';
+export type EvidenceTier = 'Tier 1 / Primary Research' | 'Tier 1 / Peer-Reviewed Review' | 'Tier 2 / Field Report' | 'Tier 3 / Industry Data';
 
 export interface RadarItem {
   id: string;
@@ -37,7 +37,7 @@ export const RADAR_ITEMS: RadarItem[] = [
     evidenceTitle: 'Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda',
     evidenceAuthors: 'Giuseppe Fragapane, René de Koster, Fabio Sgarbossa, Jan Ola Strandhagen',
     evidenceUrl: 'https://doi.org/10.1016/j.ejor.2021.01.019',
-    evidenceTier: 'Tier 1 / Primary Research',
+    evidenceTier: 'Tier 1 / Peer-Reviewed Review',
     confidence: 'High',
     publishedAt: '2026-08-10',
     readTime: '8 phút đọc',
