@@ -12,17 +12,17 @@ export function ToolsCatalog() {
   const getIcon = (name: string) => {
     switch (name) {
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-blue-600" />;
+        return <Sparkles className="w-5 h-5 text-[#235789]" />;
       case 'LayoutDashboard':
-        return <LayoutDashboard className="w-5 h-5 text-blue-600" />;
+        return <LayoutDashboard className="w-5 h-5 text-[#235789]" />;
       case 'BarChart3':
-        return <BarChart3 className="w-5 h-5 text-blue-600" />;
+        return <BarChart3 className="w-5 h-5 text-[#235789]" />;
       case 'FileText':
-        return <FileText className="w-5 h-5 text-blue-600" />;
+        return <FileText className="w-5 h-5 text-[#235789]" />;
       case 'CalendarCheck':
-        return <CalendarCheck className="w-5 h-5 text-blue-600" />;
+        return <CalendarCheck className="w-5 h-5 text-[#235789]" />;
       default:
-        return <Sparkles className="w-5 h-5 text-blue-600" />;
+        return <Sparkles className="w-5 h-5 text-[#235789]" />;
     }
   };
 
@@ -36,7 +36,7 @@ export function ToolsCatalog() {
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200">
+                <div className="p-2.5 rounded-xl bg-[#EBF2FE] border border-[#C5D8F9]">
                   {getIcon(tool.iconName)}
                 </div>
                 <div className="flex items-center gap-2">
@@ -46,31 +46,31 @@ export function ToolsCatalog() {
                 </div>
               </div>
 
-              <h2 className="text-lg font-bold text-slate-900">
+              <h2 className="text-lg font-bold text-[#14202B]">
                 {tool.title}
               </h2>
 
-              <p className="text-slate-600 text-xs leading-relaxed">
+              <p className="text-[#435164] text-xs sm:text-sm leading-relaxed">
                 {tool.description}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+            <div className="pt-4 border-t border-[#DCE2E7] flex items-center justify-between gap-4">
               {tool.downloadsCount ? (
-                <span className="text-[11px] text-slate-500 font-mono">
+                <span className="text-[11px] text-[#667085] font-mono font-medium">
                   {tool.downloadsCount}
                 </span>
               ) : (
-                <span className="text-[11px] text-slate-500 font-mono">
+                <span className="text-[11px] text-[#667085] font-mono font-medium">
                   Chuẩn bị ra mắt
                 </span>
               )}
 
               <button
                 onClick={() => setSelectedToolTitle(tool.title)}
-                className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 bg-[#235789] hover:bg-[#1B456D] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer shadow-sm"
               >
-                <Download className="w-3.5 h-3.5 text-blue-400" />
+                <Download className="w-3.5 h-3.5" />
                 <span>{tool.badge === 'Sắp ra mắt' ? 'Đăng ký nhận trước' : 'Tải tài liệu'}</span>
               </button>
             </div>

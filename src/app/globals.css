@@ -7,44 +7,82 @@
     --font-heading: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
+
+    --color-paper: #F7F8F5;
+    --color-surface: #FFFFFF;
+    --color-ink: #14202B;
+    --color-body: #435164;
+    --color-muted: #667085;
+    --color-brand: #235789;
+    --color-action: #2F6FED;
+    --color-success: #167A65;
+    --color-attention: #C47A16;
+    --color-risk: #B5473C;
+    --color-border: #DCE2E7;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white;
+    background-color: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight text-slate-900;
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+    letter-spacing: -0.015em;
   }
 
   h1 {
-    @apply leading-[1.18];
+    line-height: 1.18;
   }
 
   h2 {
-    @apply leading-[1.22];
+    line-height: 1.22;
   }
 
   h3 {
-    @apply leading-[1.28];
+    line-height: 1.28;
   }
 
   p {
-    @apply leading-[1.65];
+    line-height: 1.65;
+    color: var(--color-body);
   }
 }
 
 @layer utilities {
   .card-surface {
-    @apply bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-200;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.05);
+    transition: all 200ms ease-in-out;
+  }
+
+  .card-surface:hover {
+    border-color: #C1CCD6;
+    box-shadow: 0 4px 12px 0 rgba(16, 24, 40, 0.08);
   }
 
   .badge-mono {
-    @apply font-mono text-[11px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 4px;
   }
 
   .control-panel {
-    @apply bg-slate-900 text-slate-100 rounded-2xl border border-slate-800 shadow-xl overflow-hidden font-mono;
+    background-color: #14202B;
+    color: #F7F8F5;
+    border-radius: 1rem;
+    border: 1px solid #233547;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-mono);
   }
 }
 
@@ -53,12 +91,12 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F7F8F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #C1CCD6;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #94A3B8;
 }

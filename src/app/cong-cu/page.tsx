@@ -17,10 +17,10 @@ export default function ToolsPage() {
       {/* Header */}
       <div className="max-w-3xl space-y-4">
         <Badge variant="accent">Thư viện Công cụ & Templates</Badge>
-        <h1 className="text-3xl sm:text-5xl font-bold text-slate-100 font-heading tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-bold text-[#14202B] font-heading tracking-tight">
           Công cụ & Templates thực chiến
         </h1>
-        <p className="text-slate-400 text-base leading-relaxed">
+        <p className="text-[#435164] text-base sm:text-lg leading-relaxed">
           Tổng hợp các mẫu Dashboard, bộ AI Prompts tinh chỉnh sẵn, SOP templates và khung làm việc dành cho quản lý vận hành. Tải về và áp dụng ngay.
         </p>
       </div>

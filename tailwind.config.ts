@@ -9,33 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        paper: '#F7F8F5',
+        surface: '#FFFFFF',
+        ink: '#14202B',
+        body: '#435164',
+        muted: '#667085',
         brand: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
-          950: '#0b1b2b',
+          DEFAULT: '#235789',
+          hover: '#1B456D',
         },
-        accent: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
+        action: {
+          DEFAULT: '#2F6FED',
+          hover: '#1D5BD8',
         },
-        slate: {
-          850: '#152033',
-        }
+        ops: {
+          success: '#167A65',
+          attention: '#C47A16',
+          risk: '#B5473C',
+          border: '#DCE2E7',
+        },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         heading: ['var(--font-heading)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
       },
     },
   },

@@ -10,11 +10,11 @@ export function Badge({ children, variant = 'default', className = '' }: BadgePr
   const base = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide transition-colors';
   
   const variants = {
-    default: 'bg-slate-100 text-slate-700 border border-slate-200',
-    accent: 'bg-blue-50 text-blue-700 border border-blue-200',
-    success: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-    warning: 'bg-amber-50 text-amber-800 border border-amber-200',
-    outline: 'border border-slate-300 text-slate-600 bg-white',
+    default: 'bg-[#EFF2F5] text-[#14202B] border border-[#DCE2E7]',
+    accent: 'bg-[#EBF2FE] text-[#235789] border border-[#C5D8F9]',
+    success: 'bg-[#E8F5F2] text-[#167A65] border border-[#BDE3DA]',
+    warning: 'bg-[#FEF5E7] text-[#C47A16] border border-[#F9E2C1]',
+    outline: 'border border-[#DCE2E7] text-[#435164] bg-white',
   };
 
   return (

@@ -17,10 +17,10 @@ export default function ContactPage() {
       {/* Header */}
       <div className="max-w-3xl space-y-4">
         <Badge variant="accent">Kênh Thông tin & Liên hệ</Badge>
-        <h1 className="text-3xl sm:text-5xl font-bold text-slate-100 font-heading tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-bold text-[#14202B] font-heading tracking-tight">
           Kết nối với Vận Hành Mới
         </h1>
-        <p className="text-slate-400 text-base leading-relaxed">
+        <p className="text-[#435164] text-base sm:text-lg leading-relaxed">
           Bạn có thắc mắc về phương pháp đóng gói quy trình, thiết kế dashboard hoặc ứng dụng AI vào doanh nghiệp? Hãy gửi lời nhắn cho chúng tôi.
         </p>
       </div>
