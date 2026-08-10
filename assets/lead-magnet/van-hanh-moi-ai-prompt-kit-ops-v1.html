@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Prompt Kit cho Operation Manager — V1 | Vận Hành Mới</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 16mm 14mm 16mm 14mm;
+    }
+
+    :root {
+      --color-paper: #F7F8F5;
+      --color-surface: #FFFFFF;
+      --color-ink: #14202B;
+      --color-body: #435164;
+      --color-muted: #667085;
+      --color-brand: #235789;
+      --color-action: #2F6FED;
+      --color-success: #167A65;
+      --color-attention: #C47A16;
+      --color-risk: #B5473C;
+      --color-border: #DCE2E7;
+      --font-heading: 'Be Vietnam Pro', system-ui, sans-serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-body);
+      background-color: #FFFFFF;
+      margin: 0;
+      padding: 0;
+      font-size: 10pt;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--color-ink);
+      margin-top: 0;
+      letter-spacing: -0.015em;
+    }
+
+    /* Page Breaks */
+    .page-break {
+      page-break-before: always;
+    }
+
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+
+    /* COVER PAGE */
+    .cover-page {
+      height: 250mm;
+      display: flex;
+      flex-direction: column;
+      justify-between: space-between;
+      padding: 20mm 10mm;
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F7F8F5 100%);
+      margin-bottom: 20px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--color-brand);
+      background: #EBF2FE;
+      border: 1px solid #C5D8F9;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-size: 32pt;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--color-ink);
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-size: 16pt;
+      font-weight: 600;
+      color: var(--color-action);
+      margin-bottom: 24px;
+    }
+
+    .cover-desc {
+      font-size: 11pt;
+      color: var(--color-body);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .cover-footer {
+      border-t: 1px solid var(--color-border);
+      padding-top: 16px;
+      display: flex;
+      justify-between: space-between;
+      align-items: center;
+      font-size: 9pt;
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* SECTION STYLES */
+    .section-box {
+      background: var(--color-paper);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--color-ink);
+      border-bottom: 2px solid var(--color-brand);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    /* MODULE HEADER */
+    .module-header {
+      background: var(--color-ink);
+      color: #FFFFFF;
+      padding: 14px 20px;
+      border-radius: 10px;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-family: var(--font-heading);
+      font-size: 13pt;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* PROMPT CARD */
+    .prompt-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .prompt-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: var(--color-brand);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .prompt-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: var(--color-paper);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 9pt;
+      margin-bottom: 12px;
+      border: 1px solid #E9EFF4;
+    }
+
+    .prompt-meta-item strong {
+      color: var(--color-ink);
+      display: block;
+      font-size: 8pt;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: 2px;
+    }
+
+    .prompt-box {
+      background: #14202B;
+      color: #F7F8F5;
+      font-family: var(--font-mono);
+      font-size: 8.5pt;
+      line-height: 1.5;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #233547;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 10px;
+    }
+
+    .prompt-output {
+      font-size: 8.5pt;
+      color: var(--color-body);
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+
+    .prompt-output strong {
+      color: var(--color-ink);
+      font-family: var(--font-mono);
+    }
+
+    .human-check-box {
+      background: #FEF5E7;
+      border: 1px solid #F9E2C1;
+      border-left: 4px solid var(--color-attention);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 8.5pt;
+      color: #7A4B0D;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .human-check-box strong {
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      text-transform: uppercase;
+      color: var(--color-attention);
+      shrink: 0;
+    }
+
+    /* TOC Table */
+    .toc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9pt;
+    }
+
+    .toc-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .toc-table tr:hover {
+      background: var(--color-paper);
+    }
+
+    .toc-module {
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    /* FOOTER / HEADER IN PDF */
+    .pdf-footer {
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      color: var(--color-muted);
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div>
+      <span class="cover-badge">VẬN HÀNH MỚI · TOOLKIT V1</span>
+      <h1 class="cover-title">AI PROMPT KIT<br>CHO OPERATION MANAGER</h1>
+      <div class="cover-subtitle">32 Prompt Thực Chiến cho Vận Hành, Dữ Liệu & AI</div>
+      <p class="cover-desc">
+        Bộ công cụ đóng gói sẵn dành riêng cho Operations Managers, Team Leaders và SMEs. 
+        Ứng dụng AI trực tiếp vào phân tích tồn đọng, phát hiện bất thường SLA, chuẩn hóa SOP và lập báo cáo điều hành.
+      </p>
+    </div>
+
+    <div>
+      <div style="background: #FFFFFF; border: 1px solid var(--color-border); padding: 14px 18px; border-radius: 12px; font-size: 9pt; margin-bottom: 24px;">
+        <strong style="color: var(--color-ink); font-family: var(--font-heading); display: block; margin-bottom: 4px;">ĐỊNH VỊ CỐT LÕI:</strong>
+        <em>"Vận Hành Mới = Hệ thống + AI ứng dụng thực tế cho người làm vận hành."</em><br>
+        AI hỗ trợ cấu trúc và phân tích — Con người chịu trách nhiệm kiểm chứng và ra quyết định.
+      </div>
+
+      <div class="cover-footer">
+        <span>Vận Hành Mới · Operations · Data · AI</span>
+        <span>vanhanhmoi.com</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- TRUST NOTE & DATA SAFETY -->
+  <div class="section-box avoid-break">
+    <div class="section-title">1. NGUYÊN TẮC MINH BẠCH & AN TOÀN DỮ LIỆU</div>
+    <p>Bộ Prompt Kit này không phải là "phép thuật" tự động thay thế quản lý. Đây là công cụ trợ lực giúp người làm vận hành chuẩn hóa cấu trúc suy nghĩ, trích xuất dữ liệu và rút ngắn thời gian làm việc thủ công.</p>
+    
+    <div style="background: #E8F5F2; border: 1px solid #BDE3DA; border-left: 4px solid var(--color-success); padding: 10px 14px; border-radius: 8px; font-size: 9pt; margin: 12px 0;">
+      <strong style="color: var(--color-success); font-family: var(--font-mono); text-transform: uppercase;">AI có thể giúp:</strong>
+      <ul style="margin: 4px 0 0 16px; padding: 0;">
+        <li>Cấu trúc hóa thông tin & sắp xếp backlog</li>
+        <li>Phát hiện pattern bất thường trong dữ liệu</li>
+        <li>Tổng hợp bằng chứng & tạo bản thảo báo cáo</li>
+      </ul>
+    </div>
+
+    <div style="background: #FEF5E7; border: 1px solid #F9E2C1; border-left: 4px solid var(--color-attention); padding: 10px 14px; border-radius: 8px; font-size: 9pt; margin: 12px 0;">
+      <strong style="color: var(--color-attention); font-family: var(--font-mono); text-transform: uppercase;">AI không được phép:</strong>
+      <ul style="margin: 4px 0 0 16px; padding: 0;">
+        <li>Tự suy đoán/bịa đặt dữ liệu không có trong Input (Hallucination)</li>
+        <li>Biến giả thuyết thành sự thật khi chưa có bằng chứng</li>
+        <li>Ra quyết định thay thế quản lý hiện trường</li>
+      </ul>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid var(--color-border); padding: 10px 14px; border-radius: 8px; font-size: 8.5pt; margin-top: 12px;">
+      <strong style="color: var(--color-risk); font-family: var(--font-mono); text-transform: uppercase;">Quy tắc An toàn Dữ liệu (Data Safety):</strong><br>
+      Trước khi dán dữ liệu vào AI công cộng (ChatGPT/Claude), hãy xóa hoặc thay thế các thông tin nhạy cảm: Số điện thoại, Email, Tên thật khách hàng, Mật khẩu, API Keys, Giá trị hợp đồng bảo mật.
+    </div>
+  </div>
+
+  <!-- QUICK START & TABLE OF CONTENTS -->
+  <div class="section-box avoid-break">
+    <div class="section-title">2. HƯỚNG DẪN SỬ DỤNG NHANH & MỤC LỤC</div>
+    <ol style="margin: 0 0 16px 18px; padding: 0; font-size: 9pt; line-height: 1.6;">
+      <li><strong>Chọn Prompt:</strong> Tra cứu mục lục 8 Module bên dưới.</li>
+      <li><strong>Copy Prompt:</strong> Sao chép đoạn câu lệnh trong khung tối màu.</li>
+      <li><strong>Điền Input:</strong> Dán dữ liệu vận hành thực tế đã làm sạch vào phần <code>[INPUT]</code>.</li>
+      <li><strong>Chạy & Review:</strong> Nhập vào AI và đối chiếu kết quả với ô <strong>Human Check</strong>.</li>
+    </ol>
+
+    <div style="font-family: var(--font-heading); font-weight: 700; font-size: 11pt; color: var(--color-ink); margin-bottom: 8px;">MỤC LỤC 8 MODULE PROMPT THỰC CHIẾN</div>
+    <table class="toc-table">
+      
+        <tr>
+          <td class="toc-module">Module 1</td>
+          <td>DAILY OPERATIONS CONTROL</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 2</td>
+          <td>KPI & ANOMALY ANALYSIS</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 3</td>
+          <td>ROOT CAUSE & INCIDENT</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 4</td>
+          <td>REPORTING & COMMUNICATION</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 5</td>
+          <td>ACTION PLANNING & FOLLOW-UP</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 6</td>
+          <td>SOP & PROCESS IMPROVEMENT</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 7</td>
+          <td>WORKFORCE / CAPACITY / COST</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+        <tr>
+          <td class="toc-module">Module 8</td>
+          <td>AI ASSISTANT FOR OPERATIONS MANAGER</td>
+          <td style="text-align: right; font-family: var(--font-mono); color: var(--color-muted);">4 Prompts</td>
+        </tr>
+      
+    </table>
+  </div>
+
+  <!-- MODULES & 32 PROMPTS -->
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 1 — DAILY OPERATIONS CONTROL</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 01 — Morning Control-Tower Brief</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Biến dữ liệu đầu ngày thành một bản brief ưu tiên hành động.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Đầu ca/đầu ngày, trước daily meeting.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Backlog theo tuổi đơn; SLA; năng lực xử lý; incident/exceptions; mục tiêu ngày.
+          </div>
+        </div>
+
+        <div class="prompt-box">Bạn là Operations Control-Tower Analyst.
+
+Hãy phân tích dữ liệu vận hành tôi cung cấp và tạo morning brief.
+
+Chỉ dùng dữ liệu có trong input, không tự bịa benchmark.
+Nếu thiếu dữ liệu, ghi rõ UNKNOWN.
+
+Hãy:
+1. Tóm tắt 5 KPI quan trọng nhất.
+2. Xác định tối đa 5 rủi ro cần xử lý hôm nay.
+3. Xếp hạng theo Impact × Urgency × SLA Risk.
+4. Nêu bằng chứng cụ thể cho từng rủi ro.
+5. Đề xuất hành động, owner phù hợp và thời điểm kiểm tra lại.
+6. Tách rõ Facts / Assumptions / Recommendations.
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Executive Summary · KPI Snapshot · Risk Queue · Actions · Unknowns.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận SLA rule, capacity và owner trước khi giao việc.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 02 — Backlog Prioritization</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Xếp thứ tự backlog cần xử lý trước.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Backlog lớn, không đủ nguồn lực xử lý tất cả cùng lúc.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Danh sách đơn/case; age; SLA; giá trị/khách hàng; exception; capacity.
+          </div>
+        </div>
+
+        <div class="prompt-box">Đóng vai Operations Planner.
+
+Hãy phân loại backlog thành:
+- P0 xử lý ngay
+- P1 hôm nay
+- P2 theo dõi
+- Hold hợp lệ
+
+Ưu tiên dựa trên:
+- SLA risk
+- tuổi tồn
+- mức độ ảnh hưởng
+- khả năng xử lý
+- dependency
+
+Không coi tuổi tồn cao là nguyên nhân duy nhất.
+
+Với mỗi nhóm:
+- nêu tiêu chí
+- số lượng/khối lượng
+- 3 nguyên nhân nổi bật
+- action cụ thể
+
+Những case có exception hợp lệ phải tách riêng.
+Nếu dữ liệu không đủ để phân loại, đánh dấu REVIEW.
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Priority Queue · Reason · Action · Owner suggestion · Recheck time.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra exception/khách hẹn trước khi escalation.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 03 — SLA Risk Triage</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Phát hiện đơn/công việc có nguy cơ trễ trước khi quá SLA.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            2–4 giờ trước cut-off hoặc SLA checkpoint.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Created time; current node/status; SLA; transit/processing time còn lại; exception.
+          </div>
+        </div>
+
+        <div class="prompt-box">Hãy tạo SLA Risk Triage theo logic evidence-first.
+
+Tính/ước lượng thời gian còn lại đến SLA nếu dữ liệu cho phép.
+
+Chia thành:
+- Critical
+- High
+- Watch
+- Safe
+
+Với mỗi Critical/High:
+- giải thích vì sao có rủi ro
+- bước tiếp theo bắt buộc
+- dependency
+- thời điểm phải hoàn thành để còn khả năng cứu SLA
+
+Không giả định thời gian xử lý nếu input không có.
+Khi đó ghi rõ assumption.
+
+Input:
+[ DATA + SLA RULES ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Risk table · Time-to-SLA · Required next step · Escalation threshold.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận cut-off thực tế và thời gian transit trước khi điều xe/nhân lực.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 04 — End-of-Day Operations Recap</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tổng kết ngày và tạo danh sách carry-over rõ ràng.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Cuối ngày/cuối ca.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Plan đầu ngày; actual; backlog cuối ngày; incidents; actions.
+          </div>
+        </div>
+
+        <div class="prompt-box">So sánh kế hoạch đầu ngày với kết quả thực tế.
+
+Trình bày:
+1. Mục tiêu đạt/chưa đạt.
+2. Thay đổi backlog và SLA risk.
+3. 3 việc đã giúp cải thiện.
+4. 3 vấn đề chưa giải quyết.
+5. Carry-over sang ngày mai với owner và deadline.
+6. Các giả thuyết cần kiểm chứng thay vì kết luận vội.
+
+Không dùng ngôn ngữ đổ lỗi cá nhân.
+
+Input:
+[ PLAN + ACTUAL + INCIDENTS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Plan vs Actual · Wins · Misses · Carry-over · Tomorrow watchlist.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận số actual đã chốt trước khi gửi quản lý.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 2 — KPI & ANOMALY ANALYSIS</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 05 — KPI Anomaly Scan</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tìm bất thường trong bảng KPI mà không chỉ nhìn % tăng/giảm.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Daily/weekly dashboard review.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            KPI theo thời gian; target; breakdown theo kho/tuyến/team.
+          </div>
+        </div>
+
+        <div class="prompt-box">Phân tích bảng KPI như một Operations Analyst.
+
+Tìm bất thường theo 4 lớp:
+1. Level khác target.
+2. Biến động bất thường theo thời gian.
+3. Chênh lệch giữa đơn vị.
+4. Mối quan hệ KPI có thể mâu thuẫn.
+
+Chỉ gọi là anomaly khi có bằng chứng từ dữ liệu.
+Không suy diễn nguyên nhân thành fact.
+
+Với mỗi anomaly, ghi:
+- Evidence
+- Possible explanations
+- Data needed next
+- Operational impact
+- Suggested check
+
+Input:
+[ KPI DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Top anomalies · Evidence · Hypotheses · Next data check.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra thay đổi định nghĩa KPI/source trước khi kết luận performance giảm.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 06 — Trend Comparison</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            So sánh kỳ này với kỳ trước theo hướng ra quyết định.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            WoW, MoM, N-1, before/after.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            2+ kỳ dữ liệu và cùng định nghĩa KPI.
+          </div>
+        </div>
+
+        <div class="prompt-box">So sánh [KỲ A] và [KỲ B].
+
+Tách thay đổi thành:
+- Volume effect
+- Mix effect
+- Productivity effect
+- Exception / one-off
+
+nếu dữ liệu hỗ trợ.
+
+Nêu mức thay đổi tuyệt đối và tương đối.
+Không dùng % khi mẫu quá nhỏ mà không cảnh báo.
+
+Xác định 3 thay đổi đáng chú ý nhất và điều gì cần kiểm chứng tiếp.
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Comparison table · Drivers · One-offs · Decision implications.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận hai kỳ có cùng scope/cách tính.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 07 — Performance Gap Diagnosis</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Hiểu vì sao một kho/team/tuyến dưới target.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            KPI miss lặp lại.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Target, actual, volume, staffing, process, exception, historical baseline.
+          </div>
+        </div>
+
+        <div class="prompt-box">Phân tích performance gap theo cây nguyên nhân:
+
+Demand/Volume
+→ Capacity
+→ Process
+→ Assignment/Execution
+→ Exception
+→ Data Quality
+
+Với mỗi nhánh, nêu bằng chứng ủng hộ/phản bác từ input.
+Không chọn root cause nếu chỉ có correlation.
+
+Cuối cùng đề xuất 3 test nhỏ để xác minh nguyên nhân với effort thấp nhất.
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Gap size · Cause tree · Evidence strength · Validation tests.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Không dùng output để đánh giá cá nhân nếu chưa kiểm chứng dữ liệu nguồn.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 08 — Dashboard Narrative for Management</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Biến dashboard nhiều số thành câu chuyện điều hành ngắn.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Gửi Lead/Manager/Director.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            KPI dashboard + context.
+          </div>
+        </div>
+
+        <div class="prompt-box">Viết management narrative tối đa 200 từ từ dashboard này.
+
+Cấu trúc bắt buộc:
+What changed
+→ Why it matters
+→ What we know
+→ What we do not know
+→ Actions today
+
+Chỉ nhắc KPI có ý nghĩa quyết định, không liệt kê toàn bộ số.
+
+Mọi causal claim phải được gắn nhãn:
+confirmed
+hoặc
+hypothesis
+
+Input:
+[ DASHBOARD + CONTEXT ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> 1 executive narrative + 3 bullets action.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra causal wording trước khi gửi senior management.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 3 — ROOT CAUSE & INCIDENT</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 09 — Evidence-First RCA</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Phân tích nguyên nhân gốc mà không nhảy từ triệu chứng sang kết luận.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Incident lặp lại, SLA fail, cost spike, backlog spike.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Timeline; KPI; logs; giải trình; process step; changes.
+          </div>
+        </div>
+
+        <div class="prompt-box">Đóng vai RCA Facilitator.
+
+Tách dữ liệu thành:
+- Observed facts
+- Missing evidence
+- Hypotheses
+
+Xây cause tree theo:
+People
+Process
+System
+Capacity
+Input
+External
+
+Với mỗi hypothesis:
+- chấm Evidence Strength: Strong / Medium / Weak
+- nêu dữ liệu cần thêm để xác minh
+
+Chỉ gọi là Root Cause khi có chuỗi bằng chứng giải thích được incident.
+
+Sau đó đề xuất:
+- containment action
+- permanent fix
+riêng biệt.
+
+Input:
+[ EVIDENCE ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Timeline · Facts · Cause tree · Evidence matrix · Containment · Permanent fix.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Không dùng hypothesis như kết luận chính thức khi chưa xác minh.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 10 — 5-Why Facilitator</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Dùng 5-Why có kiểm soát, tránh ép đủ 5 tầng.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Vấn đề tương đối rõ nhưng cần đào sâu process/system.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Problem statement + evidence.
+          </div>
+        </div>
+
+        <div class="prompt-box">Hãy dẫn dắt 5-Why cho vấn đề:
+[ PROBLEM ]
+
+Mỗi câu Why phải dựa trên câu trả lời có bằng chứng.
+
+Nếu không có evidence:
+dừng và yêu cầu dữ liệu thay vì tự suy đoán.
+
+Có thể dừng trước 5 hoặc đi quá 5 nếu cần.
+
+Tách:
+- Direct cause
+- Contributing factors
+- Systemic cause
+
+Cuối cùng kiểm tra root cause bằng câu hỏi:
+"Nếu loại bỏ nguyên nhân này, xác suất vấn đề tái diễn có giảm đáng kể không?"
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Why chain · Evidence gaps · Candidate root cause · Validation question.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Ưu tiên process/system fix, tránh quy lỗi cá nhân nếu chưa có bằng chứng.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 11 — Incident Evidence Synthesis</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Gom nhiều nguồn chat/log/report thành timeline đáng tin.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Incident có nhiều người giải trình khác nhau.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Messages, timestamps, logs, screenshots transcription, status changes.
+          </div>
+        </div>
+
+        <div class="prompt-box">Tổng hợp incident evidence thành timeline theo thời gian.
+
+Không chỉnh sửa ý nghĩa nguồn.
+
+Mỗi sự kiện ghi:
+- Source
+- Timestamp
+- Fact
+- Confidence
+
+Nếu hai nguồn mâu thuẫn:
+hiển thị cả hai dưới Conflict
+và không tự chọn bên đúng.
+
+Sau timeline, liệt kê 5 evidence gaps quan trọng nhất để điều tra tiếp.
+
+Input:
+[ RAW EVIDENCE ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Chronology · Conflicts · Confirmed facts · Gaps · Next questions.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Đối chiếu timestamps và source gốc trước khi dùng làm biên bản.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 12 — Corrective & Preventive Action Plan</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Chuyển RCA thành CAPA có owner và tiêu chí đóng.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Sau khi root cause đã đủ confidence.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Confirmed root cause; constraints; available owners; deadlines.
+          </div>
+        </div>
+
+        <div class="prompt-box">Từ root cause đã xác nhận, tạo CAPA gồm:
+- Immediate containment
+- Corrective action
+- Preventive action
+- Monitoring control
+
+Với mỗi action phải có:
+- Owner role
+- Due date
+- Effort
+- Expected impact
+- Verification metric
+- Closure evidence
+
+Không đề xuất action chung chung kiểu "nhắc nhở" nếu không giải quyết root cause.
+
+Input:
+[ CONFIRMED RCA + CONSTRAINTS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> CAPA table · Verification plan · Closure criteria.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Owner thật và deadline phải được người quản lý xác nhận.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 4 — REPORTING & COMMUNICATION</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 13 — Daily Operations Report</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tạo báo cáo ngày ngắn, có action.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Daily management update.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            KPI today; yesterday/target; backlog; incidents; actions.
+          </div>
+        </div>
+
+        <div class="prompt-box">Viết báo cáo vận hành ngày theo format:
+
+KPI Snapshot
+→ So với N-1/Target
+→ Top risks
+→ Actions đang chạy
+→ Need support
+
+Dùng số tuyệt đối + % khi phù hợp.
+Mỗi risk phải kèm evidence.
+
+Không chèn lý do nếu chỉ là giả thuyết;
+ghi rõ hypothesis.
+
+Giới hạn trong 1 màn hình đọc trên điện thoại.
+
+Input:
+[ DÁN DỮ LIỆU ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Concise daily report.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận số liệu cutoff trước khi gửi.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 14 — Weekly Business Review</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Chuẩn bị WBR tập trung vào xu hướng và quyết định.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Weekly review.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            KPI 7 ngày; targets; prior actions; incidents; projects.
+          </div>
+        </div>
+
+        <div class="prompt-box">Tạo Weekly Operations Review gồm:
+1. Executive scorecard.
+2. Wins có bằng chứng.
+3. Misses + driver.
+4. Incident themes.
+5. Action từ tuần trước: Done / At risk / Overdue.
+6. Top 3 priorities tuần tới.
+7. Decisions needed from management.
+
+Không kể lại từng ngày.
+Ưu tiên trend và root driver.
+
+Input:
+[ WEEKLY DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> WBR agenda-ready summary.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Phân biệt outcome đạt được và activity đã làm.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 15 — Executive Summary</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Rút một báo cáo dài thành thông tin cấp quản lý cần quyết định.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Báo cáo dự án/incident/performance dài.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Source report.
+          </div>
+        </div>
+
+        <div class="prompt-box">Tóm tắt tài liệu này cho senior manager theo cấu trúc 5 phần:
+- Situation
+- Impact
+- Evidence
+- Options
+- Recommended decision
+
+Tối đa 300 từ.
+Không loại bỏ uncertainty quan trọng.
+
+Nếu recommendation phụ thuộc assumption,
+nêu assumption đó ngay cạnh recommendation.
+
+Input:
+[ REPORT ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Decision-oriented executive summary.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra các con số chính với source gốc.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 16 — Escalation Message with Evidence</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Escalation rõ, không cảm tính và có request cụ thể.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Dependency bị block, SLA risk cao, action overdue.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Issue; timeline; impact; attempts; owner; needed support.
+          </div>
+        </div>
+
+        <div class="prompt-box">Viết escalation message chuyên nghiệp, ngắn, không đổ lỗi.
+
+Bắt buộc có:
+- Issue
+- Evidence
+- Business/Operational impact
+- What has been tried
+- What is blocked
+- Decision/support needed
+- Required by when
+
+Nếu chưa đủ bằng chứng về nguyên nhân,
+không nêu nguyên nhân như fact.
+
+Input:
+[ DETAILS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Message phù hợp Slack/Telegram/Email.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Đảm bảo người được tag thực sự có quyền giải quyết hoặc quyết định.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 5 — ACTION PLANNING & FOLLOW-UP</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 17 — Action Plan Generator</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Biến vấn đề thành action plan có thể theo dõi.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Sau review/incident/project decision.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Problem; desired outcome; constraints; owners; timeline.
+          </div>
+        </div>
+
+        <div class="prompt-box">Tạo action plan theo nguyên tắc mỗi action phải thay đổi một trạng thái quan sát được.
+
+Với mỗi action ghi:
+- Objective
+- Task
+- Owner role
+- Start
+- Due
+- Dependency
+- Success metric
+- Evidence of completion
+- Risk
+
+Tách:
+- Quick win
+- Core fix
+- Monitoring
+
+Tránh action mơ hồ như "theo dõi thêm" hoặc "cải thiện".
+
+Input:
+[ PROBLEM + CONSTRAINTS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Action tracker ready table.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Owner và due date phải được xác nhận ngoài AI.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 18 — Owner & Deadline Assignment</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Phân owner hợp lý thay vì dồn mọi việc cho một người.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Action list có nhiều dependency.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Actions; team roles; authority; capacity; deadline.
+          </div>
+        </div>
+
+        <div class="prompt-box">Gợi ý owner role cho từng action dựa trên:
+- quyền quyết định
+- khả năng thực thi
+- dependency
+
+Không dùng tên người nếu input không cung cấp.
+
+Với mỗi action, phân loại:
+- Accountable
+- Responsible
+- Consulted
+- Informed
+và nêu vì sao.
+
+Nếu không có role nào đủ quyền, đánh dấu:
+MANAGEMENT DECISION NEEDED
+
+Input:
+[ ACTIONS + TEAM ROLES ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Lightweight RACI + deadlines.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra workload thực tế trước khi assign.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 19 — Follow-up Checklist</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tạo checkpoint để action không mất dấu.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Sau khi đã giao việc.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Action tracker + review cadence.
+          </div>
+        </div>
+
+        <div class="prompt-box">Từ action tracker, tạo lịch follow-up tối giản.
+
+Với mỗi checkpoint, nêu:
+- When
+- What evidence to check
+- Expected state
+- Trigger to escalate
+- Who needs notification
+
+Chỉ tạo checkpoint có giá trị quyết định;
+không tạo follow-up thừa.
+
+Input:
+[ ACTION TRACKER ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Follow-up schedule · evidence checklist · escalation trigger.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Đồng bộ với lịch vận hành thật, tránh nhắc ngoài giờ không cần thiết.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 20 — Overdue Action Escalation</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Xử lý action quá hạn dựa trên impact, không chỉ vì trễ ngày.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Weekly/daily action review.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Overdue actions; progress; impact; blocker; owner response.
+          </div>
+        </div>
+
+        <div class="prompt-box">Phân loại action overdue thành:
+- Critical escalation
+- Recoverable
+- Replan
+- Close / No longer needed
+
+Dựa trên:
+- impact
+- dependency
+- current progress
+không chỉ số ngày trễ.
+
+Với mỗi action:
+- đề xuất next move
+- câu hỏi cần hỏi owner
+
+Nếu deadline ban đầu không còn hợp lý,
+nêu lý do rebaseline thay vì giả vờ giữ deadline cũ.
+
+Input:
+[ OVERDUE ACTIONS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Overdue triage · recovery plan · escalation candidates.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận scope có thay đổi trước khi đánh giá owner.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 6 — SOP & PROCESS IMPROVEMENT</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 21 — Turn Tribal Knowledge into SOP</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Chuyển cách làm trong đầu nhân viên thành SOP rõ.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Process phụ thuộc người có kinh nghiệm.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Transcript mô tả cách làm; screenshots; forms; rules.
+          </div>
+        </div>
+
+        <div class="prompt-box">Chuyển mô tả quy trình thành SOP có cấu trúc:
+- Purpose
+- Scope
+- Trigger
+- Inputs
+- Roles
+- Preconditions
+- Steps
+- Decision points
+- Exceptions
+- Output
+- SLA
+- Evidence
+- Escalation
+
+Không tự thêm rule mà input không có.
+Chỗ thiếu thông tin phải ghi: [TO CONFIRM]
+
+Sau SOP, liệt kê 5 câu hỏi cần hỏi operator để hoàn thiện.
+
+Input:
+[ RAW PROCESS DESCRIPTION ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Draft SOP + missing-info questions.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Operator thực tế phải walkthrough lại SOP trước khi publish.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 22 — SOP Gap Audit</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tìm chỗ SOP khiến người mới dễ làm sai hoặc không thể đo.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            SOP cũ, nhiều lỗi/exceptions.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            SOP hiện tại + incident examples.
+          </div>
+        </div>
+
+        <div class="prompt-box">Audit SOP theo 8 tiêu chí:
+- Trigger clarity
+- Input quality
+- Ownership
+- Step ambiguity
+- Decision rule
+- Exception handling
+- Evidence/record
+- Measurement
+
+Với mỗi gap, nêu:
+- Risk
+- Example failure mode
+- Suggested rewrite
+- Priority
+
+Không đánh giá style;
+tập trung khả năng thực thi và kiểm soát.
+
+Input:
+[ SOP + INCIDENTS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> SOP gap matrix · prioritized fixes.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Mọi thay đổi policy/SLA cần owner phê duyệt.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 23 — Waste & Bottleneck Scan</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Phát hiện bước gây chờ, rework, handoff thừa.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Process chậm hoặc chi phí cao.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Process steps; time per step; queue; handoff; error/rework.
+          </div>
+        </div>
+
+        <div class="prompt-box">Phân tích quy trình theo:
+- Flow Time
+- Waiting
+- Handoff
+- Rework
+- Batch
+- Decision delay
+- Manual duplication
+
+Xác định bottleneck dựa trên data nếu có.
+Nếu chỉ có mô tả định tính, ghi confidence.
+
+Đề xuất tối đa 5 cải tiến theo:
+Impact / Effort / Risk
+
+và nêu metric dùng để xác nhận cải tiến có hiệu quả.
+
+Input:
+[ PROCESS DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Bottleneck map · waste list · improvement experiments.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Không loại bỏ control step chỉ vì thấy chậm nếu nó có vai trò compliance/risk.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 24 — AI-Ready Workflow Redesign</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Xác định chỗ AI/automation thực sự nên tham gia.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Muốn ứng dụng AI vào process hiện hữu.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Current workflow; inputs/outputs; decisions; systems; failure modes.
+          </div>
+        </div>
+
+        <div class="prompt-box">Thiết kế lại workflow theo 4 lớp:
+- Human-only
+- Rule automation
+- AI-assisted
+- Human approval
+
+Với từng bước, chọn lớp phù hợp và giải thích dựa trên:
+- tính lặp lại
+- dữ liệu sẵn có
+- mức độ phán đoán
+- rủi ro sai
+
+Không đề xuất AI tự quyết cho bước high-impact nếu không có approval/control.
+
+Với bước AI-assisted, định nghĩa:
+- Input
+- Prompt/logic
+- Output schema
+- Confidence/validation
+- Failure handling
+
+Input:
+[ WORKFLOW ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Future-state workflow · automation candidates · human checkpoints.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Security, PII và quyền truy cập hệ thống phải được review trước triển khai.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 7 — WORKFORCE / CAPACITY / COST</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 25 — Manpower Sizing with Assumptions</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Ước lượng manpower minh bạch, không giả vờ có độ chính xác khi input thiếu.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Plan ca/kho/tuyến; dự báo tăng volume.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Volume; productivity; shift hours; utilization; absenteeism; service window.
+          </div>
+        </div>
+
+        <div class="prompt-box">Ước lượng manpower cần thiết và tách rõ:
+- Facts
+- Assumptions
+- Calculation
+- Recommendation
+
+Không tự chọn productivity benchmark nếu input không có.
+
+Hãy tạo scenario:
+- Low
+- Base
+- High
+
+Nêu:
+- công thức dùng
+- capacity buffer
+- sensitivity: biến nào làm manpower thay đổi mạnh nhất
+
+Input:
+[ VOLUME + PRODUCTIVITY + SHIFT RULES ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Scenario table · calculation logic · assumptions · risks.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra luật lao động, ca kíp, break và điều kiện hiện trường trước khi chốt.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 26 — Capacity Bottleneck Analysis</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Xác định công đoạn giới hạn throughput.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Volume tăng nhưng output không tăng tương ứng.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Capacity từng step; queue; cycle time; downtime; utilization.
+          </div>
+        </div>
+
+        <div class="prompt-box">Lập capacity map theo từng công đoạn.
+
+Tính effective capacity nếu dữ liệu cho phép và chỉ ra constraint hiện tại.
+
+Phân biệt:
+- theoretical capacity
+- effective capacity
+- actual throughput
+
+Với bottleneck, đề xuất 3 cách:
+1. tăng capacity
+2. giảm demand/variation
+3. chuyển tải
+
+Nêu trade-off và metric cần theo dõi sau thay đổi.
+
+Input:
+[ PROCESS CAPACITY DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Capacity table · bottleneck · options · expected constraint shift.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Xác nhận đơn vị đo và cùng time window giữa các công đoạn.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 27 — Cost Driver Analysis</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Hiểu chi phí tăng vì volume, mix hay hiệu suất.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Cost/order, cost/kg, thuê xe, OT, outsourcing tăng.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Cost breakdown; volume; mix; productivity; fixed/variable assumptions.
+          </div>
+        </div>
+
+        <div class="prompt-box">Phân tích cost change theo driver:
+- Volume
+- Mix
+- Rate / Price
+- Productivity
+- Utilization
+- One-off
+
+Tách chi phí fixed/variable chỉ khi có cơ sở.
+Không gán tiết kiệm cho một action nếu chưa có baseline.
+
+Xác định top 3 cost drivers và đề xuất data cần thu thêm để ra quyết định.
+
+Input:
+[ COST + VOLUME DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Cost bridge · top drivers · controllable vs non-controllable · next actions.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Đối chiếu cost control total/kế toán trước khi dùng báo cáo tài chính.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 28 — Scenario Comparison</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            So sánh nhiều phương án vận hành trên cùng tiêu chí.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Thuê xe vs tự vận hành; 1 vs 2 ca; mở kho; đổi SLA.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Options; cost; capacity; SLA; risk; constraints.
+          </div>
+        </div>
+
+        <div class="prompt-box">So sánh các phương án [A/B/C] theo cùng scorecard:
+- Cost
+- Capacity
+- SLA
+- Operational complexity
+- Scalability
+- Risk
+- Reversibility
+
+Phân biệt dữ liệu thật và assumption.
+Không cộng điểm thành một "đáp án khách quan" nếu trọng số chưa được Owner chốt.
+
+Thay vào đó:
+- trình bày trade-off
+- recommend theo từng ưu tiên chiến lược
+
+Input:
+[ SCENARIO DATA ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Comparison matrix · sensitivity · recommendation by priority.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Owner phải xác nhận trọng số chiến lược trước quyết định đầu tư.</span>
+        </div>
+      </div>
+    
+  
+    <div class="page-break"></div>
+    <div class="module-header">MODULE 8 — AI ASSISTANT FOR OPERATIONS MANAGER</div>
+    
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 29 — Meeting Prep Copilot</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Chuẩn bị họp vận hành trong vài phút từ dữ liệu thô.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Daily/weekly/project review.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Latest KPI; open actions; incidents; decisions pending.
+          </div>
+        </div>
+
+        <div class="prompt-box">Chuẩn bị meeting brief gồm:
+- What changed since last meeting
+- Open risks
+- Actions requiring follow-up
+- Decisions needed
+- Questions to ask
+
+Ưu tiên vấn đề có impact và decision value cao.
+Không đưa topic chỉ để "update" nếu không cần thảo luận/quyết định.
+
+Input:
+[ DATA + PRIOR MINUTES ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> 1-page meeting brief + proposed agenda.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra attendee/decision rights trước khi đưa decision item vào agenda.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 30 — Decision Memo</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Chuẩn hóa một quyết định vận hành quan trọng.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Cần xin duyệt hoặc ghi lại rationale.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Decision; context; options; evidence; constraints.
+          </div>
+        </div>
+
+        <div class="prompt-box">Viết Decision Memo theo format:
+- Decision to make
+- Context
+- Evidence
+- Options considered
+- Trade-offs
+- Recommendation
+- Risks
+- Reversibility
+- Next checkpoint
+
+Tách assumption khỏi fact.
+Nếu evidence chưa đủ để recommend, nói rõ: DEFER / NEED MORE DATA
+và chỉ định dữ liệu còn thiếu.
+
+Input:
+[ DETAILS ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Decision-ready memo.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Quyết định cuối cùng phải được người có thẩm quyền xác nhận.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 31 — Challenge My Plan / Red Team</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Tìm lỗ hổng trước khi triển khai plan.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Trước rollout, mở rộng, thay process, đầu tư.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Plan; assumptions; target; constraints.
+          </div>
+        </div>
+
+        <div class="prompt-box">Đóng vai independent Operations Red Team.
+
+Không viết lại kế hoạch trước.
+
+Hãy tìm:
+- assumptions yếu
+- missing dependency
+- capacity risk
+- incentive mismatch
+- operational edge cases
+- measurement gaps
+- rollback problem
+
+Với mỗi challenge:
+- chấm Severity
+- nêu Evidence Needed
+
+Sau đó đề xuất pre-mortem:
+5 lý do khả dĩ khiến plan thất bại trong 30/90 ngày.
+
+Input:
+[ PLAN ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Challenge list · pre-mortem · mitigation · go/no-go questions.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Phân biệt constructive challenge với việc trì hoãn không cần thiết.</span>
+        </div>
+      </div>
+    
+      <div class="prompt-card avoid-break">
+        <div class="prompt-title">
+          <span>Prompt 32 — Raw Evidence → Decision-Ready Brief</span>
+          <span style="font-family: var(--font-mono); font-size: 8pt; background: #EBF2FE; color: #235789; padding: 2px 8px; border-radius: 4px; border: 1px solid #C5D8F9;">VERIFIED</span>
+        </div>
+
+        <div class="prompt-meta-grid">
+          <div class="prompt-meta-item">
+            <strong>MỤC TIÊU:</strong>
+            Biến dữ liệu/chat/ghi chú lộn xộn thành brief ra quyết định.
+          </div>
+          <div class="prompt-meta-item">
+            <strong>KHI DÙNG:</strong>
+            Thông tin nằm rải rác ở Sheets, chat, email, notes.
+          </div>
+          <div class="prompt-meta-item" style="grid-column: span 2;">
+            <strong>INPUT CẦN CHUẨN BỊ:</strong>
+            Raw evidence đã loại bỏ dữ liệu nhạy cảm không cần thiết.
+          </div>
+        </div>
+
+        <div class="prompt-box">Tổng hợp evidence thành brief với 6 phần:
+- Confirmed facts
+- Key metrics
+- What changed
+- Risks
+- Unknowns
+- Decision/Action needed
+
+Mỗi kết luận phải truy ngược được về evidence trong input.
+Không bịa missing values.
+
+Nếu có PII hoặc dữ liệu nhạy cảm,
+nhắc người dùng mask/remove trước khi tiếp tục xử lý.
+
+Input:
+[ RAW EVIDENCE ]</div>
+
+        <div class="prompt-output">
+          <strong>OUTPUT MONG ĐỢI:</strong> Decision-ready brief · source/evidence map · unknowns.
+        </div>
+
+        <div class="human-check-box">
+          <strong>HUMAN CHECK:</strong>
+          <span>Kiểm tra nguồn gốc dữ liệu trước khi chia sẻ ra ngoài nhóm có quyền truy cập.</span>
+        </div>
+      </div>
+    
+  
+
+  <!-- CLOSING SECTION -->
+  <div class="page-break"></div>
+  <div class="section-box avoid-break" style="margin-top: 30px;">
+    <div class="section-title">TỪ PROMPT → AI-ASSISTED WORKFLOW</div>
+    <p>Hệ thống hóa vận hành bằng AI là một hành trình tích lũy có phương pháp. Việc ứng dụng 32 Prompts trên là bước đầu tiên để chuẩn hóa nhịp quản trị.</p>
+
+    <div style="background: #FFFFFF; border: 1px solid var(--color-border); padding: 14px; border-radius: 10px; text-align: center; margin: 16px 0; font-family: var(--font-mono); font-size: 8.5pt; color: var(--color-brand);">
+      Raw Data &rarr; Structured Input &rarr; AI Analysis &rarr; Human Review &rarr; Decision / Action &rarr; Evidence &rarr; Follow-up
+    </div>
+
+    <div style="text-align: center; padding-top: 10px;">
+      <h3 style="font-size: 13pt; margin-bottom: 6px;">Khám phá thêm tài nguyên vận hành thực chiến</h3>
+      <p style="font-size: 9.5pt; color: var(--color-muted); margin-bottom: 12px;">Website chính thức: <strong>https://vanhanhmoi.com</strong></p>
+      <div style="font-family: var(--font-mono); font-size: 8.5pt; color: var(--color-body);">
+        Vận Hành Mới — Hệ thống + AI ứng dụng thực tế cho người làm vận hành.
+      </div>
+    </div>
+  </div>
+
+  <div class="pdf-footer">
+    AI Prompt Kit cho Operation Manager — V1 · Vận Hành Mới (vanhanhmoi.com)
+  </div>
+
+</body>
+</html>
