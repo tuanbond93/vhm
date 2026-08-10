@@ -142,10 +142,26 @@ async function runTests() {
   );
   console.log('  PASS: Email CTA button verified to use inline #ffffff text color.');
 
-  // Test 13: Radar #001–#006 metadata & primary source verification
+  // Test 13: Radar #001–#008 metadata & primary source verification
   console.log('Test 13: Radar metadata & primary source verification...');
   const publishedRadars = RADAR_ITEMS.filter((r) => r.published);
-  assert.strictEqual(publishedRadars.length, 6, 'Exactly 6 Radar articles (#001–#006) must be published!');
+  assert.strictEqual(publishedRadars.length, 8, 'Exactly 8 Radar articles (#001–#008) must be published!');
+
+  const r008 = publishedRadars.find((r) => r.id === 'radar-008');
+  assert.ok(r008, 'Radar #008 must exist in published items');
+  assert.strictEqual(r008.slug, 'can-bang-lao-dong-linh-hoat-kho-hang');
+  assert.strictEqual(r008.evidenceUrl, 'https://doi.org/10.1016/j.tre.2026.104696');
+  assert.strictEqual(r008.evidenceTier, 'Tier 1 / Primary Research');
+  assert.strictEqual(r008.verdict, 'TEST');
+  assert.strictEqual(r008.verdictLabel, 'TEST IN CONTROLLED WORKFLOW');
+
+  const r007 = publishedRadars.find((r) => r.id === 'radar-007');
+  assert.ok(r007, 'Radar #007 must exist in published items');
+  assert.strictEqual(r007.slug, 'ai-dinh-tuyen-dong-chang-giao-van');
+  assert.strictEqual(r007.evidenceUrl, 'https://doi.org/10.1016/j.tre.2021.102496');
+  assert.strictEqual(r007.evidenceTier, 'Tier 1 / Primary Research');
+  assert.strictEqual(r007.verdict, 'TEST');
+  assert.strictEqual(r007.verdictLabel, 'TEST IN CONTROLLED WORKFLOW');
 
   const r006 = publishedRadars.find((r) => r.id === 'radar-006');
   assert.ok(r006, 'Radar #006 must exist in published items');
@@ -182,7 +198,7 @@ async function runTests() {
   assert.ok(r001, 'Radar #001 must exist in published items');
   assert.strictEqual(r001.slug, 'ai-agent-human-in-the-loop-taobao');
   assert.strictEqual(r001.evidenceUrl, 'https://arxiv.org/abs/2605.14830');
-  console.log('  PASS: Radar #001–#006 verified with 6 published articles and verified primary sources.');
+  console.log('  PASS: Radar #001–#008 verified with 8 published articles and verified primary sources.');
 
   console.log('\n=== ALL 13/13 AUTOMATED UNIT TESTS PASSED ===\n');
 }

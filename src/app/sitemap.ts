@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/radar',
+    '/radar/can-bang-lao-dong-linh-hoat-kho-hang',
+    '/radar/ai-dinh-tuyen-dong-chang-giao-van',
     '/radar/ai-canh-bao-som-don-hang-tre-kho-hang',
     '/radar/amr-kho-hang-workflow-design',
     '/radar/genai-tai-lieu-van-hanh-human-validation',
