@@ -14,7 +14,6 @@ export interface ToolItem {
   description: string;
   category: 'Dashboard' | 'AI Prompt' | 'Template' | 'Checklist';
   badge: 'Miễn phí' | 'Sắp ra mắt' | 'Nổi bật';
-  downloadsCount?: string;
   iconName: string;
 }
 
@@ -158,7 +157,6 @@ export const TOOLS_DATA: ToolItem[] = [
     description: 'Bộ 30+ Prompts tinh chỉnh sẵn cho ChatGPT/Claude giúp trích xuất điểm nghẽn, viết báo cáo nhanh và phân tích nguyên nhân sự cố.',
     category: 'AI Prompt',
     badge: 'Miễn phí',
-    downloadsCount: '500+ lượt tải',
     iconName: 'Sparkles'
   },
   {
@@ -167,7 +165,6 @@ export const TOOLS_DATA: ToolItem[] = [
     description: 'Mẫu Dashboard theo dõi KPI, tiến độ công việc và cảnh báo sự cố được tối ưu giao diện trên Notion / Looker Studio.',
     category: 'Dashboard',
     badge: 'Miễn phí',
-    downloadsCount: '350+ lượt tải',
     iconName: 'LayoutDashboard'
   },
   {
@@ -176,7 +173,6 @@ export const TOOLS_DATA: ToolItem[] = [
     description: 'Khung chỉ số KPI cốt lõi dành riêng cho khối Vận hành SME: Từ Lead Time, SLA, Tỉ lệ lỗi đến Chi phí vận hành.',
     category: 'Template',
     badge: 'Miễn phí',
-    downloadsCount: '280+ lượt tải',
     iconName: 'BarChart3'
   },
   {

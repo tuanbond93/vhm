@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, Sparkles, LayoutDashboard, FileText, BarChart3, CalendarCheck } from 'lucide-react';
+import { Sparkles, LayoutDashboard, FileText, BarChart3, CalendarCheck, Send } from 'lucide-react';
 import { Badge } from '@/components/Badge';
 import { LeadMagnetModal } from '@/components/LeadMagnetModal';
 import { TOOLS_DATA } from '@/lib/data';
@@ -56,22 +56,16 @@ export function ToolsCatalog() {
             </div>
 
             <div className="pt-4 border-t border-[#DCE2E7] flex items-center justify-between gap-4">
-              {tool.downloadsCount ? (
-                <span className="text-[11px] text-[#667085] font-mono font-medium">
-                  {tool.downloadsCount}
-                </span>
-              ) : (
-                <span className="text-[11px] text-[#667085] font-mono font-medium">
-                  Chuẩn bị ra mắt
-                </span>
-              )}
+              <span className="text-[11px] text-[#667085] font-mono font-medium">
+                {tool.category}
+              </span>
 
               <button
                 onClick={() => setSelectedToolTitle(tool.title)}
                 className="inline-flex items-center gap-1.5 bg-[#235789] hover:bg-[#1B456D] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer shadow-sm"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>{tool.badge === 'Sắp ra mắt' ? 'Đăng ký nhận trước' : 'Tải tài liệu'}</span>
+                <Send className="w-3.5 h-3.5" />
+                <span>{tool.badge === 'Sắp ra mắt' ? 'Đăng ký nhận trước' : 'Đăng ký nhận tài liệu'}</span>
               </button>
             </div>
           </div>

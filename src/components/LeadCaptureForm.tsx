@@ -15,7 +15,7 @@ interface LeadCaptureFormProps {
 
 export function LeadCaptureForm({
   source = 'homepage_newsletter',
-  buttonText = 'Nhận tài liệu',
+  buttonText = 'Đăng ký nhận tài liệu',
   placeholder = 'Nhập email làm việc của bạn...',
   className = '',
   compact = false,
@@ -60,14 +60,14 @@ export function LeadCaptureForm({
             }}
             placeholder={placeholder}
             disabled={status === 'loading'}
-            className="w-full bg-white border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all disabled:opacity-50"
+            className="w-full bg-white border border-[#DCE2E7] focus:border-[#2F6FED] focus:ring-1 focus:ring-[#2F6FED] rounded-xl px-4 py-3 text-sm text-[#14202B] placeholder-[#667085] outline-none transition-all disabled:opacity-50"
             required
           />
         </div>
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all shadow-sm active:scale-[0.98] disabled:opacity-50 whitespace-nowrap cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all shadow-sm active:scale-[0.98] disabled:opacity-50 whitespace-nowrap cursor-pointer"
         >
           {status === 'loading' ? (
             <>
@@ -84,15 +84,15 @@ export function LeadCaptureForm({
       </form>
 
       {status === 'success' && (
-        <div className="mt-3 flex items-start gap-2 text-emerald-800 text-xs bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
-          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+        <div className="mt-3 flex items-start gap-2 text-[#167A65] text-xs bg-[#E8F5F2] border border-[#BDE3DA] p-3 rounded-xl">
+          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#167A65]" />
           <span>{message}</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="mt-3 flex items-start gap-2 text-amber-800 text-xs bg-amber-50 border border-amber-200 p-3 rounded-xl">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+        <div className="mt-3 flex items-start gap-2 text-[#C47A16] text-xs bg-[#FEF5E7] border border-[#F9E2C1] p-3 rounded-xl">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#C47A16]" />
           <span>{message}</span>
         </div>
       )}

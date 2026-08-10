@@ -6,9 +6,9 @@ import {
   CheckCircle2,
   Download,
   ChevronRight,
-  ShieldCheck,
   Activity,
   Clock,
+  Send,
 } from 'lucide-react';
 import { Badge } from '@/components/Badge';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
@@ -267,7 +267,7 @@ export default function HomePage() {
               Công cụ, Templates & Prompt Kits
             </h2>
             <p className="text-[#435164] text-sm mt-1">
-              Tải về và áp dụng trực tiếp vào công việc quản lý vận hành hàng ngày.
+              Đăng ký nhận tài liệu và áp dụng vào công việc quản lý vận hành.
             </p>
           </div>
           <Link
@@ -290,11 +290,9 @@ export default function HomePage() {
                   <Badge variant={tool.badge === 'Miễn phí' ? 'accent' : 'outline'}>
                     {tool.badge}
                   </Badge>
-                  {tool.downloadsCount && (
-                    <span className="text-[11px] text-[#667085] font-mono font-medium">
-                      {tool.downloadsCount}
-                    </span>
-                  )}
+                  <span className="text-[11px] text-[#667085] font-mono font-medium">
+                    {tool.category}
+                  </span>
                 </div>
                 <h3 className="text-base font-bold text-[#14202B]">
                   {tool.title}
@@ -309,8 +307,8 @@ export default function HomePage() {
                   href="/cong-cu"
                   className="w-full inline-flex items-center justify-center gap-1.5 bg-[#235789] hover:bg-[#1B456D] text-white text-xs font-semibold py-2.5 px-3 rounded-xl transition-colors shadow-sm"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Tải về / Xem chi tiết</span>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Đăng ký nhận tài liệu</span>
                 </Link>
               </div>
             </div>
@@ -368,7 +366,7 @@ export default function HomePage() {
               Bộ AI Prompt dành riêng cho Operation Manager
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed">
-              Tải miễn phí bộ 30+ Prompts đóng gói sẵn giúp tự động phân tích điểm nghẽn, tổng hợp báo cáo và lên kế hoạch xử lý sự cố trong vài phút.
+              Đăng ký nhận bộ 30+ Prompts đóng gói sẵn giúp tự động phân tích điểm nghẽn, tổng hợp báo cáo và lên kế hoạch xử lý sự cố trong vài phút.
             </p>
             <ul className="space-y-2 text-xs text-slate-300">
               <li className="flex items-center gap-2">
@@ -388,11 +386,11 @@ export default function HomePage() {
             </h3>
             <LeadCaptureForm
               source="homepage_bottom_lead_magnet"
-              buttonText="Nhận ngay"
+              buttonText="Đăng ký ngay"
               compact={true}
             />
             <p className="text-[11px] text-[#667085] text-center">
-              Nhận link tải file trực tiếp. Không spam quảng cáo.
+              Nhận thông báo khi tài liệu phát hành. Không spam.
             </p>
           </div>
 
