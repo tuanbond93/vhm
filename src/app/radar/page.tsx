@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ShieldCheck, Compass, FileCheck2, AlertCircle, ArrowRight } from 'lucide-react';
+import { Compass, FileCheck2 } from 'lucide-react';
 import { RADAR_ITEMS } from '@/lib/radar-data';
 import { RadarCard } from '@/components/RadarCard';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
@@ -43,18 +42,18 @@ export default function RadarIndexPage() {
       />
 
       {/* Hero Header Section */}
-      <section className="border-b border-[#DCE2E7] bg-white py-12 sm:py-16">
-        <div className="container-custom space-y-6">
+      <section className="border-b border-[#DCE2E7] bg-white py-10 sm:py-14">
+        <div className="container-custom max-w-5xl space-y-5 sm:space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF2FE] border border-[#C5D8F9] text-[#235789] font-mono text-xs font-semibold">
             <Compass className="w-3.5 h-3.5 text-[#2F6FED]" />
             <span>VHM RADAR · DECISION INTELLIGENCE FOR OPERATORS</span>
           </div>
 
-          <div className="max-w-3xl space-y-4">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#14202B] tracking-tight leading-tight">
+          <div className="max-w-4xl space-y-3 sm:space-y-4">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#14202B] tracking-tight leading-tight sm:leading-tight">
               Đánh giá công nghệ & AI dưới góc nhìn Operations
             </h1>
-            <p className="text-base sm:text-lg text-[#435164] leading-relaxed">
+            <p className="text-sm sm:text-lg text-[#435164] leading-relaxed">
               VHM Radar không phải là trang tin tức công nghệ tổng hợp. Chúng tôi lọc tín hiệu thị trường, đối chiếu bằng chứng thực nghiệm và phân tích xem người làm vận hành nên <strong>ADOPT</strong>, <strong>TEST</strong>, <strong>WATCH</strong> hay <strong>SKIP</strong>.
             </p>
           </div>
@@ -83,12 +82,12 @@ export default function RadarIndexPage() {
 
       {/* Verdict Taxonomy Legend Section */}
       <section className="py-8 bg-[#F7F8F5] border-b border-[#DCE2E7]">
-        <div className="container-custom">
-          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-6">
+        <div className="container-custom max-w-5xl">
+          <div className="bg-white border border-[#DCE2E7] rounded-2xl p-5 sm:p-6">
             <div className="font-mono text-xs font-semibold text-[#235789] uppercase tracking-wider mb-3">
               KHUNG ĐÁNH GIÁ KHUYẾN NGHỊ (VERDICT TAXONOMY)
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 text-xs">
               <div className="p-3.5 rounded-xl bg-[#E8F5F2] border border-[#BDE3DA]">
                 <div className="font-mono font-bold text-[#167A65] mb-1">ADOPT</div>
                 <p className="text-[#435164] leading-relaxed">
@@ -119,10 +118,10 @@ export default function RadarIndexPage() {
       </section>
 
       {/* Published Radar Items List */}
-      <section className="py-12 sm:py-16">
-        <div className="container-custom space-y-8">
+      <section className="py-10 sm:py-14">
+        <div className="container-custom max-w-5xl space-y-6 sm:space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-[#14202B]">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#14202B]">
               Báo cáo Radar đã xuất bản ({publishedItems.length})
             </h2>
             <span className="text-xs font-mono text-[#667085]">
@@ -130,7 +129,7 @@ export default function RadarIndexPage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {publishedItems.map((item) => (
               <RadarCard key={item.id} item={item} />
             ))}
@@ -139,16 +138,16 @@ export default function RadarIndexPage() {
       </section>
 
       {/* Bottom Newsletter/Toolkit Lead Form Section */}
-      <section className="py-12 bg-white border-t border-[#DCE2E7]">
-        <div className="container-custom max-w-3xl text-center space-y-6">
+      <section className="py-10 sm:py-14 bg-white border-t border-[#DCE2E7]">
+        <div className="container-custom max-w-5xl space-y-6 text-center">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2FE] border border-[#C5D8F9] text-[#235789] text-xs font-mono font-semibold">
             <FileCheck2 className="w-3.5 h-3.5 text-[#2F6FED]" />
             <span>NHẬN PHÂN TÍCH RADAR VÀ TOOLKIT VẬN HÀNH</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-bold text-[#14202B]">
+          <h3 className="text-xl sm:text-3xl font-bold text-[#14202B]">
             Đăng ký nhận Radar phân tích mới nhất qua email
           </h3>
-          <p className="text-sm text-[#435164] max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#435164] max-w-xl mx-auto leading-relaxed">
             Nhận thông báo khi có phân tích Radar mới cùng bộ AI Prompt Kit 32 Prompts thực chiến dành cho Operations Manager.
           </p>
           <div className="max-w-md mx-auto">

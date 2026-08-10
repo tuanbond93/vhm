@@ -62,8 +62,8 @@ export function RadarWorkflow() {
   ];
 
   return (
-    <div className="my-8 p-6 bg-[#F7F8F5] border border-[#DCE2E7] rounded-2xl">
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#DCE2E7] pb-4">
+    <div className="my-6 sm:my-8 p-4 sm:p-6 bg-[#F7F8F5] border border-[#DCE2E7] rounded-2xl overflow-hidden">
+      <div className="mb-5 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#DCE2E7] pb-4">
         <div>
           <div className="font-mono text-xs font-semibold text-[#235789] uppercase tracking-wider mb-1">
             WORKFLOW ARCHITECTURE
@@ -78,8 +78,8 @@ export function RadarWorkflow() {
       </div>
 
       {/* Workflow Step Grid / Sequence */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {steps.map((item, idx) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+        {steps.map((item) => (
           <div
             key={item.step}
             className="bg-white border border-[#DCE2E7] rounded-xl p-4 flex flex-col justify-between space-y-3 relative group hover:border-[#2F6FED] transition-colors"
@@ -107,18 +107,12 @@ export function RadarWorkflow() {
                 {item.desc}
               </p>
             </div>
-
-            {idx < steps.length - 1 && (
-              <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white p-1 rounded-full border border-[#DCE2E7] text-[#667085]">
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            )}
           </div>
         ))}
       </div>
 
       {/* Operator Insight Callout Box */}
-      <div className="mt-6 bg-white border border-[#C5D8F9] border-l-4 border-l-[#2F6FED] p-4 rounded-xl flex items-start gap-3">
+      <div className="mt-5 sm:mt-6 bg-white border border-[#C5D8F9] border-l-4 border-l-[#2F6FED] p-4 rounded-xl flex items-start gap-3">
         <div className="p-1.5 rounded-lg bg-[#EBF2FE] text-[#2F6FED] shrink-0 mt-0.5">
           <UserCheck className="w-4 h-4" />
         </div>
