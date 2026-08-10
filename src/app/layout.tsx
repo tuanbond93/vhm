@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Be_Vietnam_Pro, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SITE_METADATA } from "@/lib/data";
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -11,9 +18,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin", "vietnamese"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -64,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`${inter.variable} ${plusJakartaSans.variable} dark`}>
+    <html lang="vi" className={`${beVietnamPro.variable} ${inter.variable} ${ibmPlexMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -80,7 +88,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
+      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

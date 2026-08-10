@@ -3,22 +3,18 @@ import Link from 'next/link';
 import {
   ArrowRight,
   Sparkles,
-  Layers,
   CheckCircle2,
-  FileSpreadsheet,
-  Zap,
-  BarChart3,
-  Bot,
-  ShieldCheck,
   Download,
-  BookOpen,
-  LayoutDashboard,
-  Clock,
   ChevronRight,
-  TrendingUp,
+  ShieldCheck,
+  Activity,
+  Layers,
+  BarChart3,
+  Clock,
 } from 'lucide-react';
 import { Badge } from '@/components/Badge';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
+import { OperationsControlTowerDemo } from '@/components/OperationsControlTowerDemo';
 import {
   PROBLEMS_DATA,
   PILLARS_DATA,
@@ -29,88 +25,89 @@ import {
 
 export default function HomePage() {
   return (
-    <div className="space-y-24 pb-16">
+    <div className="space-y-20 sm:space-y-28 pb-20">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-16 sm:pt-24 pb-12 overflow-hidden border-b border-slate-850">
-        {/* Subtle background blur spot */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-teal-900/15 blur-[120px] rounded-full pointer-events-none" />
+      <section className="pt-8 sm:pt-16 pb-12 sm:pb-16 border-b border-slate-200/80 bg-gradient-to-b from-white to-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Col (~55%) */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
+                <Activity className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+                <span>Hệ thống + AI ứng dụng thực tế cho người làm vận hành</span>
+              </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-teal-300 text-xs font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-            <span>Hệ thống + AI ứng dụng thực tế cho người làm vận hành</span>
+              {/* Main Headline */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-[1.15]">
+                Hệ thống hóa vận hành. <br className="hidden sm:inline" />
+                <span className="text-blue-600">Ứng dụng AI đúng chỗ.</span>
+              </h1>
+
+              {/* Core Promise */}
+              <p className="text-lg sm:text-xl text-slate-800 font-semibold leading-relaxed">
+                Giảm việc tay. Nhìn rõ vấn đề. Ra quyết định nhanh hơn.
+              </p>
+
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+                Giải pháp đóng gói quy trình, chuẩn hóa dữ liệu và xây dựng trợ lý AI thực chiến dành cho Operations Managers, Team Leaders & SMEs. Không phô trương, không ảo tưởng công nghệ.
+              </p>
+
+              {/* CTAs */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <Link
+                  href="/cong-cu"
+                  className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3.5 rounded-xl text-sm transition-all shadow-sm hover:shadow"
+                >
+                  <span>Khám phá công cụ</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  href="#lead-magnet"
+                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-semibold px-6 py-3.5 rounded-xl text-sm transition-all"
+                >
+                  <Download className="w-4 h-4 text-blue-600" />
+                  <span>Nhận tài liệu miễn phí</span>
+                </Link>
+              </div>
+
+              {/* Metrics bar */}
+              <div className="pt-6 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs font-mono text-slate-600">
+                <div>
+                  <span className="text-slate-400 block text-[10px]">TƯ DUY</span>
+                  <span className="font-bold text-slate-800">Systems & Data First</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block text-[10px]">MỤC TIÊU</span>
+                  <span className="font-bold text-slate-800">Giảm 70% việc tay</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block text-[10px]">ĐỐI TƯỢNG</span>
+                  <span className="font-bold text-slate-800">OMs & SME Leaders</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Col (~45% - Operations Control Tower Demo Visual) */}
+            <div className="lg:col-span-5 w-full">
+              <OperationsControlTowerDemo />
+            </div>
+
           </div>
-
-          {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-100 tracking-tight max-w-4xl mx-auto leading-[1.15]">
-            Vận hành tốt hơn với <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-300 via-teal-400 to-accent-500">
-              Hệ thống & AI thực chiến
-            </span>
-          </h1>
-
-          {/* Supporting Core Promise */}
-          <p className="mt-6 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
-            Giảm việc tay. Nhìn rõ vận hành. Ra quyết định nhanh hơn.
-          </p>
-
-          <p className="mt-2 text-sm text-slate-400 max-w-xl mx-auto">
-            Không ảo tưởng công nghệ. Giải pháp đóng gói quy trình, chuẩn hóa dữ liệu và ứng dụng AI thực tế cho Operations Managers & SMEs.
-          </p>
-
-          {/* Action CTAs */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/cong-cu"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-teal-500 to-accent-600 hover:from-teal-400 hover:to-accent-500 text-slate-950 font-semibold px-7 py-3.5 rounded-xl text-sm transition-all shadow-lg shadow-teal-950/40 hover:shadow-teal-900/60"
-            >
-              <span>Khám phá tài nguyên</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href="#lead-magnet"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold px-7 py-3.5 rounded-xl text-sm transition-all"
-            >
-              <Download className="w-4 h-4 text-teal-400" />
-              <span>Nhận tài liệu miễn phí</span>
-            </Link>
-          </div>
-
-          {/* Hero Metrics Bar */}
-          <div className="mt-16 pt-10 border-t border-slate-900/80 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-left">
-            <div className="space-y-1">
-              <span className="text-xs text-slate-400 block font-mono">ĐỊNH HƯỚNG</span>
-              <span className="text-sm font-semibold text-slate-200">System + AI First</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-xs text-slate-400 block font-mono">MỤC TIÊU</span>
-              <span className="text-sm font-semibold text-slate-200">Giảm 70% việc tay</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-xs text-slate-400 block font-mono">ĐỐI TƯỢNG</span>
-              <span className="text-sm font-semibold text-slate-200">OMs, Leaders & SMEs</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-xs text-slate-400 block font-mono">CAM KẾT</span>
-              <span className="text-sm font-semibold text-slate-200">Thực chiến, Không Hype</span>
-            </div>
-          </div>
-
         </div>
       </section>
 
       {/* 2. PROBLEM SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <Badge variant="warning" className="mb-3">Thực trạng vận hành phổ biến</Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-100">
-            Có phải đội ngũ vận hành của bạn đang vấp phải những khó khăn này?
+        <div className="max-w-3xl mb-10 space-y-2">
+          <Badge variant="warning">Thực trạng vận hành phổ biến</Badge>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+            5 Điểm nghẽn khiến khối Vận hành kiệt sức
           </h2>
-          <p className="mt-3 text-slate-400 text-sm">
-            Công việc chồng chất nhưng hiệu quả chưa tương xứng vì thiếu hệ thống và chưa tối ưu quy trình.
+          <p className="text-slate-600 text-sm">
+            Công việc ngốn hàng giờ mỗi ngày nhưng hiệu quả không như kỳ vọng vì thiếu hệ thống chuẩn hóa.
           </p>
         </div>
 
@@ -118,36 +115,38 @@ export default function HomePage() {
           {PROBLEMS_DATA.map((prob, idx) => (
             <div
               key={prob.id}
-              className="bg-slate-900/60 border border-slate-850 rounded-xl p-6 hover:border-slate-700 transition-all duration-300 space-y-3"
+              className="card-surface p-6 space-y-3 flex flex-col justify-between"
             >
-              <div className="w-8 h-8 rounded-lg bg-rose-950/60 border border-rose-900/60 text-rose-400 font-mono text-xs font-bold flex items-center justify-center">
-                0{idx + 1}
+              <div className="space-y-3">
+                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 font-mono text-xs font-bold flex items-center justify-center">
+                  0{idx + 1}
+                </div>
+                <h3 className="font-bold text-slate-900 text-base">
+                  {prob.title}
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                  {prob.description}
+                </p>
               </div>
-              <h3 className="font-semibold text-slate-200 text-base">
-                {prob.title}
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {prob.description}
-              </p>
-              <div className="pt-2 text-xs text-rose-400/90 font-medium flex items-center gap-1.5 border-t border-slate-850">
+              <div className="pt-3 text-xs text-rose-700 font-semibold border-t border-slate-100 flex items-center gap-1.5">
                 <span>Hệ quả:</span>
-                <span className="text-slate-300">{prob.impact}</span>
+                <span className="text-slate-700 font-normal">{prob.impact}</span>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 3. WHAT VẬN HÀNH MỚI DOES (3 PILLARS) */}
-      <section className="bg-slate-900/40 border-y border-slate-850 py-16">
+      {/* 3. WHAT WE DO (4 PILLARS) */}
+      <section className="bg-white border-y border-slate-200/90 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <Badge variant="accent" className="mb-3">Trụ cột giải pháp</Badge>
-            <h2 className="text-2xl sm:text-4xl font-bold text-slate-100">
-              Vận Hành Mới mang lại điều gì cho bạn?
+          <div className="max-w-3xl mb-12 space-y-2">
+            <Badge variant="accent">Khung giải pháp Vận Hành Mới</Badge>
+            <h2 className="text-2xl sm:text-4xl font-bold text-slate-900">
+              4 Trụ cột nâng tầm hệ thống vận hành
             </h2>
-            <p className="mt-3 text-slate-400 text-sm">
-              Sự kết hợp đồng bộ giữa cấu trúc hệ thống quản trị bài bản và năng lực tự động hóa từ AI.
+            <p className="text-slate-600 text-sm">
+              Sự kết hợp đồng bộ giữa cấu trúc chuẩn hóa, dữ liệu minh bạch và trợ lý AI thực chiến.
             </p>
           </div>
 
@@ -155,40 +154,40 @@ export default function HomePage() {
             {PILLARS_DATA.map((pillar) => (
               <div
                 key={pillar.number}
-                className="glass-card rounded-2xl p-8 flex flex-col justify-between relative group"
+                className="card-surface p-8 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-mono text-3xl font-bold text-teal-400">
+                    <span className="font-mono text-3xl font-bold text-blue-600">
                       {pillar.number}
                     </span>
-                    <span className="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="badge-mono bg-slate-100 text-slate-700 border border-slate-200">
                       {pillar.tagline}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-teal-300 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">
                     {pillar.title}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
                     {pillar.description}
                   </p>
 
                   <ul className="space-y-3 mb-6">
                     {pillar.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-slate-300">
-                        <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
+                      <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800">
+                <div className="pt-4 border-t border-slate-100">
                   <Link
                     href="/cong-cu"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-teal-400 hover:text-teal-300 transition-colors"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                   >
                     <span>Xem công cụ liên quan</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -200,21 +199,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. KNOWLEDGE SECTION PREVIEW */}
+      {/* 4. KNOWLEDGE PLAYBOOK SECTION PREVIEW */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <Badge className="mb-2">Kiến thức thực chiến</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100">
+            <Badge variant="default" className="mb-2">Operations Playbook</Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Bài viết & Hướng dẫn chuyên sâu
             </h2>
-            <p className="text-slate-400 text-sm mt-1">
-              Phân tích thực tế, case studies và framework ứng dụng vận hành.
+            <p className="text-slate-600 text-sm mt-1">
+              Phân tích phương pháp luận, case studies và bài học ứng dụng vận hành.
             </p>
           </div>
           <Link
             href="/kien-thuc"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-400 hover:text-teal-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
           >
             <span>Tất cả bài viết</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -225,34 +224,34 @@ export default function HomePage() {
           {ARTICLES_DATA.map((article) => (
             <article
               key={article.slug}
-              className="glass-card rounded-xl p-6 flex flex-col justify-between space-y-4"
+              className="card-surface p-6 sm:p-8 flex flex-col justify-between space-y-4"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span className="text-teal-400 font-medium px-2 py-0.5 rounded bg-teal-950/60 border border-teal-900">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="badge-mono bg-blue-50 text-blue-700 border border-blue-200">
                     {article.category}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
+                  <span className="text-slate-500 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" />
                     {article.readTime}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-100 hover:text-teal-300 transition-colors leading-snug">
+                <h3 className="text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors leading-snug">
                   <Link href={`/kien-thuc#${article.slug}`}>
                     {article.title}
                   </Link>
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed">
                   {article.excerpt}
                 </p>
               </div>
-              <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                <span className="font-mono">{article.date}</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="font-mono text-slate-500">{article.date}</span>
                 <Link
                   href={`/kien-thuc#${article.slug}`}
-                  className="text-slate-300 hover:text-teal-300 flex items-center gap-1"
+                  className="text-blue-600 font-semibold flex items-center gap-1 hover:text-blue-700"
                 >
-                  <span>Đọc tiếp</span>
+                  <span>Đọc bài viết</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -261,21 +260,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. TOOLS & TEMPLATES PREVIEW */}
+      {/* 5. TOOLS CATALOG PREVIEW */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
             <Badge variant="accent" className="mb-2">Thư viện Tài nguyên</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Công cụ, Templates & Prompt Kits
             </h2>
-            <p className="text-slate-400 text-sm mt-1">
-              Được thiết kế sẵn để tải về và áp dụng trực tiếp vào công việc hàng ngày.
+            <p className="text-slate-600 text-sm mt-1">
+              Tải về và áp dụng trực tiếp vào công việc quản lý vận hành hàng ngày.
             </p>
           </div>
           <Link
             href="/cong-cu"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-400 hover:text-teal-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
           >
             <span>Xem kho công cụ</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -286,7 +285,7 @@ export default function HomePage() {
           {TOOLS_DATA.slice(0, 3).map((tool) => (
             <div
               key={tool.id}
-              className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between hover:border-slate-700 transition-all space-y-4"
+              className="card-surface p-6 flex flex-col justify-between space-y-4"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -294,25 +293,25 @@ export default function HomePage() {
                     {tool.badge}
                   </Badge>
                   {tool.downloadsCount && (
-                    <span className="text-[11px] text-slate-400 font-mono">
+                    <span className="text-[11px] text-slate-500 font-mono">
                       {tool.downloadsCount}
                     </span>
                   )}
                 </div>
-                <h3 className="text-base font-bold text-slate-100">
+                <h3 className="text-base font-bold text-slate-900">
                   {tool.title}
                 </h3>
-                <p className="text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 text-xs leading-relaxed">
                   {tool.description}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-slate-850">
+              <div className="pt-3 border-t border-slate-100">
                 <Link
                   href="/cong-cu"
-                  className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium py-2 px-3 rounded-lg transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold py-2.5 px-3 rounded-xl transition-colors"
                 >
-                  <Download className="w-3.5 h-3.5 text-teal-400" />
+                  <Download className="w-3.5 h-3.5 text-blue-400" />
                   <span>Tải về / Xem chi tiết</span>
                 </Link>
               </div>
@@ -322,15 +321,15 @@ export default function HomePage() {
       </section>
 
       {/* 6. PROOF / CASE STUDY PLACEHOLDER */}
-      <section className="bg-slate-900/60 border-y border-slate-850 py-16">
+      <section className="bg-white border-y border-slate-200/90 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <Badge variant="default" className="mb-2">Thực chiến từ vận hành</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100">
+          <div className="max-w-2xl mb-10 space-y-2">
+            <Badge variant="default">Thực chiến từ vận hành</Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Minh chứng thực tế & Bài học triển khai
             </h2>
-            <p className="text-slate-400 text-sm mt-2">
-              Chúng tôi tôn trọng sự minh bạch. Các case study dưới đây minh họa góc nhìn giải quyết bài toán vận hành thực tế đã được đóng gói thành phương pháp luận.
+            <p className="text-slate-600 text-sm">
+              Chúng tôi tôn trọng sự minh bạch. Mọi minh họa dưới đây xuất phát từ góc nhìn đóng gói phương pháp luận thực chiến.
             </p>
           </div>
 
@@ -338,19 +337,19 @@ export default function HomePage() {
             {PROOF_CASES.map((c) => (
               <div
                 key={c.id}
-                className="bg-slate-950 border border-slate-800 rounded-xl p-6 space-y-3"
+                className="bg-slate-50 border border-slate-200 p-6 rounded-2xl space-y-3"
               >
-                <span className="text-[11px] font-mono text-teal-400 bg-teal-950/80 border border-teal-900 px-2 py-0.5 rounded">
+                <span className="badge-mono bg-blue-50 text-blue-700 border border-blue-200">
                   {c.tag}
                 </span>
-                <h3 className="font-bold text-slate-200 text-sm">
+                <h3 className="font-bold text-slate-900 text-sm">
                   {c.title}
                 </h3>
-                <p className="text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 text-xs leading-relaxed">
                   {c.summary}
                 </p>
-                <div className="pt-2 border-t border-slate-900 text-xs text-teal-300 font-medium">
-                  Result: {c.result}
+                <div className="pt-2 border-t border-slate-200 text-xs text-blue-700 font-semibold">
+                  Kết quả: {c.result}
                 </div>
               </div>
             ))}
@@ -358,35 +357,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. LEAD MAGNET & NEWSLETTER CTA SECTION */}
+      {/* 7. LEAD MAGNET SECTION */}
       <section id="lead-magnet" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-        <div className="relative bg-gradient-to-b from-slate-900 to-slate-950 border border-teal-900/60 rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="relative bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8">
           
           <div className="space-y-4 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-950 text-teal-300 border border-teal-800 text-xs font-medium">
-              <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
               <span>Lead Magnet đặc quyền Operations V1</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-slate-100 font-heading tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-bold font-heading tracking-tight text-white">
               Bộ AI Prompt dành riêng cho Operation Manager
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed">
               Tải miễn phí bộ 30+ Prompts đóng gói sẵn giúp tự động phân tích điểm nghẽn, tổng hợp báo cáo và lên kế hoạch xử lý sự cố trong vài phút.
             </p>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2 text-xs text-slate-300">
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
                 <span>Format câu hỏi chuẩn cho ChatGPT / Claude</span>
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
                 <span>Không cần kiến thức lập trình hay IT</span>
               </li>
             </ul>
           </div>
 
-          <div className="w-full sm:w-80 bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-inner space-y-4">
-            <h3 className="text-sm font-bold text-slate-200">
+          <div className="w-full sm:w-80 bg-white p-6 rounded-2xl text-slate-900 space-y-4 shadow-inner">
+            <h3 className="text-sm font-bold text-slate-900">
               Đăng ký nhận tài liệu qua Email
             </h3>
             <LeadCaptureForm

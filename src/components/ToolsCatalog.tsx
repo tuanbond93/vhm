@@ -12,17 +12,17 @@ export function ToolsCatalog() {
   const getIcon = (name: string) => {
     switch (name) {
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-teal-400" />;
+        return <Sparkles className="w-5 h-5 text-blue-600" />;
       case 'LayoutDashboard':
-        return <LayoutDashboard className="w-5 h-5 text-teal-400" />;
+        return <LayoutDashboard className="w-5 h-5 text-blue-600" />;
       case 'BarChart3':
-        return <BarChart3 className="w-5 h-5 text-teal-400" />;
+        return <BarChart3 className="w-5 h-5 text-blue-600" />;
       case 'FileText':
-        return <FileText className="w-5 h-5 text-teal-400" />;
+        return <FileText className="w-5 h-5 text-blue-600" />;
       case 'CalendarCheck':
-        return <CalendarCheck className="w-5 h-5 text-teal-400" />;
+        return <CalendarCheck className="w-5 h-5 text-blue-600" />;
       default:
-        return <Sparkles className="w-5 h-5 text-teal-400" />;
+        return <Sparkles className="w-5 h-5 text-blue-600" />;
     }
   };
 
@@ -32,11 +32,11 @@ export function ToolsCatalog() {
         {TOOLS_DATA.map((tool) => (
           <div
             key={tool.id}
-            className="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6"
+            className="card-surface p-6 flex flex-col justify-between space-y-6"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200">
                   {getIcon(tool.iconName)}
                 </div>
                 <div className="flex items-center gap-2">
@@ -46,31 +46,31 @@ export function ToolsCatalog() {
                 </div>
               </div>
 
-              <h2 className="text-lg font-bold text-slate-100">
+              <h2 className="text-lg font-bold text-slate-900">
                 {tool.title}
               </h2>
 
-              <p className="text-slate-400 text-xs leading-relaxed">
+              <p className="text-slate-600 text-xs leading-relaxed">
                 {tool.description}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-4">
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
               {tool.downloadsCount ? (
-                <span className="text-[11px] text-slate-400 font-mono">
+                <span className="text-[11px] text-slate-500 font-mono">
                   {tool.downloadsCount}
                 </span>
               ) : (
-                <span className="text-[11px] text-slate-400 font-mono">
+                <span className="text-[11px] text-slate-500 font-mono">
                   Chuẩn bị ra mắt
                 </span>
               )}
 
               <button
                 onClick={() => setSelectedToolTitle(tool.title)}
-                className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5 text-teal-400" />
+                <Download className="w-3.5 h-3.5 text-blue-400" />
                 <span>{tool.badge === 'Sắp ra mắt' ? 'Đăng ký nhận trước' : 'Tải tài liệu'}</span>
               </button>
             </div>

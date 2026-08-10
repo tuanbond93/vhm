@@ -60,14 +60,14 @@ export function LeadCaptureForm({
             }}
             placeholder={placeholder}
             disabled={status === 'loading'}
-            className="w-full bg-slate-900/90 border border-slate-800 focus:border-accent-500 focus:ring-1 focus:ring-accent-500 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all disabled:opacity-50"
+            className="w-full bg-white border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all disabled:opacity-50"
             required
           />
         </div>
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-teal-500 to-accent-600 hover:from-teal-400 hover:to-accent-500 text-slate-950 font-semibold px-6 py-3 rounded-lg text-sm transition-all shadow-md hover:shadow-accent-500/20 active:scale-[0.98] disabled:opacity-50 whitespace-nowrap cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all shadow-sm active:scale-[0.98] disabled:opacity-50 whitespace-nowrap cursor-pointer"
         >
           {status === 'loading' ? (
             <>
@@ -84,15 +84,15 @@ export function LeadCaptureForm({
       </form>
 
       {status === 'success' && (
-        <div className="mt-3 flex items-start gap-2 text-teal-400 text-xs bg-teal-950/50 border border-teal-800/60 p-3 rounded-lg">
-          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+        <div className="mt-3 flex items-start gap-2 text-emerald-800 text-xs bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
           <span>{message}</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="mt-3 flex items-start gap-2 text-amber-300 text-xs bg-amber-950/50 border border-amber-800/60 p-3 rounded-lg">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+        <div className="mt-3 flex items-start gap-2 text-amber-800 text-xs bg-amber-50 border border-amber-200 p-3 rounded-xl">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
           <span>{message}</span>
         </div>
       )}
