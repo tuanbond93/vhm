@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Sparkles, Check, FileSpreadsheet } from 'lucide-react';
 import { LeadCaptureForm } from './LeadCaptureForm';
+import { trackEvent } from '@/lib/analytics';
 
 interface LeadMagnetModalProps {
   isOpen: boolean;
@@ -11,6 +12,15 @@ interface LeadMagnetModalProps {
 }
 
 export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      trackEvent('lead_modal_open', {
+        source_page: 'modal_lead_magnet',
+        resource_id: 'ai-prompt-kit-ops-v1',
+      });
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -36,7 +46,7 @@ export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps
           {title || 'Bộ AI Prompt dành cho Operation Manager'}
         </h3>
         <p className="text-[#435164] text-sm mb-6 leading-relaxed">
-          Đăng ký để nhận bộ 30+ Prompts tinh chỉnh thực chiến giúp tự động phân tích điểm nghẽn, báo cáo tuần và tìm nguyên nhân sự cố vận hành.
+          Đăng ký để nhận bộ 32 Prompts tinh chỉnh thực chiến giúp tự động phân tích điểm nghẽn, báo cáo tuần và tìm nguyên nhân sự cố vận hành.
         </p>
 
         {/* Value Bullet points */}
@@ -64,7 +74,7 @@ export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps
 
         <p className="mt-4 text-center text-xs text-[#667085] flex items-center justify-center gap-1.5 font-medium">
           <FileSpreadsheet className="w-3.5 h-3.5 text-[#667085]" />
-          <span>Định dạng File Notion + Document. Không spam.</span>
+          <span>Định dạng File PDF + Document. Không spam.</span>
         </p>
       </div>
     </div>

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "lead_1786346106932_g31hj",
+    "email": "test.user@company.com",
+    "created_at": "2026-08-10T07:15:06.933Z",
+    "resource_id": "ai-prompt-kit-ops-v1",
+    "source_page": "unit_test",
+    "consent": true,
+    "delivery_status": "credentials_required"
+  }
+]
