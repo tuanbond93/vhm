@@ -49,11 +49,9 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
   }
 
   // Simulated local delay
-  await new Promise((resolve) => setTimeout(resolve, 600));
-
   return {
-    success: true,
-    message: 'Đã nhận thông tin thành công (Hệ thống đang chạy chế độ thử nghiệm V1).',
+    success: false,
+    message: 'Tính năng đăng ký tự động đang được hoàn thiện. Vui lòng quay lại sớm hoặc liên hệ trực tiếp qua trang Liên Hệ.',
     isMock: true,
   };
 }

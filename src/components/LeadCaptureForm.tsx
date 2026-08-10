@@ -91,8 +91,8 @@ export function LeadCaptureForm({
       )}
 
       {status === 'error' && (
-        <div className="mt-3 flex items-start gap-2 text-rose-400 text-xs bg-rose-950/50 border border-rose-900/60 p-3 rounded-lg">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+        <div className="mt-3 flex items-start gap-2 text-amber-300 text-xs bg-amber-950/50 border border-amber-800/60 p-3 rounded-lg">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
           <span>{message}</span>
         </div>
       )}
