@@ -13,6 +13,7 @@ export function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Trang chủ' },
+    { href: '/radar', label: 'VHM Radar' },
     { href: '/kien-thuc', label: 'Kiến thức' },
     { href: '/cong-cu', label: 'Công cụ & Template' },
     { href: '/gioi-thieu', label: 'Giới thiệu' },
@@ -52,7 +53,7 @@ export function Navbar() {
     <>
       {/* SITE HEADER (z-40) */}
       <header className="sticky top-0 z-40 w-full border-b border-[#DCE2E7] bg-white/95 backdrop-blur-md">
-        {/* DESKTOP NAVBAR (Unchanged) */}
+        {/* DESKTOP NAVBAR */}
         <div className="hidden md:flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 items-center justify-between">
           {/* Desktop Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -101,9 +102,8 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* MOBILE HEADER (Left = Hamburger, Center = Logo, Right = Balance Spacer) */}
+        {/* MOBILE HEADER */}
         <div className="flex md:hidden h-16 px-4 items-center justify-between">
-          {/* LEFT: Mobile Hamburger Button (≥ 44x44px touch target) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-[#14202B] hover:bg-[#F7F8F5] border border-[#DCE2E7] transition-colors cursor-pointer"
@@ -114,7 +114,6 @@ export function Navbar() {
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          {/* CENTER: Wordmark */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-7 h-7 rounded-lg bg-[#14202B] flex items-center justify-center text-[#2F6FED]">
               <Activity className="w-3.5 h-3.5" />
@@ -129,25 +128,21 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* RIGHT: Visual Balance Spacer */}
           <div className="w-[44px] h-[44px] pointer-events-none" aria-hidden="true" />
         </div>
       </header>
 
-      {/* MOBILE DRAWER OVERLAY & BACKDROP (z-[90] backdrop, z-[100] drawer panel) */}
+      {/* MOBILE DRAWER OVERLAY & BACKDROP */}
       {mobileMenuOpen && (
         <div id="mobile-drawer" className="md:hidden fixed inset-0 z-[90] flex">
-          {/* Dark Overlay Backdrop (z-[90]) */}
           <div
             className="fixed inset-0 bg-[#0F172A]/50 backdrop-blur-xs z-[90] transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
 
-          {/* Opaque Solid White Left Drawer Panel (z-[100]) */}
           <div className="relative z-[100] w-[min(88vw,360px)] h-full h-[100dvh] bg-white border-r border-[#DCE2E7] p-5 shadow-2xl flex flex-col justify-between overflow-y-auto">
             <div>
-              {/* Drawer Header */}
               <div className="flex items-center justify-between border-b border-[#DCE2E7] pb-4 mb-4">
                 <Link
                   href="/"
@@ -170,7 +165,6 @@ export function Navbar() {
                 </button>
               </div>
 
-              {/* Nav Links Stack (Minimum 48px touch height) */}
               <nav className="space-y-1.5">
                 {navLinks.map((link) => {
                   const active = isActive(link.href);
@@ -192,7 +186,6 @@ export function Navbar() {
               </nav>
             </div>
 
-            {/* Drawer Bottom CTA */}
             <div className="pt-4 border-t border-[#DCE2E7] mt-6">
               <button
                 onClick={() => {
@@ -209,7 +202,7 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Mobile Sticky Bottom CTA Bar (z-30) */}
+      {/* Mobile Sticky Bottom CTA Bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#DCE2E7] p-2.5 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-2 pl-2">
           <Wrench className="w-4 h-4 text-[#235789]" />
@@ -224,7 +217,6 @@ export function Navbar() {
         </Link>
       </div>
 
-      {/* Lead Magnet Modal */}
       <LeadMagnetModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );

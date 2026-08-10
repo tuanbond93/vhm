@@ -5,10 +5,11 @@ import {
   logSafeDbDiagnostics,
   parsePgConnectionOptions,
 } from '../src/lib/db.ts';
+import { RADAR_ITEMS } from '../src/lib/radar-data.ts';
 import fs from 'fs';
 import path from 'path';
 
-console.log('=== RUNNING SUCCESS UX & EMAIL CTA CONTRAST TESTS ===');
+console.log('=== RUNNING RADAR V1 & SYSTEM INTEGRATION TESTS ===');
 
 async function runTests() {
   // Test 1: sanitizeConnectionString strips outer double/single quotes and whitespace
@@ -141,7 +142,18 @@ async function runTests() {
   );
   console.log('  PASS: Email CTA button verified to use inline #ffffff text color.');
 
-  console.log('\n=== ALL AUTOMATED UNIT TESTS PASSED ===\n');
+  // Test 13: Radar #001 metadata & source verification
+  console.log('Test 13: Radar #001 metadata & primary source verification...');
+  const publishedRadars = RADAR_ITEMS.filter((r) => r.published);
+  assert.strictEqual(publishedRadars.length, 1, 'ONLY Radar #001 must be published!');
+  const r001 = publishedRadars[0];
+  assert.strictEqual(r001.slug, 'ai-agent-human-in-the-loop-taobao');
+  assert.strictEqual(r001.evidenceUrl, 'https://arxiv.org/abs/2605.14830');
+  assert.strictEqual(r001.verdict, 'ADOPT');
+  assert.strictEqual(r001.verdictLabel, 'ADOPT DESIGN PRINCIPLE');
+  console.log('  PASS: Radar #001 verified with 1 published article and primary source arXiv 2605.14830.');
+
+  console.log('\n=== ALL 13/13 AUTOMATED UNIT TESTS PASSED ===\n');
 }
 
 runTests().catch((err) => {

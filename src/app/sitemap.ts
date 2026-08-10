@@ -5,6 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     '',
+    '/radar',
+    '/radar/ai-agent-human-in-the-loop-taobao',
     '/kien-thuc',
     '/cong-cu',
     '/gioi-thieu',
@@ -15,6 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
     changeFrequency: route === '' ? 'daily' : 'weekly',
-    priority: route === '' ? 1.0 : 0.8,
+    priority: route === '' || route === '/radar' ? 1.0 : 0.8,
   }));
 }

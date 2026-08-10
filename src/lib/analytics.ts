@@ -10,6 +10,10 @@ export interface BaseEventProperties {
   page_path?: string;
   source_page?: string;
   resource_id?: string;
+  radar_id?: string;
+  radar_type?: string;
+  verdict?: string;
+  source_tier?: string;
   tool_id?: string;
   cta_id?: string;
   content_id?: string;
@@ -123,4 +127,17 @@ export const Analytics = {
 
   contactIntent: (source_page: string, type = 'contact_form') =>
     track('contact_intent', { source_page, type }),
+
+  // Radar Analytics
+  radarView: (source_page = '/radar') =>
+    track('radar_view', { source_page }),
+
+  radarArticleView: (radar_id: string, verdict: string, source_tier: string) =>
+    track('radar_article_view', { radar_id, verdict, source_tier }),
+
+  radarSourceClick: (radar_id: string, target_url: string) =>
+    track('radar_source_click', { radar_id, target_url }),
+
+  radarCtaClick: (radar_id: string, cta_label: string, source_page: string) =>
+    track('radar_cta_click', { radar_id, cta_label, source_page }),
 };
