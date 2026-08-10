@@ -25,6 +25,27 @@ export interface RadarItem {
 
 export const RADAR_ITEMS: RadarItem[] = [
   {
+    id: 'radar-003',
+    slug: 'genai-cskh-knowledge-multiplier',
+    type: 'GenAI / Customer Service Ops',
+    title: 'AI trong CSKH không giúp mọi nhân viên như nhau: Bài học từ 5.000 nhân sự vận hành',
+    subtitle: 'Phân tích từ công trình nghiên cứu thực nghiệm QJE (2025) của Brynjolfsson et al. trên 5.172 nhân sự CSKH và bài học coi GenAI là Bộ nhân bản Tri thức (Knowledge Multiplier).',
+    summary: 'Nghiên cứu thực nghiệm công bố trên QJE (2025) cho thấy Generative AI tăng 15% năng suất trung bình, nhưng mang lại mức tăng đột phá 30% cho nhân sự mới và kỹ năng thấp, trong khi nhóm chuyên gia kỹ năng cao hầu như không ghi nhận sự gia tăng năng suất.',
+    verdict: 'ADOPT',
+    verdictLabel: 'ADOPT DESIGN PRINCIPLE',
+    verdictDescription: 'Áp dụng nguyên lý Coi AI là Bộ nhân bản Tri thức, Không phải Công cụ Thay thế Chuyên gia (AI as Knowledge Multiplier, Not Expert Replacement). Số hóa tri thức từ nhân sự giỏi để nâng chuẩn cho nhân sự mới.',
+    evidenceTitle: 'Generative AI at Work',
+    evidenceAuthors: 'Erik Brynjolfsson, Danielle Li, Lindsey R. Raymond',
+    evidenceUrl: 'https://doi.org/10.1093/qje/qjae044',
+    evidenceTier: 'Tier 1 / Primary Research',
+    confidence: 'High',
+    publishedAt: '2026-08-10',
+    readTime: '8 phút đọc',
+    topics: ['Customer Service Ops', 'Generative AI', 'Knowledge Dissemination', 'Skill Equalization'],
+    operatorKeyInsight: 'Giá trị lớn nhất của GenAI nằm ở việc đóng gói và phổ biến tri thức từ nhóm nhân sự làm việc hiệu quả sang nhóm nhân sự mới.',
+    published: true,
+  },
+  {
     id: 'radar-002',
     slug: 'du-bao-nhu-cau-human-override',
     type: 'Demand Forecasting / Operations',

@@ -1,24 +1,24 @@
 [
   {
-    "id": "mock_uuid_1786362707399_ub5b",
+    "id": "mock_uuid_1786363563423_8ua2",
     "email": "test.user@vanhanhmoi.com",
     "resource_id": "ai-prompt-kit-ops-v1",
     "source_page": "unit_test_home",
     "consent": true,
-    "created_at": "2026-08-10T11:51:47.398Z",
-    "updated_at": "2026-08-10T11:51:47.398Z",
+    "created_at": "2026-08-10T12:06:03.422Z",
+    "updated_at": "2026-08-10T12:06:03.422Z",
     "delivery_status": "pending",
-    "last_delivery_attempt_at": "2026-08-10T11:51:47.398Z"
+    "last_delivery_attempt_at": "2026-08-10T12:06:03.422Z"
   },
   {
-    "id": "mock_uuid_1786362707399_qvt1",
+    "id": "mock_uuid_1786363563423_3g9c",
     "email": "duplicate.user@vanhanhmoi.com",
     "resource_id": "ai-prompt-kit-ops-v1",
     "source_page": "second_attempt",
     "consent": true,
-    "created_at": "2026-08-10T11:51:47.399Z",
-    "updated_at": "2026-08-10T11:51:47.400Z",
+    "created_at": "2026-08-10T12:06:03.423Z",
+    "updated_at": "2026-08-10T12:06:03.424Z",
     "delivery_status": "pending",
-    "last_delivery_attempt_at": "2026-08-10T11:51:47.400Z"
+    "last_delivery_attempt_at": "2026-08-10T12:06:03.424Z"
   }
 ]
