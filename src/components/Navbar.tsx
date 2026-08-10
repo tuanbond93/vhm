@@ -25,6 +25,18 @@ export function Navbar() {
     return false;
   };
 
+  // Lock body scroll when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   // Keyboard accessibility: ESC key closes mobile menu drawer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,6 +50,7 @@ export function Navbar() {
 
   return (
     <>
+      {/* SITE HEADER (z-40) */}
       <header className="sticky top-0 z-40 w-full border-b border-[#DCE2E7] bg-white/95 backdrop-blur-md">
         {/* DESKTOP NAVBAR (Unchanged) */}
         <div className="hidden md:flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 items-center justify-between">
@@ -96,6 +109,7 @@ export function Navbar() {
             className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-[#14202B] hover:bg-[#F7F8F5] border border-[#DCE2E7] transition-colors cursor-pointer"
             aria-label="Mở menu điều hướng"
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-drawer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -118,84 +132,84 @@ export function Navbar() {
           {/* RIGHT: Visual Balance Spacer */}
           <div className="w-[44px] h-[44px] pointer-events-none" aria-hidden="true" />
         </div>
-
-        {/* MOBILE LEFT-SLIDING DRAWER OVERLAY */}
-        {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 flex">
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs animate-fadeIn"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-hidden="true"
-            />
-
-            {/* Left Drawer Container */}
-            <div className="relative w-4/5 max-w-xs bg-white border-r border-[#DCE2E7] h-full p-5 space-y-4 shadow-2xl flex flex-col justify-between z-10 animate-slideRight">
-              <div>
-                {/* Drawer Header */}
-                <div className="flex items-center justify-between border-b border-[#DCE2E7] pb-4 mb-4">
-                  <Link
-                    href="/"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2"
-                  >
-                    <div className="w-7 h-7 rounded-lg bg-[#14202B] flex items-center justify-center text-[#2F6FED]">
-                      <Activity className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="font-heading font-bold text-[#14202B] text-sm tracking-tight">
-                      VẬN HÀNH MỚI
-                    </span>
-                  </Link>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-[#435164] hover:bg-[#F7F8F5]"
-                    aria-label="Đóng menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Nav Links */}
-                <nav className="space-y-1">
-                  {navLinks.map((link) => {
-                    const active = isActive(link.href);
-                    return (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
-                          active
-                            ? 'text-[#235789] bg-[#EBF2FE] border border-[#C5D8F9]'
-                            : 'text-[#14202B] hover:bg-[#F7F8F5]'
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    );
-                  })}
-                </nav>
-              </div>
-
-              {/* Drawer Bottom CTA */}
-              <div className="pt-4 border-t border-[#DCE2E7]">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setModalOpen(true);
-                  }}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white font-semibold px-4 py-3 rounded-xl text-sm shadow-sm"
-                >
-                  <span>Nhận bộ AI Prompt miễn phí</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </header>
 
-      {/* Mobile Sticky Bottom CTA Bar */}
+      {/* MOBILE DRAWER OVERLAY & BACKDROP (z-[90] backdrop, z-[100] drawer panel) */}
+      {mobileMenuOpen && (
+        <div id="mobile-drawer" className="md:hidden fixed inset-0 z-[90] flex">
+          {/* Dark Overlay Backdrop (z-[90]) */}
+          <div
+            className="fixed inset-0 bg-[#0F172A]/50 backdrop-blur-xs z-[90] transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Opaque Solid White Left Drawer Panel (z-[100]) */}
+          <div className="relative z-[100] w-[min(88vw,360px)] h-full h-[100dvh] bg-white border-r border-[#DCE2E7] p-5 shadow-2xl flex flex-col justify-between overflow-y-auto">
+            <div>
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between border-b border-[#DCE2E7] pb-4 mb-4">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#14202B] flex items-center justify-center text-[#2F6FED]">
+                    <Activity className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-heading font-bold text-[#14202B] text-sm tracking-tight">
+                    VẬN HÀNH MỚI
+                  </span>
+                </Link>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-[#435164] hover:bg-[#F7F8F5] cursor-pointer"
+                  aria-label="Đóng menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Nav Links Stack (Minimum 48px touch height) */}
+              <nav className="space-y-1.5">
+                {navLinks.map((link) => {
+                  const active = isActive(link.href);
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center min-h-[48px] px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                        active
+                          ? 'text-[#235789] bg-[#EBF2FE] border border-[#C5D8F9]'
+                          : 'text-[#14202B] hover:bg-[#F7F8F5]'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Drawer Bottom CTA */}
+            <div className="pt-4 border-t border-[#DCE2E7] mt-6">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setModalOpen(true);
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white font-semibold px-4 py-3.5 rounded-xl text-sm shadow-sm cursor-pointer"
+              >
+                <span>Nhận bộ AI Prompt miễn phí</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Sticky Bottom CTA Bar (z-30) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#DCE2E7] p-2.5 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-2 pl-2">
           <Wrench className="w-4 h-4 text-[#235789]" />
