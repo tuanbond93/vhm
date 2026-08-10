@@ -5,6 +5,7 @@ import { Sparkles, LayoutDashboard, FileText, BarChart3, CalendarCheck, Send } f
 import { Badge } from '@/components/Badge';
 import { LeadMagnetModal } from '@/components/LeadMagnetModal';
 import { TOOLS_DATA } from '@/lib/data';
+import { Analytics } from '@/lib/analytics';
 
 export function ToolsCatalog() {
   const [selectedToolTitle, setSelectedToolTitle] = useState<string | null>(null);
@@ -24,6 +25,11 @@ export function ToolsCatalog() {
       default:
         return <Sparkles className="w-5 h-5 text-[#235789]" />;
     }
+  };
+
+  const handleToolClick = (toolId: string, toolTitle: string) => {
+    Analytics.toolCtaClick(toolId, 'Đăng ký nhận tài liệu', '/cong-cu');
+    setSelectedToolTitle(toolTitle);
   };
 
   return (
@@ -61,7 +67,7 @@ export function ToolsCatalog() {
               </span>
 
               <button
-                onClick={() => setSelectedToolTitle(tool.title)}
+                onClick={() => handleToolClick(tool.id, tool.title)}
                 className="inline-flex items-center gap-1.5 bg-[#235789] hover:bg-[#1B456D] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer shadow-sm"
               >
                 <Send className="w-3.5 h-3.5" />

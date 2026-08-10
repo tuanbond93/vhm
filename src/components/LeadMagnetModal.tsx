@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { X, Sparkles, Check, FileSpreadsheet } from 'lucide-react';
 import { LeadCaptureForm } from './LeadCaptureForm';
-import { trackEvent } from '@/lib/analytics';
+import { Analytics } from '@/lib/analytics';
 
 interface LeadMagnetModalProps {
   isOpen: boolean;
@@ -14,12 +14,14 @@ interface LeadMagnetModalProps {
 export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps) {
   useEffect(() => {
     if (isOpen) {
-      trackEvent('lead_modal_open', {
-        source_page: 'modal_lead_magnet',
-        resource_id: 'ai-prompt-kit-ops-v1',
-      });
+      Analytics.leadModalOpen('ai-prompt-kit-ops-v1', 'modal_lead_magnet');
     }
   }, [isOpen]);
+
+  const handleClose = () => {
+    Analytics.leadModalClose('ai-prompt-kit-ops-v1', 'modal_lead_magnet');
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -28,7 +30,7 @@ export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps
       <div className="relative w-full max-w-lg bg-white border border-[#DCE2E7] rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-4 right-4 text-[#667085] hover:text-[#14202B] p-2 rounded-lg hover:bg-[#F7F8F5] transition-colors cursor-pointer"
           aria-label="Đóng"
         >

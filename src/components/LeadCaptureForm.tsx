@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertCircle, Loader2, Download } from 'lucide-react';
-import { trackEvent } from '@/lib/analytics';
+import { Analytics } from '@/lib/analytics';
+import { getStoredAttribution } from '@/lib/attribution';
 
 interface LeadCaptureFormProps {
   source?: string;
@@ -45,12 +46,11 @@ export function LeadCaptureForm({
     setMessage('');
 
     // Analytics without PII
-    trackEvent('lead_submit_attempt', {
-      source_page: source,
-      resource_id: 'ai-prompt-kit-ops-v1',
-    });
+    Analytics.leadSubmitAttempt('ai-prompt-kit-ops-v1', source);
 
     try {
+      const attribution = getStoredAttribution();
+
       const response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,6 +59,10 @@ export function LeadCaptureForm({
           source,
           consent,
           hp_field: hpField,
+          utm_source: attribution.utm_source,
+          utm_medium: attribution.utm_medium,
+          utm_campaign: attribution.utm_campaign,
+          referrer: attribution.referrer,
         }),
       });
 
@@ -70,24 +74,18 @@ export function LeadCaptureForm({
         setDeliveryStatus(res.delivery_status || '');
         setEmail('');
 
-        trackEvent('lead_submit_success', {
-          source_page: source,
-          resource_id: 'ai-prompt-kit-ops-v1',
-          delivery_status: res.delivery_status,
-        });
+        Analytics.leadSubmitSuccess('ai-prompt-kit-ops-v1', source, res.delivery_status || 'unknown');
       } else {
         setStatus('error');
         setMessage(res.message || 'Có lỗi xảy ra. Vui lòng thử lại sau.');
 
-        trackEvent('lead_submit_failed', {
-          source_page: source,
-          resource_id: 'ai-prompt-kit-ops-v1',
-        });
+        Analytics.leadSubmitFailed('ai-prompt-kit-ops-v1', source, res.message);
       }
     } catch (err) {
       console.error('[Lead Form Fetch Error]:', err);
       setStatus('error');
       setMessage('Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại.');
+      Analytics.leadSubmitFailed('ai-prompt-kit-ops-v1', source, 'network_error');
     }
   };
 
@@ -175,6 +173,7 @@ export function LeadCaptureForm({
                 href="/api/resources/ai-prompt-kit-ops-v1"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => Analytics.resourceDownload('ai-prompt-kit-ops-v1', source)}
                 className="inline-flex items-center gap-1 font-bold text-[#235789] hover:text-[#2F6FED] underline"
               >
                 <Download className="w-3.5 h-3.5" />
