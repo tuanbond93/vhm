@@ -26,6 +26,7 @@ export interface LeadCaptureResponse {
   delivery_status: 'delivered' | 'failed' | 'pending' | 'credentials_required';
   isMock: boolean;
   leadId?: string;
+  db_error?: boolean;
 }
 
 // Allowed resource ID whitelist
@@ -124,18 +125,20 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       referrer: payload.referrer,
     });
   } catch (dbErr) {
-    console.error('[Lead Storage Failure]:', dbErr);
+    const errText = dbErr instanceof Error ? dbErr.message : String(dbErr);
+    console.error('[Lead Storage Failure]:', errText);
     return {
       success: false,
-      message: 'Hệ thống đang bận. Vui lòng thử lại sau vài phút.',
+      message: 'Hệ thống đang bận. Vui lòng thử lại sau ít phút.',
       delivery_status: 'failed',
       isMock: false,
+      db_error: true,
     };
   }
 
   // 7. Transactional Email Delivery (via Resend)
   const resendApiKey = process.env.RESEND_API_KEY || process.env.LEAD_CAPTURE_API_KEY;
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'Vận Hành Mới <onboarding@resend.dev>';
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'Vận Hành Mới <no-reply@vanhanhmoi.com>';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vanhanhmoi.com';
   const downloadUrl = `${siteUrl}/api/resources/${resourceId}`;
 
@@ -147,6 +150,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       delivery_status: 'credentials_required',
       isMock: true,
       leadId: leadRecord.id,
+      db_error: false,
     };
   }
 
@@ -205,6 +209,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
         delivery_status: 'delivered',
         isMock: false,
         leadId: leadRecord.id,
+        db_error: false,
       };
     }
 
@@ -220,6 +225,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       delivery_status: 'failed',
       isMock: false,
       leadId: leadRecord.id,
+      db_error: false,
     };
   } catch (err) {
     const errMessage = err instanceof Error ? err.message : String(err);
@@ -234,6 +240,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       delivery_status: 'failed',
       isMock: false,
       leadId: leadRecord.id,
+      db_error: false,
     };
   }
 }

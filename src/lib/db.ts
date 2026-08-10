@@ -1,4 +1,4 @@
-import { Pool } from 'pg';
+import { Pool, PoolConfig } from 'pg';
 import fs from 'fs';
 import path from 'path';
 
@@ -32,31 +32,120 @@ export interface UpsertLeadParams {
 }
 
 let pool: Pool | null = null;
-let migrationRan = false;
+let migrationAttempted = false;
 
 // Mock store ONLY for local dev/unit testing when DATABASE_URL is not set
 const mockLeadDb = new Map<string, DBLeadRecord>();
 
 export function isPostgresConfigured(): boolean {
-  return Boolean(process.env.DATABASE_URL && process.env.DATABASE_URL.trim().length > 0);
+  const raw = process.env.DATABASE_URL;
+  return Boolean(raw && raw.trim().length > 0);
 }
 
-function getPool(): Pool {
+export function sanitizeConnectionString(rawUrl?: string): string {
+  if (!rawUrl) return '';
+  let str = rawUrl.trim();
+  // Strip outer double or single quotes if copied into Vercel ENV
+  if (
+    (str.startsWith('"') && str.endsWith('"')) ||
+    (str.startsWith("'") && str.endsWith("'"))
+  ) {
+    str = str.slice(1, -1).trim();
+  }
+  if (str.startsWith('\\"') && str.endsWith('\\"')) {
+    str = str.slice(2, -2).trim();
+  }
+  return str;
+}
+
+export function logSafeDbDiagnostics(str: string): void {
+  if (!str) {
+    console.log('[DB Diagnostic]: DATABASE_URL is not set.');
+    return;
+  }
+  const isPostgresProtocol = str.startsWith('postgres://') || str.startsWith('postgresql://');
+  const isPooler = str.includes('pooler.supabase.com') || str.includes('6543');
+  const hasSslMode = str.includes('sslmode=');
+
+  // SAFE DIAGNOSTIC: NEVER LOGS PASSWORD OR CREDENTIALS
+  console.log('[DB Diagnostic]:', {
+    exists: true,
+    length: str.length,
+    isPostgresProtocol,
+    isPooler,
+    hasSslMode,
+  });
+}
+
+export function parsePgConnectionOptions(cleanUrl: string): PoolConfig {
+  const isLocal = cleanUrl.includes('localhost') || cleanUrl.includes('127.0.0.1');
+  const sslOption = isLocal ? false : { rejectUnauthorized: false };
+
+  try {
+    // Attempt standard URL parse
+    new URL(cleanUrl);
+    return {
+      connectionString: cleanUrl,
+      ssl: sslOption,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+    };
+  } catch (err) {
+    console.warn('[DB Config]: Standard URL parse failed, applying safe URI component fallback parser...');
+    // Fallback regex match for postgresql://[user]:[password]@[host]:[port]/[dbname]
+    const match = cleanUrl.match(/^(postgres|postgresql):\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/([^?]+)/);
+    if (match) {
+      const [, , user, password, host, port, database] = match;
+      return {
+        user: decodeURIComponent(user),
+        password: decodeURIComponent(password),
+        host,
+        port: parseInt(port, 10),
+        database,
+        ssl: sslOption,
+        max: 10,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 10000,
+      };
+    }
+    return {
+      connectionString: cleanUrl,
+      ssl: sslOption,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+    };
+  }
+}
+
+export function getPool(): Pool {
   if (!pool) {
-    const connectionString = process.env.DATABASE_URL;
-    if (!connectionString) {
+    const rawUrl = process.env.DATABASE_URL;
+    const cleanUrl = sanitizeConnectionString(rawUrl);
+    if (!cleanUrl) {
       throw new Error('DATABASE_URL is not configured in environment variables.');
     }
-    pool = new Pool({
-      connectionString,
-      ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false },
+
+    logSafeDbDiagnostics(cleanUrl);
+    const config = parsePgConnectionOptions(cleanUrl);
+
+    pool = new Pool(config);
+
+    pool.on('error', (err) => {
+      console.error('[DB Pool Error]: Unexpected background error on idle client:', err.message);
     });
   }
   return pool;
 }
 
+/**
+ * Idempotent migration runner.
+ * Safe for Supabase Transaction Pooler (port 6543) and does NOT block lead submissions if table exists.
+ */
 export async function ensureMigration(): Promise<void> {
-  if (migrationRan || !isPostgresConfigured()) return;
+  if (migrationAttempted || !isPostgresConfigured()) return;
+  migrationAttempted = true;
   try {
     const p = getPool();
     const migrationSql = `
@@ -82,10 +171,11 @@ export async function ensureMigration(): Promise<void> {
       CREATE INDEX IF NOT EXISTS idx_leads_delivery_status ON leads (delivery_status);
     `;
     await p.query(migrationSql);
-    migrationRan = true;
-    console.log('[DB Migration]: Leads table verified/created successfully.');
+    console.log('[DB Migration]: Leads table check completed.');
   } catch (err) {
-    console.error('[DB Migration Error]: Failed to run migration:', err);
+    // Non-fatal warning: Table already created or DDL restricted on pooler
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.warn('[DB Migration Warning]: DDL check skipped/table existing:', errMsg);
   }
 }
 
@@ -115,6 +205,7 @@ export async function upsertLead(params: UpsertLeadParams): Promise<DBLeadRecord
         delivery_error = NULL
       RETURNING id, email, resource_id, source_page, consent, created_at, updated_at, delivery_status;
     `;
+
     const res = await p.query(sql, [
       normalizedEmail,
       resourceId,
@@ -164,7 +255,6 @@ export async function upsertLead(params: UpsertLeadParams): Promise<DBLeadRecord
 
   mockLeadDb.set(key, record);
 
-  // Also update local file for inspection in dev mode
   try {
     const storePath = path.join(process.cwd(), 'assets', 'lead-store', 'leads-dev-only.json');
     const dir = path.dirname(storePath);
@@ -211,7 +301,7 @@ export async function markDelivered(leadId: string): Promise<void> {
  * IMPORTANT: Lead row is RETAINED, only delivery_status and error are updated.
  */
 export async function markDeliveryFailed(leadId: string, errorMessage: string): Promise<void> {
-  const sanitizedError = errorMessage.substring(0, 500); // Sanitize error length
+  const sanitizedError = errorMessage.substring(0, 500);
 
   if (isPostgresConfigured()) {
     const p = getPool();

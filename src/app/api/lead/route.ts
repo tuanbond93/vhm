@@ -21,7 +21,25 @@ export async function POST(request: Request) {
       '127.0.0.1';
 
     const result = await captureLead({ ...body, ip });
-    return NextResponse.json(result);
+
+    // 3. Truthful HTTP Status Semantics
+    if (result.db_error) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: result.message || 'Hệ thống đang bận. Vui lòng thử lại sau ít phút.',
+          delivery_status: 'failed',
+          isMock: false,
+        },
+        { status: 500 }
+      );
+    }
+
+    if (!result.success) {
+      return NextResponse.json(result, { status: 400 });
+    }
+
+    return NextResponse.json(result, { status: 200 });
   } catch (err) {
     console.error('[API Lead Exception]:', err);
     return NextResponse.json(
