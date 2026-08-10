@@ -176,7 +176,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
               .logo { font-size: 16px; font-weight: bold; color: #14202B; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em; }
               h1 { font-size: 22px; color: #14202B; margin-bottom: 12px; }
               p { font-size: 14px; color: #435164; line-height: 1.6; margin-bottom: 20px; }
-              .btn { display: inline-block; background-color: #2F6FED; color: #FFFFFF; font-weight: bold; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 14px; margin-bottom: 24px; }
+              .btn { display: inline-block; background-color: #2F6FED; color: #ffffff !important; font-weight: 700; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 14px; margin-bottom: 24px; text-align: center; }
               .footer { font-size: 12px; color: #667085; border-top: 1px solid #DCE2E7; padding-top: 16px; margin-top: 24px; }
             </style>
           </head>
@@ -186,7 +186,9 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
               <h1>Cảm ơn bạn đã đăng ký nhận tài liệu</h1>
               <p>Bộ <strong>AI Prompt Kit cho Operation Manager (Phiên bản V1)</strong> đã sẵn sàng. Tài liệu bao gồm 32 Prompts thực chiến chia làm 8 Module giúp tự động hóa phân tích tồn đọng, phát hiện bất thường SLA và chuẩn hóa SOP.</p>
               <p>Nhấp vào nút bên dưới để xem và tải về bản PDF hoàn chỉnh:</p>
-              <a href="${downloadUrl}" class="btn" target="_blank">Tải về AI Prompt Kit V1 (PDF)</a>
+              <a href="${downloadUrl}" target="_blank" style="display: inline-block; background-color: #2F6FED; color: #ffffff !important; font-weight: 700; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 14px; margin-bottom: 24px; text-align: center;">
+                <span style="color: #ffffff !important; text-decoration: none;">Tải về AI Prompt Kit V1 (PDF)</span>
+              </a>
               <p>Nếu gặp khó khăn trong quá trình tải, bạn có thể liên hệ trực tiếp với chúng tôi tại <a href="${siteUrl}/lien-he" style="color:#2F6FED;">vanhanhmoi.com/lien-he</a>.</p>
               <div class="footer">
                 Vận Hành Mới — Hệ thống + AI ứng dụng thực tế cho người làm vận hành.<br>
@@ -205,7 +207,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       await markDelivered(leadRecord.id);
       return {
         success: true,
-        message: 'Đăng ký thành công! Vui lòng kiểm tra hộp thư của bạn. Nếu chưa thấy email sau vài phút, hãy kiểm tra thư mục Spam/Quảng cáo.',
+        message: 'Đăng ký thành công! Tài liệu đã được gửi tới email của bạn. Nếu chưa thấy email sau vài phút, hãy kiểm tra thư mục Spam/Quảng cáo.',
         delivery_status: 'delivered',
         isMock: false,
         leadId: leadRecord.id,
@@ -221,7 +223,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
 
     return {
       success: true,
-      message: 'Đã lưu thông tin đăng ký của bạn! Rất tiếc có sự cố tạm thời khi gửi email. Bạn vẫn có thể truy cập tài liệu trực tiếp bên dưới.',
+      message: 'Đăng ký đã được ghi nhận. Email đang gặp sự cố tạm thời. Bạn có thể tải tài liệu trực tiếp tại đây.',
       delivery_status: 'failed',
       isMock: false,
       leadId: leadRecord.id,
@@ -236,7 +238,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
 
     return {
       success: true,
-      message: 'Đã lưu thông tin đăng ký của bạn! Rất tiếc có sự cố kết nối khi gửi email. Bạn vẫn có thể truy cập tài liệu trực tiếp bên dưới.',
+      message: 'Đăng ký đã được ghi nhận. Email đang gặp sự cố tạm thời. Bạn có thể tải tài liệu trực tiếp tại đây.',
       delivery_status: 'failed',
       isMock: false,
       leadId: leadRecord.id,

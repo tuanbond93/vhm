@@ -8,7 +8,7 @@ import {
 import fs from 'fs';
 import path from 'path';
 
-console.log('=== RUNNING SUPABASE POOLER & DATABASE CONFIG TESTS ===');
+console.log('=== RUNNING SUCCESS UX & EMAIL CTA CONTRAST TESTS ===');
 
 async function runTests() {
   // Test 1: sanitizeConnectionString strips outer double/single quotes and whitespace
@@ -23,7 +23,7 @@ async function runTests() {
   );
   console.log('  PASS: Outer quotes and whitespace stripped cleanly.');
 
-  // Test 2: parsePgConnectionOptions compatibility with Supabase Transaction Pooler
+  // Test 2: Supabase Transaction Pooler URL parsing
   console.log('Test 2: Supabase Transaction Pooler URL parsing...');
   const poolerUrl = 'postgresql://postgres.testref:mypass123@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres';
   const config = parsePgConnectionOptions(poolerUrl);
@@ -32,7 +32,7 @@ async function runTests() {
   assert.strictEqual(config.max, 10);
   console.log('  PASS: Supabase Transaction Pooler config generated with SSL and max connections.');
 
-  // Test 3: Fallback URI component parsing for malformed URLs
+  // Test 3: Fallback parser for malformed connection strings
   console.log('Test 3: Fallback parser for malformed connection strings...');
   const malformedUrl = 'postgresql://user%40domain:pass%23word@db.supabase.co:6543/mydb';
   const parsedFallback = parsePgConnectionOptions(malformedUrl);
@@ -130,6 +130,16 @@ async function runTests() {
   assert.strictEqual('email' in analyticsPayload, false);
   assert.strictEqual('user_email' in analyticsPayload, false);
   console.log('  PASS: Analytics events confirmed 100% PII-free.');
+
+  // Test 12: Email CTA button inline contrast style check
+  console.log('Test 12: Email CTA button inline contrast style check...');
+  const leadCaptureSrc = fs.readFileSync(path.join(process.cwd(), 'src', 'lib', 'lead-capture.ts'), 'utf8');
+  assert.strictEqual(
+    leadCaptureSrc.includes('color: #ffffff !important'),
+    true,
+    'Inline style MUST include color: #ffffff !important for email CTA readability'
+  );
+  console.log('  PASS: Email CTA button verified to use inline #ffffff text color.');
 
   console.log('\n=== ALL AUTOMATED UNIT TESTS PASSED ===\n');
 }

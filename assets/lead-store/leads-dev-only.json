@@ -1,24 +1,24 @@
 [
   {
-    "id": "mock_uuid_1786352041747_j7zo",
+    "id": "mock_uuid_1786353232141_cfbf",
     "email": "test.user@vanhanhmoi.com",
     "resource_id": "ai-prompt-kit-ops-v1",
     "source_page": "unit_test_home",
     "consent": true,
-    "created_at": "2026-08-10T08:54:01.746Z",
-    "updated_at": "2026-08-10T08:54:01.746Z",
+    "created_at": "2026-08-10T09:13:52.141Z",
+    "updated_at": "2026-08-10T09:13:52.141Z",
     "delivery_status": "pending",
-    "last_delivery_attempt_at": "2026-08-10T08:54:01.746Z"
+    "last_delivery_attempt_at": "2026-08-10T09:13:52.141Z"
   },
   {
-    "id": "mock_uuid_1786352041748_ydkp",
+    "id": "mock_uuid_1786353232142_jidw",
     "email": "duplicate.user@vanhanhmoi.com",
     "resource_id": "ai-prompt-kit-ops-v1",
     "source_page": "second_attempt",
     "consent": true,
-    "created_at": "2026-08-10T08:54:01.748Z",
-    "updated_at": "2026-08-10T08:54:01.748Z",
+    "created_at": "2026-08-10T09:13:52.142Z",
+    "updated_at": "2026-08-10T09:13:52.142Z",
     "delivery_status": "pending",
-    "last_delivery_attempt_at": "2026-08-10T08:54:01.748Z"
+    "last_delivery_attempt_at": "2026-08-10T09:13:52.142Z"
   }
 ]

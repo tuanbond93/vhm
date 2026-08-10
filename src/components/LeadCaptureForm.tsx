@@ -160,22 +160,28 @@ export function LeadCaptureForm({
         <div className="mt-4 p-4 bg-[#E8F5F2] border border-[#BDE3DA] rounded-xl space-y-2">
           <div className="flex items-start gap-2.5 text-[#167A65] text-xs font-semibold">
             <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#167A65]" />
-            <span>{message}</span>
+            <span>
+              {deliveryStatus === 'delivered'
+                ? 'Đăng ký thành công! Tài liệu đã được gửi tới email của bạn. Nếu chưa thấy email sau vài phút, hãy kiểm tra thư mục Spam/Quảng cáo.'
+                : 'Đăng ký đã được ghi nhận. Email đang gặp sự cố tạm thời. Bạn có thể tải tài liệu trực tiếp tại đây.'}
+            </span>
           </div>
 
-          {/* Fallback direct download link when email is delivered or requested */}
-          <div className="pt-2 border-t border-[#BDE3DA] flex items-center justify-between text-xs">
-            <span className="text-[#435164]">Hoặc tải bản PDF trực tiếp:</span>
-            <a
-              href="/api/resources/ai-prompt-kit-ops-v1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-bold text-[#235789] hover:text-[#2F6FED] underline"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Tải file PDF ngay</span>
-            </a>
-          </div>
+          {/* Fallback direct download link rendered ONLY when email delivery failed or fell back */}
+          {deliveryStatus !== 'delivered' && (
+            <div className="pt-2 border-t border-[#BDE3DA] flex items-center justify-between text-xs">
+              <span className="text-[#435164]">Tải bản PDF trực tiếp:</span>
+              <a
+                href="/api/resources/ai-prompt-kit-ops-v1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-bold text-[#235789] hover:text-[#2F6FED] underline"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Tải file PDF ngay</span>
+              </a>
+            </div>
+          )}
         </div>
       )}
 
