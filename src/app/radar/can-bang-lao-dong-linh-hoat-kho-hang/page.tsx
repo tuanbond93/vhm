@@ -515,7 +515,7 @@ export default function Radar008Page() {
         </section>
 
         {/* LEAD CAPTURE SECTION */}
-        <section className="pt-8 border-t border-[#DCE2E7]">
+        <section id="lead-capture" className="pt-8 border-t border-[#DCE2E7]">
           <div className="p-6 sm:p-8 rounded-2xl bg-white border border-[#DCE2E7] shadow-xs">
             <h3 className="text-lg sm:text-xl font-bold text-[#14202B] mb-2">
               Tải tài nguyên Quản trị Nhân sự Kho hàng & Khung tính Năng lực Sản xuất
@@ -535,12 +535,12 @@ export default function Radar008Page() {
             <span className="font-bold text-[#14202B] block truncate max-w-[200px]">Radar #008: Capacity Planning</span>
             <span className="text-[#667085] text-[10px]">Headcount ≠ Effective Capacity</span>
           </div>
-          <Link
-            href="/radar"
-            className="px-3 py-2 rounded-lg bg-[#14202B] text-white text-xs font-bold shrink-0 hover:bg-[#2F6FED] transition-colors"
+          <a
+            href="#lead-capture"
+            className="px-3.5 py-2 rounded-lg bg-[#14202B] text-white text-xs font-bold shrink-0 hover:bg-[#2F6FED] transition-colors"
           >
-            Radar Index
-          </Link>
+            Khám phá →
+          </a>
         </div>
       </div>
     </article>
