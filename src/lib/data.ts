@@ -204,10 +204,11 @@ export const PROOF_CASES = [
   },
   {
     id: 'c2',
-    tag: 'AI Workflow',
-    title: 'Tự động hóa phân loại & cảnh báo công việc tồn đọng',
-    summary: 'Tích hợp AI Agent kiểm tra danh sách nhiệm vụ và gửi cảnh báo ưu tiên mỗi sáng.',
-    result: 'Tỉ lệ trễ hạn công việc giảm từ 18% xuống dưới 3%.'
+    tag: 'Early Warning / Risk Prioritization',
+    title: 'Product Proof #006: SLA Early Warning Control Tower',
+    summary: 'Mô phỏng AI đánh giá rủi ro trễ đơn hàng thời gian thực kết hợp luồng can thiệp điều hành của con người.',
+    result: 'Trải nghiệm Demo tương tác có sẵn trên hệ thống.',
+    href: '/radar/sla-early-warning'
   },
   {
     id: 'c3',
