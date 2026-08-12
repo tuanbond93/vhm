@@ -11,6 +11,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://vanhanhmoi.com/kien-thuc',
   },
+  openGraph: {
+    title: 'Bài viết & Kiến thức Vận hành',
+    description: 'Thư viện bài viết, hướng dẫn thực hành và phương pháp luận quản lý vận hành, ứng dụng AI và xây dựng hệ thống báo cáo.',
+    url: 'https://vanhanhmoi.com/kien-thuc',
+    siteName: 'Vận Hành Mới',
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Bài viết & Kiến thức Vận hành',
+    description: 'Thư viện bài viết, hướng dẫn thực hành và phương pháp luận quản lý vận hành, ứng dụng AI và xây dựng hệ thống báo cáo.',
+  },
 };
 
 export default function KnowledgePage() {

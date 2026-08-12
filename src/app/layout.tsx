@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     siteName: "Vận Hành Mới",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
   },
@@ -85,7 +85,6 @@ export default function RootLayout({
               "name": "Vận Hành Mới",
               "url": "https://vanhanhmoi.com",
               "description": SITE_METADATA.description,
-              "sameAs": ["https://vanhanhmoi.vn"],
             }),
           }}
         />

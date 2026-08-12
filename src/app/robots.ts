@@ -8,5 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/api/'],
     },
     sitemap: 'https://vanhanhmoi.com/sitemap.xml',
+    host: 'https://vanhanhmoi.com',
   };
 }

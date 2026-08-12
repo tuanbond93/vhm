@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "test": "npm run test:legacy && npm run test:security",
+    "test": "npm run test:legacy && npm run test:security && npm run test:seo",
     "test:legacy": "npx tsx test/lead-capture.test.mjs",
-    "test:security": "npx tsx test/security-p1.test.mjs"
+    "test:security": "npx tsx test/security-p1.test.mjs",
+    "test:seo": "npx tsx test/seo-findability.test.mjs",
+    "test:seo:rendered": "npx tsx test/seo-rendered.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -10,28 +9,13 @@ import {
   Compass,
   Zap,
 } from 'lucide-react';
-import { RADAR_ITEMS } from '@/lib/radar-data';
+import { createRadarMetadata, getRadarItem } from '@/lib/seo';
 import { RadarWorkflow } from '@/components/RadarWorkflow';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
 
-const item = RADAR_ITEMS[0]; // Radar #001
+const item = getRadarItem('radar-001');
 
-export const metadata: Metadata = {
-  title: `${item.title} | VHM Radar`,
-  description: item.subtitle,
-  alternates: {
-    canonical: `https://vanhanhmoi.com/radar/${item.slug}`,
-  },
-  openGraph: {
-    title: item.title,
-    description: item.subtitle,
-    url: `https://vanhanhmoi.com/radar/${item.slug}`,
-    siteName: 'Vận Hành Mới',
-    type: 'article',
-    publishedTime: item.publishedAt,
-    authors: ['Vận Hành Mới Team'],
-  },
-};
+export const metadata = createRadarMetadata(item, '001');
 
 export default function RadarDetail001Page() {
   return (

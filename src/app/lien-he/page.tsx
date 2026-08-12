@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://vanhanhmoi.com/lien-he',
   },
+  openGraph: {
+    title: 'Liên hệ & Đăng ký Bản tin',
+    description: 'Kết nối với Vận Hành Mới: Gửi thắc mắc về phương pháp chuẩn hóa quy trình, thiết kế dashboard hoặc ứng dụng AI vận hành.',
+    url: 'https://vanhanhmoi.com/lien-he',
+    siteName: 'Vận Hành Mới',
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Liên hệ & Đăng ký Bản tin',
+    description: 'Kết nối với Vận Hành Mới: Gửi thắc mắc về phương pháp chuẩn hóa quy trình, thiết kế dashboard hoặc ứng dụng AI vận hành.',
+  },
 };
 
 export default function ContactPage() {

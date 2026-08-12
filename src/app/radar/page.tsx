@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     siteName: 'Vận Hành Mới',
     type: 'website',
   },
+  twitter: {
+    card: 'summary',
+    title: 'VHM Radar — Decision Intelligence cho Người Làm Vận Hành',
+    description:
+      'Đánh giá thực chứng các xu hướng AI, tự động hóa và quy trình vận hành dành riêng cho Operations Manager.',
+  },
 };
 
 export default function RadarIndexPage() {

@@ -10,6 +10,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://vanhanhmoi.com/gioi-thieu',
   },
+  openGraph: {
+    title: 'Giới thiệu & Triết lý Vận hành',
+    description: 'Triết lý xây dựng thương hiệu Vận Hành Mới: Hệ thống hóa, dữ liệu minh bạch và AI thực chiến cho Operations Managers thế hệ mới.',
+    url: 'https://vanhanhmoi.com/gioi-thieu',
+    siteName: 'Vận Hành Mới',
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Giới thiệu & Triết lý Vận hành',
+    description: 'Triết lý xây dựng thương hiệu Vận Hành Mới: Hệ thống hóa, dữ liệu minh bạch và AI thực chiến cho Operations Managers thế hệ mới.',
+  },
 };
 
 export default function AboutPage() {

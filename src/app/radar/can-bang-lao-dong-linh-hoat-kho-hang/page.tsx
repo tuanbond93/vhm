@@ -1,5 +1,4 @@
 import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { 
   ShieldCheck, 
@@ -21,29 +20,13 @@ import {
   AlertCircle,
   HelpCircle
 } from 'lucide-react';
-import { RADAR_ITEMS } from '@/lib/radar-data';
+import { createRadarMetadata, getRadarItem } from '@/lib/seo';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
 import { RadarWorkforceCapacityWorkflow } from '@/components/RadarWorkforceCapacityWorkflow';
 
-const item = RADAR_ITEMS.find((r) => r.id === 'radar-008') || RADAR_ITEMS[0];
+const item = getRadarItem('radar-008');
 
-export const metadata: Metadata = {
-  title: `${item.title} | VHM Radar #008`,
-  description: item.subtitle,
-  alternates: {
-    canonical: `https://vanhanhmoi.com/radar/${item.slug}`,
-  },
-  openGraph: {
-    title: item.title,
-    description: item.subtitle,
-    url: `https://vanhanhmoi.com/radar/${item.slug}`,
-    siteName: 'Vận Hành Mới',
-    locale: 'vi_VN',
-    type: 'article',
-    publishedTime: item.publishedAt,
-    authors: ['Vận Hành Mới Editorial Board'],
-  },
-};
+export const metadata = createRadarMetadata(item, '008');
 
 export default function Radar008Page() {
   const jsonLd = {
@@ -56,7 +39,7 @@ export default function Radar008Page() {
     dateModified: item.publishedAt,
     author: {
       '@type': 'Organization',
-      name: 'Vận Hành Mới Editorial Board',
+      name: 'Vận Hành Mới',
       url: 'https://vanhanhmoi.com',
     },
     publisher: {

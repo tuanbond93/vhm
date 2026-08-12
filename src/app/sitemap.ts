@@ -1,29 +1,26 @@
 import { MetadataRoute } from 'next';
+import { RADAR_ITEMS } from '@/lib/radar-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://vanhanhmoi.com';
 
-  const routes = [
-    '',
-    '/radar',
-    '/radar/can-bang-lao-dong-linh-hoat-kho-hang',
-    '/radar/ai-dinh-tuyen-dong-chang-giao-van',
-    '/radar/ai-canh-bao-som-don-hang-tre-kho-hang',
-    '/radar/amr-kho-hang-workflow-design',
-    '/radar/genai-tai-lieu-van-hanh-human-validation',
-    '/radar/genai-cskh-knowledge-multiplier',
-    '/radar/du-bao-nhu-cau-human-override',
-    '/radar/ai-agent-human-in-the-loop-taobao',
-    '/kien-thuc',
-    '/cong-cu',
-    '/gioi-thieu',
-    '/lien-he',
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/`, changeFrequency: 'weekly', priority: 1 },
+    { url: `${baseUrl}/radar`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/kien-thuc`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/cong-cu`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/gioi-thieu`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/lien-he`, changeFrequency: 'monthly', priority: 0.5 },
   ];
 
-  return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-    changeFrequency: route === '' ? 'daily' : 'weekly',
-    priority: route === '' || route === '/radar' ? 1.0 : 0.8,
-  }));
+  const radarRoutes: MetadataRoute.Sitemap = RADAR_ITEMS
+    .filter((item) => item.published)
+    .map((item) => ({
+      url: `${baseUrl}/radar/${item.slug}`,
+      lastModified: item.publishedAt,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    }));
+
+  return [...staticRoutes, ...radarRoutes];
 }

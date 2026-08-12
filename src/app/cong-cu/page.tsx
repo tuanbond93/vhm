@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://vanhanhmoi.com/cong-cu',
   },
+  openGraph: {
+    title: 'Công cụ & Templates Vận hành',
+    description: 'Thư viện công cụ, mẫu Dashboard, AI Prompt Kits và SOP templates đóng gói sẵn giúp tối ưu năng suất quản lý vận hành.',
+    url: 'https://vanhanhmoi.com/cong-cu',
+    siteName: 'Vận Hành Mới',
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Công cụ & Templates Vận hành',
+    description: 'Thư viện công cụ, mẫu Dashboard, AI Prompt Kits và SOP templates đóng gói sẵn giúp tối ưu năng suất quản lý vận hành.',
+  },
 };
 
 export default function ToolsPage() {
