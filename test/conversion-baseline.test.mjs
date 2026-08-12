@@ -65,7 +65,7 @@ const radarPages = fs.readdirSync(path.resolve('src/app/radar'), { withFileTypes
   .filter((entry) => entry.isDirectory())
   .map((entry) => path.join('src/app/radar', entry.name, 'page.tsx'));
 
-assert.equal(radarPages.length, 9, 'conversion baseline covers Radar #001–#008 and SLA Early Warning Proof');
+assert.equal(radarPages.length, 10, 'conversion baseline covers Radar #001–#008 and Product Proof #001/#006');
 for (const radarPage of radarPages) {
   assert.ok(read(radarPage).includes('<LeadCaptureForm'), `${radarPage} includes a lead form`);
 }

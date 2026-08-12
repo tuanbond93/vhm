@@ -8,14 +8,16 @@
     "start": "next start",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "test": "npm run test:legacy && npm run test:security && npm run test:resilience && npm run test:seo && npm run test:conversion",
+    "test": "npm run test:legacy && npm run test:security && npm run test:resilience && npm run test:seo && npm run test:conversion && npm run test:product-proof-001",
     "test:legacy": "npx tsx test/lead-capture.test.mjs",
     "test:security": "npx tsx test/security-p1.test.mjs",
     "test:resilience": "npx tsx test/resilience-baseline.test.mjs",
     "test:seo": "npx tsx test/seo-findability.test.mjs",
     "test:seo:rendered": "npx tsx test/seo-rendered.test.mjs",
     "test:conversion": "npx tsx test/conversion-baseline.test.mjs",
-    "test:conversion:rendered": "npx tsx test/conversion-rendered.test.mjs"
+    "test:conversion:rendered": "npx tsx test/conversion-rendered.test.mjs",
+    "test:product-proof-001": "npx tsx test/product-proof-001.test.mjs",
+    "test:product-proof-001:rendered": "npx tsx test/product-proof-001-rendered.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -8,10 +8,12 @@ import {
   FileText,
   Compass,
   Zap,
+  ArrowRight,
 } from 'lucide-react';
 import { createRadarMetadata, getRadarItem } from '@/lib/seo';
 import { RadarWorkflow } from '@/components/RadarWorkflow';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
+import { TrackedLink } from '@/components/TrackedLink';
 
 const item = getRadarItem('radar-001');
 
@@ -125,6 +127,24 @@ export default function RadarDetail001Page() {
 
       {/* Main Body Content (With pb-28 for mobile sticky CTA clearance) */}
       <div className="container-custom max-w-5xl py-8 sm:py-12 pb-28 md:pb-16 space-y-8 sm:space-y-12">
+
+        <section className="rounded-2xl border border-[#C5D8F9] bg-[#EBF2FE] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1.5 max-w-2xl">
+            <span className="font-mono text-[10px] font-bold text-[#235789] uppercase tracking-wider">Product Proof #001 · Interactive prototype</span>
+            <h2 className="text-lg sm:text-xl font-bold text-[#14202B]">Trải nghiệm luồng AI dừng và bàn giao cho con người</h2>
+            <p className="text-xs sm:text-sm text-[#435164] leading-relaxed">Ba kịch bản tổng hợp minh họa routine handling, escalation do không chắc chắn và policy-sensitive escalation.</p>
+          </div>
+          <TrackedLink
+            href="/radar/ai-agent-human-in-the-loop"
+            ctaId="radar_001_product_proof"
+            sourcePage="/radar/ai-agent-human-in-the-loop-taobao"
+            placement="article_context"
+            className="min-h-11 inline-flex items-center justify-center gap-2 rounded-xl bg-[#2F6FED] hover:bg-[#1D5BD8] text-white text-xs font-bold px-4 shrink-0"
+          >
+            <span>Chạy Product Proof</span>
+            <ArrowRight className="w-4 h-4" />
+          </TrackedLink>
+        </section>
 
         {/* SECTION 1: SIGNAL */}
         <section className="space-y-3 sm:space-y-4">

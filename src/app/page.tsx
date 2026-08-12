@@ -337,20 +337,32 @@ export default function HomePage() {
             {PROOF_CASES.map((c) => (
               <div
                 key={c.id}
-                className="bg-[#F7F8F5] border border-[#DCE2E7] p-6 rounded-2xl space-y-3"
+                className="bg-[#F7F8F5] border border-[#DCE2E7] p-6 rounded-2xl space-y-3 flex flex-col justify-between"
               >
-                <span className="badge-mono bg-[#EBF2FE] text-[#235789] border border-[#C5D8F9]">
-                  {c.tag}
-                </span>
-                <h3 className="font-bold text-[#14202B] text-sm">
-                  {c.title}
-                </h3>
-                <p className="text-[#435164] text-xs leading-relaxed">
-                  {c.summary}
-                </p>
-                <div className="pt-2 border-t border-[#DCE2E7] text-xs text-[#235789] font-semibold">
-                  Kết quả: {c.result}
+                <div className="space-y-3">
+                  <span className="badge-mono bg-[#EBF2FE] text-[#235789] border border-[#C5D8F9]">
+                    {c.tag}
+                  </span>
+                  <h3 className="font-bold text-[#14202B] text-sm">
+                    {c.title}
+                  </h3>
+                  <p className="text-[#435164] text-xs leading-relaxed">
+                    {c.summary}
+                  </p>
                 </div>
+                {'href' in c && c.href ? (
+                  <div className="pt-3 border-t border-[#DCE2E7] flex items-center justify-between text-xs">
+                    <span className="text-[#167A65] font-semibold">{c.result}</span>
+                    <Link href={c.href} className="text-[#2F6FED] font-bold hover:underline inline-flex items-center gap-1 shrink-0">
+                      <span>Chạy Demo</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="pt-3 border-t border-[#DCE2E7] text-xs text-[#235789] font-semibold">
+                    {c.result}
+                  </div>
+                )}
               </div>
             ))}
           </div>

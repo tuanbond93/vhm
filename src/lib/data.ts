@@ -196,10 +196,11 @@ export const TOOLS_DATA: ToolItem[] = [
 export const PROOF_CASES = [
   {
     id: 'c1',
-    tag: 'Dashboard & Data',
-    title: 'Chuẩn hóa Dashboard theo dõi sự cố vận hành chuỗi',
-    summary: 'Chuyển đổi từ 15 file báo cáo chat riêng lẻ sang Dashboard real-time duy nhất.',
-    result: 'Giảm 75% thời gian tổng hợp số liệu mỗi ca làm việc.'
+    tag: 'AI Governance',
+    title: 'Product Proof #001: Human-in-the-loop Escalation',
+    summary: 'Mô phỏng AI xử lý ca thông thường, dừng trước ngoại lệ và bàn giao ngữ cảnh để con người quyết định.',
+    result: 'Prototype deterministic với dữ liệu tổng hợp.',
+    href: '/radar/ai-agent-human-in-the-loop'
   },
   {
     id: 'c2',

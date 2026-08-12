@@ -159,4 +159,16 @@ export const Analytics = {
 
   riskItemInspection: (product_id: string, item_id: string, risk_level?: string | number) =>
     track('risk_item_inspection', { product_id, item_id, risk_level }),
+
+  scenarioChange: (product_id: string, scenario_id: string) =>
+    track('scenario_change', { product_id, scenario_id }),
+
+  escalationInspection: (product_id: string, scenario_id: string, risk_level?: string) =>
+    track('escalation_inspection', { product_id, scenario_id, risk_level }),
+
+  humanTakeover: (product_id: string, scenario_id: string) =>
+    track('human_takeover', { product_id, scenario_id }),
+
+  humanDecision: (product_id: string, scenario_id: string, decision_type: string) =>
+    track('human_decision', { product_id, scenario_id, decision_type }),
 };
