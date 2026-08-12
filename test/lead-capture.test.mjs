@@ -9,6 +9,8 @@ import { RADAR_ITEMS } from '../src/lib/radar-data.ts';
 import fs from 'fs';
 import path from 'path';
 
+process.env.NODE_ENV = 'test';
+
 console.log('=== RUNNING RADAR V1 & SYSTEM INTEGRATION TESTS ===');
 
 async function runTests() {

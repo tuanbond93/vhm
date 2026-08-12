@@ -83,7 +83,7 @@ npm run build
 
 ## Lead Capture & Analytics Abstraction
 
-- **Lead Capture:** Configured via `lib/lead-capture.ts`. Operates in local simulation mode by default. When deploying to production, set `LEAD_CAPTURE_PROVIDER` (e.g. `resend`, `convertkit`, `brevo`) and `LEAD_CAPTURE_API_KEY` in `.env`.
+- **Lead Capture:** Configured via `lib/lead-capture.ts`. Local development uses simulation mode. Production requires `DATABASE_URL`, `RESEND_API_KEY`, and a separate `RESOURCE_DOWNLOAD_SECRET` of at least 32 characters. Apply `assets/migrations/002_create_rate_limit_buckets.sql` before deployment so rate limiting is shared across serverless instances; requests fail closed if that backing table/service is unavailable.
 - **Analytics:** Configured via `lib/analytics.ts`. Event tracking hook ready for Google Analytics, Plausible, or PostHog without code refactoring.
 
 ---

@@ -4,6 +4,12 @@ import {
   markDeliveryFailed,
   DBLeadRecord,
 } from './db';
+import { validateLeadCaptureRequest } from './lead-validation';
+import { checkLeadRateLimit } from './rate-limit';
+import {
+  assertResourceAccessConfigured,
+  createResourceAccessUrl,
+} from './resource-access';
 
 export interface LeadCaptureRequest {
   email: string;
@@ -27,37 +33,30 @@ export interface LeadCaptureResponse {
   isMock: boolean;
   leadId?: string;
   db_error?: boolean;
+  access_url?: string;
+  error_code?: 'validation_error' | 'rate_limited' | 'service_unavailable';
+  retry_after_seconds?: number;
 }
 
 // Allowed resource ID whitelist
 const ALLOWED_RESOURCES = ['ai-prompt-kit-ops-v1'];
 
-// In-memory rate limiting map: ipOrEmail -> timestamp array
-const rateLimitMap = new Map<string, number[]>();
-
-function checkRateLimit(key: string): boolean {
-  const now = Date.now();
-  const windowMs = 10 * 60 * 1000; // 10 minutes
-  const maxRequests = 5;
-
-  const timestamps = rateLimitMap.get(key) || [];
-  const validTimestamps = timestamps.filter((t) => now - t < windowMs);
-
-  if (validTimestamps.length >= maxRequests) {
-    return false;
-  }
-
-  validTimestamps.push(now);
-  rateLimitMap.set(key, validTimestamps);
-  return true;
+export interface LeadCaptureDependencies {
+  upsertLead?: typeof upsertLead;
+  checkLeadRateLimit?: typeof checkLeadRateLimit;
 }
 
 /**
  * Capture lead into PostgreSQL and handle transactional email delivery via Resend.
  */
-export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCaptureResponse> {
+export async function captureLead(
+  payload: LeadCaptureRequest,
+  dependencies: LeadCaptureDependencies = {}
+): Promise<LeadCaptureResponse> {
+  const persistLead = dependencies.upsertLead ?? upsertLead;
+  const enforceRateLimit = dependencies.checkLeadRateLimit ?? checkLeadRateLimit;
   // 1. Honeypot check (Anti-abuse)
-  if (payload.hp_field && payload.hp_field.trim().length > 0) {
+  if (typeof payload?.hp_field === 'string' && payload.hp_field.trim().length > 0) {
     // Silently trap spam bot without error message or DB write
     return {
       success: true,
@@ -67,8 +66,21 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
     };
   }
 
-  // 2. Resource ID validation
-  const resourceId = payload.resource_id || 'ai-prompt-kit-ops-v1';
+  // 2. Validate every externally controlled string before it can reach persistence.
+  const validation = validateLeadCaptureRequest(payload);
+  if (!validation.valid) {
+    return {
+      success: false,
+      message: 'Dữ liệu gửi không hợp lệ hoặc quá dài.',
+      delivery_status: 'failed',
+      isMock: false,
+      error_code: 'validation_error',
+    };
+  }
+  const validatedPayload = validation.value;
+
+  // 3. Resource ID validation
+  const resourceId = validatedPayload.resource_id || 'ai-prompt-kit-ops-v1';
   if (!ALLOWED_RESOURCES.includes(resourceId)) {
     return {
       success: false,
@@ -78,8 +90,8 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
     };
   }
 
-  // 3. Email normalization & format check
-  const rawEmail = (payload.email || '').trim().toLowerCase();
+  // 4. Email normalization happened in the validation boundary.
+  const rawEmail = validatedPayload.email;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!rawEmail || !emailRegex.test(rawEmail)) {
     return {
@@ -90,8 +102,8 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
     };
   }
 
-  // 4. Consent check
-  if (payload.consent === (false as boolean)) {
+  // 5. Consent check
+  if (validatedPayload.consent === (false as boolean)) {
     return {
       success: false,
       message: 'Vui lòng xác nhận đồng ý nhận tài nguyên qua email.',
@@ -100,29 +112,59 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
     };
   }
 
-  // 5. Rate limiting check
-  const rateLimitKey = payload.ip ? `${payload.ip}_${rawEmail}` : rawEmail;
-  if (!checkRateLimit(rateLimitKey)) {
+  // 6. Fail closed in production if signed resource authorization is not configured.
+  try {
+    assertResourceAccessConfigured();
+  } catch (err) {
+    console.error('[Resource Access Configuration]:', err instanceof Error ? err.message : String(err));
     return {
       success: false,
-      message: 'Bạn đã thử lại quá nhiều lần. Vui lòng đợi 10 phút trước khi gửi lại.',
+      message: 'Hệ thống đang bận. Vui lòng thử lại sau ít phút.',
       delivery_status: 'failed',
       isMock: false,
+      error_code: 'service_unavailable',
     };
   }
 
-  // 6. UPSERT lead into PostgreSQL Database (or DEV/TEST fallback)
+  // 7. Shared rate limiting. A backing-store error fails closed.
+  try {
+    const rateLimit = await enforceRateLimit({
+      ip: validatedPayload.ip,
+      email: rawEmail,
+    });
+    if (!rateLimit.allowed) {
+      return {
+        success: false,
+        message: 'Bạn đã thử lại quá nhiều lần. Vui lòng đợi 10 phút trước khi gửi lại.',
+        delivery_status: 'failed',
+        isMock: false,
+        error_code: 'rate_limited',
+        retry_after_seconds: rateLimit.retryAfterSeconds,
+      };
+    }
+  } catch (err) {
+    console.error('[Distributed Rate Limit Failure]:', err instanceof Error ? err.message : String(err));
+    return {
+      success: false,
+      message: 'Hệ thống đang bận. Vui lòng thử lại sau ít phút.',
+      delivery_status: 'failed',
+      isMock: false,
+      error_code: 'service_unavailable',
+    };
+  }
+
+  // 8. UPSERT lead into PostgreSQL Database (or DEV/TEST fallback)
   let leadRecord: DBLeadRecord;
   try {
-    leadRecord = await upsertLead({
+    leadRecord = await persistLead({
       email: rawEmail,
       resource_id: resourceId,
-      source_page: payload.source || 'website',
-      consent: payload.consent !== false,
-      utm_source: payload.utm_source,
-      utm_medium: payload.utm_medium,
-      utm_campaign: payload.utm_campaign,
-      referrer: payload.referrer,
+      source_page: validatedPayload.source || 'website',
+      consent: validatedPayload.consent !== false,
+      utm_source: validatedPayload.utm_source,
+      utm_medium: validatedPayload.utm_medium,
+      utm_campaign: validatedPayload.utm_campaign,
+      referrer: validatedPayload.referrer,
     });
   } catch (dbErr) {
     const errText = dbErr instanceof Error ? dbErr.message : String(dbErr);
@@ -136,11 +178,11 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
     };
   }
 
-  // 7. Transactional Email Delivery (via Resend)
+  // 9. Create a signed, time-limited URL only after successful persistence.
   const resendApiKey = process.env.RESEND_API_KEY || process.env.LEAD_CAPTURE_API_KEY;
   const fromEmail = process.env.RESEND_FROM_EMAIL || 'Vận Hành Mới <no-reply@vanhanhmoi.com>';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vanhanhmoi.com';
-  const downloadUrl = `${siteUrl}/api/resources/${resourceId}`;
+  const downloadUrl = createResourceAccessUrl(siteUrl, resourceId, leadRecord.id);
 
   if (!resendApiKey) {
     console.log('[Resend Notice]: RESEND_API_KEY not configured.');
@@ -151,6 +193,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       isMock: true,
       leadId: leadRecord.id,
       db_error: false,
+      access_url: downloadUrl,
     };
   }
 
@@ -212,6 +255,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
         isMock: false,
         leadId: leadRecord.id,
         db_error: false,
+        access_url: downloadUrl,
       };
     }
 
@@ -228,6 +272,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       isMock: false,
       leadId: leadRecord.id,
       db_error: false,
+      access_url: downloadUrl,
     };
   } catch (err) {
     const errMessage = err instanceof Error ? err.message : String(err);
@@ -243,6 +288,7 @@ export async function captureLead(payload: LeadCaptureRequest): Promise<LeadCapt
       isMock: false,
       leadId: leadRecord.id,
       db_error: false,
+      access_url: downloadUrl,
     };
   }
 }

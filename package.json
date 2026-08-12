@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "test": "npx tsx test/lead-capture.test.mjs"
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:legacy && npm run test:security",
+    "test:legacy": "npx tsx test/lead-capture.test.mjs",
+    "test:security": "npx tsx test/security-p1.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

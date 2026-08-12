@@ -26,6 +26,7 @@ export function LeadCaptureForm({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [deliveryStatus, setDeliveryStatus] = useState<string>('');
+  const [downloadUrl, setDownloadUrl] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +73,7 @@ export function LeadCaptureForm({
         setStatus('success');
         setMessage(res.message);
         setDeliveryStatus(res.delivery_status || '');
+        setDownloadUrl(res.access_url || '');
         setEmail('');
 
         Analytics.leadSubmitSuccess('ai-prompt-kit-ops-v1', source, res.delivery_status || 'unknown');
@@ -166,11 +168,11 @@ export function LeadCaptureForm({
           </div>
 
           {/* Fallback direct download link rendered ONLY when email delivery failed or fell back */}
-          {deliveryStatus !== 'delivered' && (
+          {deliveryStatus !== 'delivered' && downloadUrl && (
             <div className="pt-2 border-t border-[#BDE3DA] flex items-center justify-between text-xs">
               <span className="text-[#435164]">Tải bản PDF trực tiếp:</span>
               <a
-                href="/api/resources/ai-prompt-kit-ops-v1"
+                href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => Analytics.resourceDownload('ai-prompt-kit-ops-v1', source)}

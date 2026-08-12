@@ -169,6 +169,14 @@ export async function ensureMigration(): Promise<void> {
       );
       CREATE INDEX IF NOT EXISTS idx_leads_email_resource ON leads (email, resource_id);
       CREATE INDEX IF NOT EXISTS idx_leads_delivery_status ON leads (delivery_status);
+      CREATE TABLE IF NOT EXISTS rate_limit_buckets (
+        bucket_key TEXT PRIMARY KEY,
+        window_started_at TIMESTAMPTZ NOT NULL,
+        request_count INTEGER NOT NULL CHECK (request_count > 0),
+        expires_at TIMESTAMPTZ NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS idx_rate_limit_buckets_expires_at
+        ON rate_limit_buckets (expires_at);
     `;
     await p.query(migrationSql);
     console.log('[DB Migration]: Leads table check completed.');
@@ -255,13 +263,15 @@ export async function upsertLead(params: UpsertLeadParams): Promise<DBLeadRecord
 
   mockLeadDb.set(key, record);
 
-  try {
-    const storePath = path.join(process.cwd(), 'assets', 'lead-store', 'leads-dev-only.json');
-    const dir = path.dirname(storePath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(storePath, JSON.stringify(Array.from(mockLeadDb.values()), null, 2));
-  } catch (e) {
-    // Ignore dev file write error
+  if (process.env.NODE_ENV !== 'test') {
+    try {
+      const storePath = path.join(process.cwd(), 'assets', 'lead-store', 'leads-dev-only.json');
+      const dir = path.dirname(storePath);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(storePath, JSON.stringify(Array.from(mockLeadDb.values()), null, 2));
+    } catch (e) {
+      // Ignore dev file write error
+    }
   }
 
   return record;

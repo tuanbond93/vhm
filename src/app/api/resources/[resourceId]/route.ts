@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { verifyResourceAccessToken } from '@/lib/resource-access';
 
 export async function GET(
   request: Request,
@@ -8,6 +9,21 @@ export async function GET(
 ) {
   try {
     const { resourceId } = await params;
+
+    const token = new URL(request.url).searchParams.get('token');
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Resource authorization required' },
+        { status: 401, headers: { 'Cache-Control': 'private, no-store' } }
+      );
+    }
+
+    if (!verifyResourceAccessToken(token, resourceId)) {
+      return NextResponse.json(
+        { error: 'Resource authorization is invalid or expired' },
+        { status: 403, headers: { 'Cache-Control': 'private, no-store' } }
+      );
+    }
 
     // Strict resource ID whitelist & path traversal prevention
     const ALLOWED_RESOURCES: Record<string, string> = {
@@ -36,7 +52,7 @@ export async function GET(
         'Content-Type': 'application/pdf',
         'Content-Disposition': 'inline; filename="van-hanh-moi-ai-prompt-kit-ops-v1.pdf"',
         'Content-Length': fileBuffer.length.toString(),
-        'Cache-Control': 'public, max-age=3600, must-revalidate',
+        'Cache-Control': 'private, no-store',
       },
     });
   } catch (err) {
