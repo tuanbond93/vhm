@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/gioi-thieu`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/lien-he`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/radar/ai-agent-human-in-the-loop`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/radar/demand-forecast-governance`, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
   const radarRoutes: MetadataRoute.Sitemap = RADAR_ITEMS

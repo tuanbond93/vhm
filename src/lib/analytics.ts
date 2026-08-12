@@ -171,4 +171,19 @@ export const Analytics = {
 
   humanDecision: (product_id: string, scenario_id: string, decision_type: string) =>
     track('human_decision', { product_id, scenario_id, decision_type }),
+
+  forecastAdjustment: (product_id: string, scenario_id: string, adjustment_bucket: string) =>
+    track('forecast_adjustment', { product_id, scenario_id, adjustment_bucket }),
+
+  governanceWarning: (product_id: string, scenario_id: string, policy_result: string) =>
+    track('governance_warning', { product_id, scenario_id, policy_result }),
+
+  forecastReasonSelected: (product_id: string, scenario_id: string, reason_code: string) =>
+    track('reason_selected', { product_id, scenario_id, reason_code }),
+
+  forecastOverrideApplied: (product_id: string, scenario_id: string, adjustment_bucket: string, reason_code?: string) =>
+    track('override_applied', { product_id, scenario_id, adjustment_bucket, reason_code }),
+
+  forecastOverrideCancelled: (product_id: string, scenario_id: string, action_type: string) =>
+    track('override_cancelled', { product_id, scenario_id, action_type }),
 };

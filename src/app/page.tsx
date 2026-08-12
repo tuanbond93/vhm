@@ -21,6 +21,9 @@ import {
   TOOLS_DATA,
   PROOF_CASES,
 } from '@/lib/data';
+import { DEMAND_FORECAST_PROOF_CARD } from '@/lib/forecast-governance-demo';
+
+const homepageProofCases = [...PROOF_CASES, DEMAND_FORECAST_PROOF_CARD];
 
 export default function HomePage() {
   return (
@@ -333,8 +336,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {PROOF_CASES.map((c) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {homepageProofCases.map((c) => (
               <div
                 key={c.id}
                 className="bg-[#F7F8F5] border border-[#DCE2E7] p-6 rounded-2xl space-y-3 flex flex-col justify-between"

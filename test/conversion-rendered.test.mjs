@@ -7,7 +7,7 @@ const radarHtmlFiles = fs.readdirSync(radarRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => path.join(radarRoot, `${entry.name}.html`));
 
-assert.equal(radarHtmlFiles.length, 10, 'rendered conversion QA covers Radar #001–#008 and Product Proof #001/#006');
+assert.equal(radarHtmlFiles.length, 11, 'rendered conversion QA covers Radar #001–#008 and Product Proof #001/#002/#006');
 
 for (const file of radarHtmlFiles) {
   const html = fs.readFileSync(file, 'utf8');

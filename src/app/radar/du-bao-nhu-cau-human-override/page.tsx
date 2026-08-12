@@ -3,6 +3,7 @@ import {
   ShieldCheck,
   ExternalLink,
   ArrowLeft,
+  ArrowRight,
   CheckCircle2,
   AlertTriangle,
   FileText,
@@ -93,6 +94,17 @@ export default function RadarDetail002Page() {
           <p className="text-sm sm:text-lg text-[#435164] leading-relaxed font-medium max-w-4xl">
             {item.subtitle}
           </p>
+
+          <div className="rounded-2xl border border-[#C5D8F9] bg-[#EBF2FE] p-4 sm:flex sm:items-center sm:justify-between sm:gap-5">
+            <div>
+              <span className="font-mono text-[10px] font-bold text-[#235789]">PRODUCT PROOF #002</span>
+              <p className="mt-1 text-sm font-bold text-[#14202B]">Thử planning workspace với override policy và audit context.</p>
+            </div>
+            <Link href="/radar/demand-forecast-governance" className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#235789] hover:text-[#2F6FED] sm:mt-0 sm:shrink-0">
+              <span>Chạy Product Proof</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
 
           {/* Decision Metadata Banner */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F7F8F5] p-3.5 sm:p-4 rounded-2xl border border-[#DCE2E7] text-xs font-mono">
