@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, Activity, Wrench } from 'lucide-react';
 import { LeadMagnetModal } from './LeadMagnetModal';
+import { Analytics } from '@/lib/analytics';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -24,6 +25,14 @@ export function Navbar() {
     if (path === '/' && pathname === '/') return true;
     if (path !== '/' && pathname.startsWith(path)) return true;
     return false;
+  };
+
+  const isRadarDetail = pathname.startsWith('/radar/');
+
+  const openLeadModal = (placement: string) => {
+    Analytics.ctaClick('global_resource_cta', pathname, placement, '#lead-resource-modal');
+    setMobileMenuOpen(false);
+    setModalOpen(true);
   };
 
   // Lock body scroll when mobile menu drawer is open
@@ -93,7 +102,7 @@ export function Navbar() {
           {/* Desktop Right CTA */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => openLeadModal('desktop_header')}
               className="inline-flex items-center gap-1.5 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
             >
               <span>Nhận tài liệu AI</span>
@@ -189,8 +198,7 @@ export function Navbar() {
             <div className="pt-4 border-t border-[#DCE2E7] mt-6">
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false);
-                  setModalOpen(true);
+                  openLeadModal('mobile_drawer');
                 }}
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white font-semibold px-4 py-3.5 rounded-xl text-sm shadow-sm cursor-pointer"
               >
@@ -206,18 +214,37 @@ export function Navbar() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#DCE2E7] p-2.5 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-2 pl-2">
           <Wrench className="w-4 h-4 text-[#235789]" />
-          <span className="text-xs font-semibold text-[#14202B]">Kho công cụ Operations</span>
+          <span className="text-xs font-semibold text-[#14202B]">
+            {isRadarDetail ? 'AI Prompt Kit miễn phí' : 'Kho công cụ Operations'}
+          </span>
         </div>
-        <Link
-          href="/cong-cu"
-          className="inline-flex items-center gap-1 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white text-xs font-semibold px-3.5 py-2 rounded-xl"
-        >
-          <span>Khám phá</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
+        {isRadarDetail ? (
+          <button
+            type="button"
+            onClick={() => openLeadModal('mobile_sticky')}
+            className="inline-flex items-center gap-1 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white text-xs font-semibold px-3.5 py-2 rounded-xl"
+          >
+            <span>Nhận tài liệu</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          <Link
+            href="/cong-cu"
+            onClick={() => Analytics.ctaClick('mobile_tools_cta', pathname, 'mobile_sticky', '/cong-cu')}
+            className="inline-flex items-center gap-1 bg-[#2F6FED] hover:bg-[#1D5BD8] text-white text-xs font-semibold px-3.5 py-2 rounded-xl"
+          >
+            <span>Khám phá</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        )}
       </div>
 
-      <LeadMagnetModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <LeadMagnetModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        sourcePage={pathname}
+        placement="global_navigation"
+      />
     </>
   );
 }

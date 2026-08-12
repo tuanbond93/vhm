@@ -9,17 +9,25 @@ interface LeadMagnetModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  sourcePage?: string;
+  placement?: string;
 }
 
-export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps) {
+export function LeadMagnetModal({
+  isOpen,
+  onClose,
+  title,
+  sourcePage = 'modal_lead_magnet',
+  placement = 'modal',
+}: LeadMagnetModalProps) {
   useEffect(() => {
     if (isOpen) {
-      Analytics.leadModalOpen('ai-prompt-kit-ops-v1', 'modal_lead_magnet');
+      Analytics.leadModalOpen('ai-prompt-kit-ops-v1', sourcePage, placement);
     }
-  }, [isOpen]);
+  }, [isOpen, placement, sourcePage]);
 
   const handleClose = () => {
-    Analytics.leadModalClose('ai-prompt-kit-ops-v1', 'modal_lead_magnet');
+    Analytics.leadModalClose('ai-prompt-kit-ops-v1', sourcePage);
     onClose();
   };
 
@@ -69,7 +77,7 @@ export function LeadMagnetModal({ isOpen, onClose, title }: LeadMagnetModalProps
 
         {/* Form */}
         <LeadCaptureForm
-          source="modal_lead_magnet"
+          source={sourcePage}
           buttonText="Đăng ký nhận tài liệu"
           compact={true}
         />

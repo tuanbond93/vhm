@@ -3,6 +3,7 @@ import {
   ShieldCheck,
   ExternalLink,
   ArrowLeft,
+  ArrowRight,
   CheckCircle2,
   AlertTriangle,
   FileText,
@@ -513,6 +514,30 @@ export default function RadarDetail006Page() {
                 </span>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* SECTION 11.5: PRODUCT PROOF CTA */}
+        <section className="space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#235789] uppercase tracking-wider">
+            <Cpu className="w-4 h-4 text-[#2F6FED]" />
+            <span>11.5 PRODUCT PROOF — trải nghiệm tương tác</span>
+          </div>
+          <div className="bg-[#EBF2FE] border border-[#C5D8F9] rounded-2xl p-5 sm:p-8 space-y-4 flex flex-col items-start">
+            <h4 className="font-bold text-lg text-[#14202B]">
+              Trải nghiệm: SLA Early Warning Control Tower
+            </h4>
+            <p className="text-sm text-[#435164] leading-relaxed max-w-2xl">
+              Để hiểu rõ hơn nguyên lý <strong>"Dự báo trước khi leo thang"</strong>, Vận Hành Mới đã xây dựng một nguyên mẫu tương tác (Interactive Prototype). Bạn có thể xem cách AI xếp hạng rủi ro đơn hàng và thử nghiệm "can thiệp" đóng vai trò là một quản lý kho.
+            </p>
+            <Link
+              href="/radar/sla-early-warning"
+              className="inline-flex items-center gap-2 bg-[#235789] hover:bg-[#1B456D] text-white font-bold py-3 px-6 rounded-xl transition-colors mt-2"
+            >
+              <Cpu className="w-4 h-4" />
+              <span>Chạy thử Product Proof #006</span>
+              <ArrowRight className="w-4 h-4 ml-1" />
+            </Link>
           </div>
         </section>
 

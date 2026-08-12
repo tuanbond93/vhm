@@ -677,21 +677,6 @@ export default function Radar007Page() {
         </section>
       </main>
 
-      {/* Mobile Sticky CTA Footer */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/95 border-t border-[#DCE2E7] backdrop-blur-lg z-50">
-        <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
-          <div>
-            <div className="text-[10px] font-mono font-bold text-[#026AA2] uppercase">VHM RADAR #007</div>
-            <div className="text-xs font-bold text-[#14202B] truncate max-w-[200px]">Định tuyến động chặng giao vận</div>
-          </div>
-          <a
-            href="#lead-capture"
-            className="px-4 py-2 rounded-lg bg-[#14202B] text-white font-bold text-xs shadow-md hover:bg-[#235789] transition-colors shrink-0"
-          >
-            Nhận Tài liệu
-          </a>
-        </div>
-      </div>
     </article>
   );
 }

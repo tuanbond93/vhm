@@ -82,6 +82,8 @@ export function ToolsCatalog() {
         isOpen={selectedToolTitle !== null}
         onClose={() => setSelectedToolTitle(null)}
         title={selectedToolTitle || undefined}
+        sourcePage="/cong-cu"
+        placement="tool_card"
       />
     </>
   );

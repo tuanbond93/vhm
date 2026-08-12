@@ -512,20 +512,6 @@ export default function Radar008Page() {
       </main>
 
       {/* Sticky Mobile Lead CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-3 bg-white border-t border-[#DCE2E7] md:hidden z-30 shadow-lg">
-        <div className="flex items-center justify-between gap-3">
-          <div className="text-xs">
-            <span className="font-bold text-[#14202B] block truncate max-w-[200px]">Radar #008: Capacity Planning</span>
-            <span className="text-[#667085] text-[10px]">Headcount ≠ Effective Capacity</span>
-          </div>
-          <a
-            href="#lead-capture"
-            className="px-3.5 py-2 rounded-lg bg-[#14202B] text-white text-xs font-bold shrink-0 hover:bg-[#2F6FED] transition-colors"
-          >
-            Khám phá →
-          </a>
-        </div>
-      </div>
     </article>
   );
 }

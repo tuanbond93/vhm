@@ -13,6 +13,7 @@ import {
 import { Badge } from '@/components/Badge';
 import { LeadCaptureForm } from '@/components/LeadCaptureForm';
 import { OperationsControlTowerDemo } from '@/components/OperationsControlTowerDemo';
+import { TrackedLink } from '@/components/TrackedLink';
 import {
   PROBLEMS_DATA,
   PILLARS_DATA,
@@ -62,13 +63,16 @@ export default function HomePage() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                <Link
+                <TrackedLink
                   href="#lead-magnet"
+                  ctaId="homepage_primary_resource"
+                  sourcePage="/"
+                  placement="hero"
                   className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#F7F8F5] border border-[#DCE2E7] text-[#14202B] font-semibold px-6 py-3.5 rounded-xl text-sm transition-all"
                 >
                   <Download className="w-4 h-4 text-[#235789]" />
                   <span>Nhận tài liệu miễn phí</span>
-                </Link>
+                </TrackedLink>
               </div>
 
               {/* Metrics bar */}

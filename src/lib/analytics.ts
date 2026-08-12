@@ -107,17 +107,26 @@ export const Analytics = {
   leadModalClose: (resource_id: string, source_page: string) =>
     track('lead_modal_close', { resource_id, source_page }),
 
+  leadFormView: (resource_id: string, source_page: string, placement = 'inline') =>
+    track('lead_form_view', { resource_id, source_page, placement }),
+
   leadSubmitAttempt: (resource_id: string, source_page: string) =>
     track('lead_submit_attempt', { resource_id, source_page }),
 
   leadSubmitSuccess: (resource_id: string, source_page: string, delivery_status: string) =>
     track('lead_submit_success', { resource_id, source_page, delivery_status }),
 
+  resourceAccessIssued: (resource_id: string, source_page: string) =>
+    track('resource_access_issued', { resource_id, source_page }),
+
   leadSubmitFailed: (resource_id: string, source_page: string, error_type?: string) =>
     track('lead_submit_failed', { resource_id, source_page, error_type }),
 
-  resourceDownload: (resource_id: string, source_page: string, file_type = 'pdf') =>
-    track('resource_download', { resource_id, source_page, file_type }),
+  resourceAccessSuccess: (resource_id: string, source_page: string, file_type = 'pdf') =>
+    track('resource_access_success', { resource_id, source_page, file_type }),
+
+  resourceAccessFailed: (resource_id: string, source_page: string, error_type?: string) =>
+    track('resource_access_failed', { resource_id, source_page, error_type }),
 
   knowledgeView: (article_id: string, category?: string) =>
     track('knowledge_view', { article_id, category }),
@@ -140,4 +149,14 @@ export const Analytics = {
 
   radarCtaClick: (radar_id: string, cta_label: string, source_page: string) =>
     track('radar_cta_click', { radar_id, cta_label, source_page }),
+
+  // Product Proof Analytics
+  productDemoView: (product_id: string, source_page?: string) =>
+    track('product_demo_view', { product_id, source_page }),
+
+  diagnosticInteraction: (product_id: string, action_type: string, target_id?: string) =>
+    track('diagnostic_interaction', { product_id, action_type, target_id }),
+
+  riskItemInspection: (product_id: string, item_id: string, risk_level?: string | number) =>
+    track('risk_item_inspection', { product_id, item_id, risk_level }),
 };

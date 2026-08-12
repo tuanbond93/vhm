@@ -204,6 +204,7 @@ export async function captureLead(
         'Authorization': `Bearer ${resendApiKey}`,
         'Content-Type': 'application/json',
       },
+      signal: AbortSignal.timeout(10000),
       body: JSON.stringify({
         from: fromEmail,
         to: [rawEmail],
